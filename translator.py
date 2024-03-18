@@ -110,7 +110,7 @@ for j in range(len(lst)):
                 del lst[i + 1]
                 break               
                 
-def not_space(tok):
+def not_space(tok: Token):
     if tok.value != ' ':
         return True
     else:
@@ -120,7 +120,7 @@ lst = list(filter(not_space, lst))
 
 # print(lst)
 
-def make_tree(toks):
+def make_tree(toks: list[any]):
     lst = []
     stack = []
     for tok in toks:
@@ -137,7 +137,7 @@ def make_tree(toks):
 tree = make_tree(lst)    
 # print(tree)
 
-def dump_tree(node, level = 0):
+def dump_tree(node: any, level: int = 0):
     indent = '.   ' * level
     if type(node) is list:
         if [subnode for subnode in node if type(subnode) is list]:
@@ -150,7 +150,7 @@ def dump_tree(node, level = 0):
     else:
         print(indent + repr(node))
 
-def wrap_program(tree):
+def wrap_program(tree: list[any]):
     return [
         Token('defun', 1), 
         Token('_start', 1), 
@@ -161,7 +161,7 @@ def wrap_program(tree):
 tree = wrap_program(tree)
 # dump_tree(tree)
 
-def rewrite_special_chars(node):   
+def rewrite_special_chars(node: list[any]):   
     new_node = []
     for el in node:
         if type(el) is list:
@@ -178,7 +178,7 @@ def rewrite_special_chars(node):
 tree = rewrite_special_chars(tree)
 # print(tree)
 
-def collect_string_literals(node):
+def collect_string_literals(node: list[any]):
     lits = []
     for el in node:
         if type(el) is Token:
@@ -215,7 +215,7 @@ def generate_static_memory(str_map: dict):
 mem = generate_static_memory(str_map)
 # print(mem)
 
-def replace_string_literas(node, str_map):   
+def replace_string_literas(node: list[any], str_map: dict):   
     new_node = []
     for el in node:
         if type(el) is list:
@@ -233,7 +233,7 @@ def replace_string_literas(node, str_map):
 tree = replace_string_literas(tree, str_map)
 # print(tree)
 
-def replace_numbers(node, str_map):   
+def replace_numbers(node: list[any], str_map: dict):   
     new_node = []
     for el in node:
         if type(el) is list:
@@ -256,7 +256,7 @@ def is_token(obj: any, check_for: str=None):
     else:
         return type(obj) is Token and obj.value == check_for  
 
-def process_makestring_forms(node, mem):
+def process_makestring_forms(node: any, mem: list[int]):
     if type(node) is int:
         return node
     elif type(node) is Token:
@@ -297,6 +297,52 @@ tree = process_makestring_forms(tree, mem)
 # tree = wrap_bodies(tree)
 # print(tree)    
 
+def rewrite_getchar(node: any):
+    if type(node) is list and node and is_token(node[0], 'getchar'):
+        head = node[0]
+        res = []
+        res.append(head)
+        res.append([
+            Token('+', head.line), 
+            rewrite_getchar(node[1]), 
+            rewrite_getchar(node[2])
+        ])
+        return res
+    elif type(node) is list:
+        res = []
+        for el in node:
+            new_el = rewrite_getchar(el)
+            res.append(new_el)
+        return res
+    else:
+        return node
+
+tree = rewrite_getchar(tree)
+# print(rewrite_getchar(tree))
+
+def rewrite_setchar(node: any):
+    if type(node) is list and node and is_token(node[0], 'setchar'):
+        head = node[0]
+        res = []
+        res.append(head)
+        res.append([
+            Token('+', head.line), 
+            rewrite_setchar(node[1]), 
+            rewrite_setchar(node[2])
+        ])
+        res.append(node[3])
+        return res
+    elif type(node) is list:
+        res = []
+        for el in node:
+            new_el = rewrite_setchar(el)
+            res.append(new_el)
+        return res
+    else:
+        return node
+    
+tree = rewrite_setchar(tree)    
+
 class VarRef:
     name: str
     def __init__(self, name):
@@ -328,7 +374,7 @@ def is_call_expr(obj: any):
 def is_extractable_expr(obj: any):
     return is_operation_expr(obj) or is_call_expr(obj)
     
-def extract_variables(node, temp_count=0):
+def extract_variables(node: any, temp_count=0):
     if type(node) is int:
         return node, temp_count
     elif type(node) is Token:
@@ -368,7 +414,7 @@ def extract_variables(node, temp_count=0):
 tree, _ = extract_variables(tree)
 # dump_tree(tree)
 
-def collect_function_names(node):
+def collect_function_names(node: list[any]):
     names = []
     tick = 0
     for el in node:
@@ -384,7 +430,7 @@ def collect_function_names(node):
     return names
 
 func_names = collect_function_names(tree)
-print(func_names)
+# print(func_names)
 
 class FuncRef:
     name: str
@@ -395,7 +441,7 @@ class FuncRef:
     def __repr__(self):
         return "FuncRef(" + self.name + ")"
 
-def rewrite_function_calls(node, func_names):
+def rewrite_function_calls(node: list[any], func_names: list[str]):
     tick = 0
     new_node = []
     for el in node:
@@ -412,29 +458,114 @@ def rewrite_function_calls(node, func_names):
         elif type(el) is Token and tick == 0 and el.value in func_names:
             el = FuncRef(el.value, el.line)
             new_node.append(el)
-        else:
+        else:  # not a list
             new_node.append(el)        
     return new_node
 
 # dump_tree(tree)
 # dump_tree(rewrite_function_calls(tree, func_names))
 
-def rewrite_getchar(node):
-    if type(node) is list and node and is_token(node[0], 'getchar'):
-        head = node[0]
+class Function:
+    name: str
+    args: list[str]
+    body: any
+    def __init__(self, name, args, body):
+        self.name = name
+        self.args = args
+        self.body = body
+    def __repr__(self):
+        return 'Function(' + self.name + ', ' + str(self.args) + ')'
+
+def do_collect_functions(node):
+    if type(node) is list and node and is_token(node[0], 'defun'):
+        args = []
+        for tok in node[2]:
+            args.append(tok.value)
+        body, funcs = do_collect_functions(node[3])
+        func = Function(node[1].value, args, body)
+        funcs.insert(0, func)
+        return None, funcs
+    elif type(node) is list:
+        funcs = []
         res = []
-        res.append(head)
-        res.append([
-            Token('+', head.line), 
-            rewrite_getchar(node[1]), 
-            rewrite_getchar(node[2])
-        ])
-        return res
+        for el in node:
+            el, el_funcs = do_collect_functions(el)
+            if el is not None:
+                res.append(el)
+            funcs.extend(el_funcs)
+        return res, funcs
+    else:
+        return node, []
+
+def collect_functions(tree):
+    # get functions only
+    return do_collect_functions(tree)[1]
+    
+print(tree)
+print()
+print()
+funcs = collect_functions(tree)
+# for func in collect_functions(tree):
+#     print(func)
+#     print(func.body)
+#     print()
+
+class ArgRef:
+    name: str
+    line: int
+    def __init__(self, name, line: int):
+        self.name = name
+        self.line = line
+    def __repr__(self):
+        return "ArgRef(" + str(self.name) + ")"    
+    
+def rewrite_arguments(node, args):
+    if type(node) is int:
+        return node
+    elif type(node) is Token:
+        if node.value in args:
+            return ArgRef(node.value, node.line)
+        else:
+            return node
     elif type(node) is list:
         res = []
         for el in node:
-            new_el = rewrite_getchar(el)
-            res.append(new_el)
+            res.append(rewrite_arguments(el, args))
         return res
     else:
         return node
+    
+for i in range(len(funcs)):
+    funcs[i].body = rewrite_arguments(funcs[i].body, funcs[i].args)
+    # print(funcs[i].body)
+    
+def count_own_vars(node: any): 
+    if is_token(node, 'define'): 
+        return 1
+    elif type(node) is list and is_token(node[0], 'if'):
+        return 0
+    elif type(node) is list:  # not an `if`
+        count = 0
+        for el in node:
+            count += count_own_vars(el)
+        return count
+    else:
+        return 0
+    
+# print(count_own_vars( funcs[0].body ))
+
+class If:
+    cond_vars: int
+    true_branch_vars: int
+    false_branch_vars: int
+    line: int
+    
+def rewrite_ifs(node):
+    return ...
+    
+for i in range(len(funcs)):
+    funcs[i].body = rewrite_ifs(funcs[i].body)
+    print(funcs[i].body)
+    print()
+    
+

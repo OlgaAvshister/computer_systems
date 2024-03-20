@@ -559,13 +559,85 @@ class If:
     true_branch_vars: int
     false_branch_vars: int
     line: int
+    def __init__(self, cond_vars: int, true_branch_vars: int, false_branch_vars: int, line: int):
+        self.cond_vars = cond_vars
+        self.true_branch_vars = true_branch_vars
+        self.false_branch_vars = false_branch_vars
+        self.line = line
+    def __repr__(self):
+        return 'If(%d %d %d)' % (
+            self.cond_vars, 
+            self.true_branch_vars, 
+            self.false_branch_vars
+        )
     
-def rewrite_ifs(node):
-    return ...
+def rewrite_ifs(node: any):
+    if type(node) is list and node and is_token(node[0], 'if'):
+        cond_vars = count_own_vars(node[1])
+        true_branch_vars = count_own_vars(node[2])
+        false_branch_vars = count_own_vars(node[3])
+        head = If(cond_vars, true_branch_vars, false_branch_vars, node[0].line)
+        res = [head]
+        for el in node[1:]:
+            res.append(rewrite_ifs(el))
+        return res
+    elif type(node) is list:
+        res = []
+        for el in node:
+            res.append(rewrite_ifs(el))
+        return res
+    else:
+        return node
     
 for i in range(len(funcs)):
     funcs[i].body = rewrite_ifs(funcs[i].body)
-    print(funcs[i].body)
-    print()
+    # print(funcs[i].body)
+    # print()
     
+class StackOffset:
+    offset: int
+    line: int
+    def __init__(self, offset: int, line: int):
+        self.offset = offset
+        self.line = line
+    def __repr__(self):
+        return 'StackOffset(' + str(self.offset) + ')'
+    
+def rewrite_var_refs(node, stack):
+    if type(node) is ArgRef or type(node) is VarRef:
+        reversed_stack = stack[::-1]
+        for i in range(len(reversed_stack)):
+            if reversed_stack[i] == node.name:
+                return StackOffset(i, node.line)
+        assert False
+    elif type(node) is list and is_token(node[0], 'define'):
+        res = []
+        res.append(node[0])     # define
+        res.append(node[1])     # variable name
+        stack.append(node[1].value)
+        # print(stack)
+        for el in node[2:]:
+            res.append(rewrite_var_refs(el, stack))
+        return res
+    elif type(node) is list and node and type(node[0]) is If:
+        res = []
+        for el in node:
+            old_len = len(stack)
+            res.append(rewrite_var_refs(el, stack))        
+            while len(stack) > old_len:
+                stack.pop()
+        return res
+    elif type(node) is list:
+        res = []
+        for el in node:
+            res.append(rewrite_var_refs(el, stack))
+        return res
+    else:
+        return node
 
+for i in range(len(funcs)):
+    stack = funcs[i].args
+    # stack.append('<RA>')
+    # print(funcs[i].body)
+    funcs[i].body = rewrite_var_refs(funcs[i].body, stack)    
+    # print(funcs[i].body)

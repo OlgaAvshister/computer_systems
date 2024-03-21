@@ -49,7 +49,7 @@ in (no argument?)
 out (no argument?)
 hlt (no argument)
 """
-
+from enum import Enum
 prog_line = input()
 source = []
 while prog_line.strip() != "":
@@ -345,8 +345,10 @@ tree = rewrite_setchar(tree)
 
 class VarRef:
     name: str
-    def __init__(self, name):
+    line: int
+    def __init__(self, name, line):
         self.name = name
+        self.line = line
     def __repr__(self):
         return "VarRef(" + str(self.name) + ")"
 
@@ -374,7 +376,7 @@ def is_call_expr(obj: any):
 def is_extractable_expr(obj: any):
     return is_operation_expr(obj) or is_call_expr(obj)
     
-def extract_variables(node: any, temp_count=0):
+def extract_variables(node: any, temp_count: int = 0):
     if type(node) is int:
         return node, temp_count
     elif type(node) is Token:
@@ -389,7 +391,7 @@ def extract_variables(node: any, temp_count=0):
                     temp_name = '_temp' + str(temp_count)
                     define = [Token('define'), Token(temp_name), el]
                     temp_count += 1
-                    res.append(VarRef(temp_name))
+                    res.append(VarRef(temp_name, node[0].line))
                     defines.append(define)
                 else:
                     res.append(el)
@@ -430,13 +432,14 @@ def collect_function_names(node: list[any]):
     return names
 
 func_names = collect_function_names(tree)
-# print(func_names)
 
 class FuncRef:
     name: str
+    index: int
     line: int | None
-    def __init__(self, name, line=None):
+    def __init__(self, name: str, index: int, line=None):
         self.name = name
+        self.index = index
         self.line = line
     def __repr__(self):
         return "FuncRef(" + self.name + ")"
@@ -456,33 +459,52 @@ def rewrite_function_calls(node: list[any], func_names: list[str]):
             tick = 0
             new_node.append(el)
         elif type(el) is Token and tick == 0 and el.value in func_names:
-            el = FuncRef(el.value, el.line)
+            for i in range(len(func_names)):
+                if func_names[i] == el.value:
+                    index = i
+            el = FuncRef(el.value, index, el.line)
             new_node.append(el)
         else:  # not a list
             new_node.append(el)        
     return new_node
 
 # dump_tree(tree)
-# dump_tree(rewrite_function_calls(tree, func_names))
+tree = rewrite_function_calls(tree, func_names)
+
+def count_own_vars(node: any): 
+    if is_token(node, 'define'): 
+        return 1
+    elif type(node) is list and is_token(node[0], 'if'):
+        return 0
+    elif type(node) is list:  # not an `if`
+        count = 0
+        for el in node:
+            count += count_own_vars(el)
+        return count
+    else:
+        return 0
 
 class Function:
     name: str
     args: list[str]
     body: any
-    def __init__(self, name, args, body):
+    var_count: int
+    def __init__(self, name, args, body, var_count):
         self.name = name
         self.args = args
         self.body = body
+        self.var_count = var_count
     def __repr__(self):
         return 'Function(' + self.name + ', ' + str(self.args) + ')'
 
-def do_collect_functions(node):
+def do_collect_functions(node: any):
     if type(node) is list and node and is_token(node[0], 'defun'):
         args = []
         for tok in node[2]:
             args.append(tok.value)
         body, funcs = do_collect_functions(node[3])
-        func = Function(node[1].value, args, body)
+        var_count = count_own_vars(body)
+        func = Function(node[1].value, args, body, var_count)
         funcs.insert(0, func)
         return None, funcs
     elif type(node) is list:
@@ -497,17 +519,15 @@ def do_collect_functions(node):
     else:
         return node, []
 
-def collect_functions(tree):
+def collect_functions(tree: list) -> list[Function]:
     # get functions only
     return do_collect_functions(tree)[1]
     
-print(tree)
-print()
-print()
 funcs = collect_functions(tree)
 # for func in collect_functions(tree):
 #     print(func)
 #     print(func.body)
+#     print(func.var_count)
 #     print()
 
 class ArgRef:
@@ -519,7 +539,7 @@ class ArgRef:
     def __repr__(self):
         return "ArgRef(" + str(self.name) + ")"    
     
-def rewrite_arguments(node, args):
+def rewrite_arguments(node: any, args: list[str]):
     if type(node) is int:
         return node
     elif type(node) is Token:
@@ -536,23 +556,35 @@ def rewrite_arguments(node, args):
         return node
     
 for i in range(len(funcs)):
+    # print(i, funcs[i].name, funcs[i].args)
     funcs[i].body = rewrite_arguments(funcs[i].body, funcs[i].args)
     # print(funcs[i].body)
-    
-def count_own_vars(node: any): 
-    if is_token(node, 'define'): 
-        return 1
-    elif type(node) is list and is_token(node[0], 'if'):
-        return 0
-    elif type(node) is list:  # not an `if`
-        count = 0
+
+def rewrite_vars(node: any, names: list[str]):
+    if type(node) is list and node and is_token(node[0], 'define'):
+        names.append(node[1].value)
+        res = []
+        res.append(node[0])      # define
+        res.append(node[1])      # varaible name
+        for el in node[2:]:
+            res.append(rewrite_vars(el, names))
+        return res    
+    elif is_token(node) and node.value in names:
+        return VarRef(node.value, node.line)
+    elif type(node) is list:
+        res = []
         for el in node:
-            count += count_own_vars(el)
-        return count
+            res.append(rewrite_vars(el, names))
+        return res
     else:
-        return 0
+        return node
     
-# print(count_own_vars( funcs[0].body ))
+for i in range(len(funcs)):
+    # print(i, funcs[i].name, funcs[i].args)
+    # print("rewrite_vars")
+    # print(funcs[i].body)
+    funcs[i].body = rewrite_vars(funcs[i].body, [])
+    # print(funcs[i].body)
 
 class If:
     cond_vars: int
@@ -603,7 +635,7 @@ class StackOffset:
     def __repr__(self):
         return 'StackOffset(' + str(self.offset) + ')'
     
-def rewrite_var_refs(node, stack):
+def rewrite_var_refs(node: any, stack: list[str]):
     if type(node) is ArgRef or type(node) is VarRef:
         reversed_stack = stack[::-1]
         for i in range(len(reversed_stack)):
@@ -641,3 +673,150 @@ for i in range(len(funcs)):
     # print(funcs[i].body)
     funcs[i].body = rewrite_var_refs(funcs[i].body, stack)    
     # print(funcs[i].body)
+
+def is_comparison_op_string(s: str):
+    if s in {'<', '>', '=', '!=', '<=', '>='}:
+        return True
+    else:
+        return False
+
+def is_math_op_string(s: str):
+    if s in {'+',  '-',  '*',  '/',  '%'}:
+        return True
+    else:
+        return False    
+    
+class Opcode(Enum):
+    LD = 0
+    ST = 1
+    ADD = 2
+    SUB = 3
+    MUL = 4
+    DIV = 5
+    REM = 6
+    JMP = 7
+    JG = 8
+    JE = 9
+    JGE = 10
+    JL = 11
+    JLE = 12
+    JNE = 13
+    PUSH = 14
+    POP = 15
+    CALL = 16
+    RET = 17
+    HLT = 18
+
+def math_opcode(s: str):
+    if s == '+':
+        return Opcode.ADD
+    elif s == '-':
+        return Opcode.SUB
+    elif s == '*':
+        return Opcode.MUL
+    elif s == '/':
+        return Opcode.DIV
+    else:
+        return Opcode.REM
+    
+def comparison_opcode(s: str):
+    if s == '>':
+        return Opcode.JG
+    elif s == '<':
+        return Opcode.JL
+    elif s == '=':
+        return Opcode.JE
+    elif s == '!=':
+        return Opcode.JNE    
+    elif s == '>=':
+        return Opcode.JGE
+    else:
+        return Opcode.JLE
+    
+# def mark_tail_calls(func_name, node):
+    
+    
+# defun f    (do
+#     (f ...)
+#     (f ...)
+#     if 
+#       (...)
+#       (do (f 1 2 3) 123)
+#       (f 1 2 3)     *
+#            )
+    
+class OperandType(Enum):
+    NONE = 0
+    IMMEDIATE = 1
+    ADDRESS = 2
+    STACK_OFFSET = 3
+    STACK_POINTER = 4    
+    
+class Instruction:
+    opcode: Opcode
+    operand_type: OperandType
+    operand: int
+    line: int | None
+    def __init__(self, opcode: Opcode, operand_type: OperandType, operand: int, line=None):
+        self.opcode = opcode
+        self.operand_type = operand_type
+        self.operand = operand
+        self.line = line
+    def __repr__(self):
+        return 'Instruction(%s, %s, %d)' % (
+            self.opcode, 
+            self.operand_type,
+            self.operand
+        )
+
+def generate_instructions(node, line = None) -> list[Instruction]:
+    if type(node) is list and not node:
+        return []
+    if type(node) is int:
+        return [Instruction(Opcode.LD, OperandType.IMMEDIATE, node, line)]
+    elif type(node) is StackOffset:
+        return [Instruction(Opcode.LD, OperandType.STACK_OFFSET, node.offset, node.line)]
+    elif type(node) is list and is_token(node[0], 'define'):
+        res = generate_instructions(node[2], node[0].line)
+        res.append(Instruction(Opcode.PUSH, OperandType.NONE, 0, node[0].line))
+        return res
+    elif type(node) is list and is_math_op_string(node[0].value):
+        #todo: handle non-ints operands
+        res = []
+        res.extend(generate_instructions(node[1], node[0].line))
+        opcode = math_opcode(node[0].value)
+        if type(node[2]) is int:
+            res.append(Instruction(opcode, OperandType.IMMEDIATE, node[2], node[0].line))
+        else:
+            res.append(Instruction(opcode, OperandType.STACK_OFFSET, node[2].offset, node[0].line))
+        return res
+    elif type(node) is list and is_comparison_op_string(node[0].value):
+        res = []
+        res.extend(generate_instructions(node[1], node[0].line))
+        if type(node[2]) is int:
+            res.append(Instruction(Opcode.SUB, OperandType.IMMEDIATE, node[2], node[0].line))
+        else:
+            res.append(Instruction(Opcode.SUB, OperandType.STACK_OFFSET, node[2].offset, node[0].line))
+        opcode = comparison_opcode(node[0].value)
+        res.extend([
+            Instruction(opcode, OperandType.ADDRESS, 0, node[0].line),
+            Instruction(Opcode.LD, OperandType.IMMEDIATE, 0, node[0].line),
+            Instruction(Opcode.JMP, OperandType.ADDRESS, 0, node[0].line),
+            Instruction(Opcode.LD, OperandType.IMMEDIATE, 1, node[0].line)
+        ])
+        return res
+    elif type(node) is list and is_token(node[0], 'do'):
+        res = []
+        for el in node[1:]:
+            res.extend(generate_instructions(el, node[0].line))
+        return res
+
+for i in range(len(funcs)):
+    dump_tree(funcs[i].body)
+    code = generate_instructions(funcs[i].body)    
+    if i == 0:
+        code.append(Instruction(Opcode.HLT, OperandType.NONE, 0))
+    else:
+        code.append(Instruction(Opcode.RET, OperandType.NONE, 0))
+    for el in code:
+        print(el)

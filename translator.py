@@ -769,9 +769,8 @@ class Instruction:
             self.operand
         )
 
-def generate_instructions(node, line = None) -> list[Instruction]:
-    if type(node) is list and not node:
-        return []
+def generate_instructions(node: Any, line=None) -> list[Instruction]:
+    # print("node", node)
     if type(node) is int:
         return [Instruction(Opcode.LD, OperandType.IMMEDIATE, node, line)]
     elif type(node) is StackOffset:
@@ -780,7 +779,7 @@ def generate_instructions(node, line = None) -> list[Instruction]:
         res = generate_instructions(node[2], node[0].line)
         res.append(Instruction(Opcode.PUSH, OperandType.NONE, 0, node[0].line))
         return res
-    elif type(node) is list and is_math_op_string(node[0].value):
+    elif type(node) is list and is_token(node[0]) and is_math_op_string(node[0].value):
         #todo: handle non-ints operands
         res = []
         res.extend(generate_instructions(node[1], node[0].line))
@@ -790,7 +789,7 @@ def generate_instructions(node, line = None) -> list[Instruction]:
         else:
             res.append(Instruction(opcode, OperandType.STACK_OFFSET, node[2].offset, node[0].line))
         return res
-    elif type(node) is list and is_comparison_op_string(node[0].value):
+    elif type(node) is list and is_token(node[0]) and is_comparison_op_string(node[0].value):
         res = []
         res.extend(generate_instructions(node[1], node[0].line))
         if type(node[2]) is int:
@@ -799,9 +798,9 @@ def generate_instructions(node, line = None) -> list[Instruction]:
             res.append(Instruction(Opcode.SUB, OperandType.STACK_OFFSET, node[2].offset, node[0].line))
         opcode = comparison_opcode(node[0].value)
         res.extend([
-            Instruction(opcode, OperandType.ADDRESS, 0, node[0].line),
+            Instruction(opcode, OperandType.ADDRESS, 2, node[0].line),
             Instruction(Opcode.LD, OperandType.IMMEDIATE, 0, node[0].line),
-            Instruction(Opcode.JMP, OperandType.ADDRESS, 0, node[0].line),
+            Instruction(Opcode.JMP, OperandType.ADDRESS, 1, node[0].line),
             Instruction(Opcode.LD, OperandType.IMMEDIATE, 1, node[0].line)
         ])
         return res
@@ -810,7 +809,67 @@ def generate_instructions(node, line = None) -> list[Instruction]:
         for el in node[1:]:
             res.extend(generate_instructions(el, node[0].line))
         return res
-
+    elif type(node) is list and type(node[0]) is If:
+        res = []
+        res.extend(generate_instructions(node[1], node[0].line))
+        res.extend(
+            [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * node[0].cond_vars
+        )
+        res.append(Instruction(Opcode.JNE, OperandType.ADDRESS, 0, node[0].line))
+        jne_index = len(res) - 1
+        res.extend(generate_instructions(node[2], node[0].line))
+        res[jne_index].operand = len(res) - jne_index
+        res.extend(
+            [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * node[0].true_branch_vars
+        )
+        res.append(Instruction(Opcode.JMP, OperandType.ADDRESS, 0, node[0].line))
+        jmp_index = len(res) - 1
+        res.extend(generate_instructions(node[3], node[0].line))
+        res.extend(
+            [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * node[0].false_branch_vars
+        )        
+        res[jmp_index].operand = len(res) - jmp_index - 1
+        return res
+    elif type(node) is list and is_token(node[0], 'getchar'):
+        res = []
+        res.append(Instruction(Opcode.LD, OperandType.STACK_POINTER, node[1].offset, node[0].line))
+        return res
+    elif type(node) is list and is_token(node[0], 'setchar'):
+        res = []
+        res.extend(generate_instructions(node[2], node[0].line))
+        res.append(Instruction(Opcode.ST, OperandType.STACK_POINTER, node[1].offset, node[0].line))
+        return res
+    elif type(node) is list and is_token(node[0], 'readchar'):
+        res = []
+        res.append(Instruction(Opcode.LD, OperandType.ADDRESS, INPUT_PORT_ADDR, node[0].line))
+        return res
+    elif type(node) is list and is_token(node[0], 'printchar'):
+        res = []
+        res.extend(generate_instructions(node[1], node[0].line))
+        res.append(Instruction(Opcode.ST, OperandType.ADDRESS, OUTPUT_PORT_ADDR, node[0].line))
+        return res
+    elif type(node) is list and type(node[0]) is FuncRef:
+        func = node[0]
+        args_count = len(node[1:])
+        res = []
+        for i in range(args_count):
+            arg_code = generate_instructions(node[i + 1], node[0].line)
+            print(i)
+            print(arg_code)
+            arg_code = offset_stack_refs(arg_code, i)
+            print(arg_code)
+            print()
+            arg_code = arg_code
+            res.extend(arg_code)
+            res.append(Instruction(Opcode.PUSH, OperandType.NONE, 0, node[0].line))
+        res.append(Instruction(Opcode.CALL, OperandType.ADDRESS, node[0].index, node[0].line))
+        res.extend(
+            [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * args_count
+        ) 
+        return res
+    else:
+        raise Exception("Incorrect program")
+    
 for i in range(len(funcs)):
     dump_tree(funcs[i].body)
     code = generate_instructions(funcs[i].body)    
@@ -820,3 +879,29 @@ for i in range(len(funcs)):
         code.append(Instruction(Opcode.RET, OperandType.NONE, 0))
     for el in code:
         print(el)
+        
+
+### simulator ###
+
+class DataPath:
+    acc: int
+    da: int  # data address
+    mem: list[int]
+    sp: int  # stack pointer
+    def __init__(self, mem: list[int]):
+        self.acc = 0
+        self.da = 0
+        self.mem = mem
+        self.sp = len(mem)
+    
+class ControlUnit:
+    pc: int  # program counter
+    mem: list[int]
+    def __init__(self, mem: list[int]):
+        self.pc = 0
+        self.mem = mem
+
+###########################################
+import doctest; doctest.testmod()
+# import os; os.system("mypy --no-error-summary " + __file__)        
+        

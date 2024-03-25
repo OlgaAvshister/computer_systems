@@ -769,6 +769,81 @@ class Instruction:
             self.operand
         )
 
+def offset_stack_refs(node: Any, delta: int):
+    if type(node) is int:
+        return node
+    elif type(node) is StackOffset:
+        return StackOffset(node.offset + delta, node.line)
+    elif type(node) is list:
+        res = []
+        for el in node:
+            res.append(offset_stack_refs(el, delta))
+        return res
+    else:
+        return node
+            
+def mark_tail_calls(node, func_name):
+    if type(node) is int:
+        return
+    elif type(node) is FuncRef:
+        raise Exception('Incorrect program')
+    elif type(node) is If:
+        return
+    elif type(node) is list:
+        if node:
+            head = node[0]
+            if type(head) is FuncRef and head.name == func_name:
+                head.tail_call = True   
+            elif type(head) is If:
+                mark_tail_calls(node[2], func_name)
+                mark_tail_calls(node[3], func_name)
+            elif is_token(head, 'do') and len(node) > 1:
+                mark_tail_calls(node[-1], func_name)
+    else:
+        raise Exception('Incorrect program')
+        
+for i in range(len(funcs)):
+    # print(funcs[i].name)
+    # dump_tree(funcs[i].body)
+    mark_tail_calls(funcs[i].body, funcs[i].name)    
+    # dump_tree(funcs[i].body)
+    # for el in code:
+    #     print(el)
+    # print()
+    # print()        
+    
+def calc_tail_calls_stack_size(node, stack):
+    if type(node) is list and is_token(node[0], 'define'):
+        for el in node[2:]:  # skip `define` and variable name
+            calc_tail_calls_stack_size(el, stack)
+        stack.append(node[1].value)
+    elif type(node) is list and type(node[0]) is If:
+        for el in node:
+            old_len = len(stack)
+            calc_tail_calls_stack_size(el, stack)
+            while len(stack) > old_len:
+                stack.pop()
+    elif type(node) is list and type(node[0]) is FuncRef and node[0].tail_call:
+        node[0].tail_call_stack_size = len(stack) 
+    elif type(node) is list:
+        for el in node:
+            calc_tail_calls_stack_size(el, stack)
+    else:
+        return node    
+    
+for i in range(len(funcs)):
+    print(funcs[i].name)
+    # dump_tree(funcs[i].body)
+    calc_tail_calls_stack_size(funcs[i].body, [])    
+    dump_tree(funcs[i].body)
+    # for el in code:
+    #     print(el)
+    print()
+    print()            
+    
+INPUT_PORT_ADDR = 0
+OUTPUT_PORT_ADDR = 1        
+
 def generate_instructions(node: Any, line=None) -> list[Instruction]:
     # print("node", node)
     if type(node) is int:
@@ -851,27 +926,41 @@ def generate_instructions(node: Any, line=None) -> list[Instruction]:
     elif type(node) is list and type(node[0]) is FuncRef:
         func = node[0]
         args_count = len(node[1:])
-        res = []
-        for i in range(args_count):
-            arg_code = generate_instructions(node[i + 1], node[0].line)
-            print(i)
-            print(arg_code)
-            arg_code = offset_stack_refs(arg_code, i)
-            print(arg_code)
-            print()
-            arg_code = arg_code
-            res.extend(arg_code)
-            res.append(Instruction(Opcode.PUSH, OperandType.NONE, 0, node[0].line))
-        res.append(Instruction(Opcode.CALL, OperandType.ADDRESS, node[0].index, node[0].line))
-        res.extend(
-            [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * args_count
-        ) 
-        return res
+        if func.tail_call:
+            res = []
+            extra_vars = 0
+            for i in range(args_count):
+                arg_code = generate_instructions(node[i + 1], node[0].line)
+                extra_vars += count_own_vars(node[i + 1])
+                res.extend(arg_code)
+                extra_offset = func.tail_call_stack_size + extra_vars
+                arg_addr = (args_count - 1) - i + extra_offset
+                res.append(Instruction(Opcode.ST, OperandType.STACK_OFFSET, arg_addr, node[0].line))
+            # func.tail_call_stack_size
+            # clean up all the variables created before the tail call            
+            size_to_clean = func.tail_call_stack_size + extra_vars
+            res.extend(
+                [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * size_to_clean
+            )                 
+            res.append(Instruction(Opcode.JMP, OperandType.ADDRESS, 0, node[0].line))
+            return res            
+        else: 
+            res = []
+            for i in range(args_count):
+                arg_code = generate_instructions(node[i + 1], node[0].line)
+                arg_code = offset_stack_refs(arg_code, i)
+                res.extend(arg_code)
+                res.append(Instruction(Opcode.PUSH, OperandType.NONE, 0, node[0].line))
+            res.append(Instruction(Opcode.CALL, OperandType.ADDRESS, node[0].index, node[0].line))
+            res.extend(
+                [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * args_count
+            ) 
+            return res
     else:
         raise Exception("Incorrect program")
     
 for i in range(len(funcs)):
-    dump_tree(funcs[i].body)
+    # dump_tree(funcs[i].body)
     code = generate_instructions(funcs[i].body)    
     if i == 0:
         code.append(Instruction(Opcode.HLT, OperandType.NONE, 0))
@@ -879,8 +968,42 @@ for i in range(len(funcs)):
         code.append(Instruction(Opcode.RET, OperandType.NONE, 0))
     for el in code:
         print(el)
+    print()
+    print()    
         
+def encode_instructions(ar_of_instr):
+    code = []
+    for instr in ar_of_instr:
+        code.append(instr.operand.to_bytes(4, 'little', signed=True))
+    return code
 
+def wraparound(num):
+    num_to_bytes = num.to_bytes(4, 'little', signed=True)
+    return int.from_bytes(num_to_bytes, 'little', signed=True)
+
+def write_code(code, file_name):
+    file = open(file_name, "w")
+    byte_code = bytearray(code)
+    file.write(byte_code)
+    file.close()
+    
+def read_source_code(file_name):
+    file = open(file_name, 'r')
+    content = file.read()
+    file.close()
+    
+def instruction_to_string(instr):
+    if instr.operand_type == IMMEDIATE:
+        return str(instr.opcode) + str(instr.operand)
+    elif instr.operand_type == ADDRESS:
+        return str(instr.opcode) + str([instr.operand])
+    elif instr.operand_type == STACK_OFFSET:
+        return str(instr.opcode) + str([sp + instr.operand])
+    elif instr.operand_type == STACK_POINTER:
+        return str(instr.opcode) + str([[sp + instr.operand]])
+    else:     
+        return str(instr.opcode)
+        
 ### simulator ###
 
 class DataPath:

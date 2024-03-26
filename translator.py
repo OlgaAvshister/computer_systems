@@ -936,11 +936,10 @@ def generate_instructions(node: Any, line=None) -> list[Instruction]:
                 extra_offset = func.tail_call_stack_size + extra_vars
                 arg_addr = (args_count - 1) - i + extra_offset
                 res.append(Instruction(Opcode.ST, OperandType.STACK_OFFSET, arg_addr, node[0].line))
-            # func.tail_call_stack_size
             # clean up all the variables created before the tail call            
-            size_to_clean = func.tail_call_stack_size + extra_vars
+            stack_to_clean = func.tail_call_stack_size + extra_vars
             res.extend(
-                [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * size_to_clean
+                [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * stack_to_clean
             )                 
             res.append(Instruction(Opcode.JMP, OperandType.ADDRESS, 0, node[0].line))
             return res            
@@ -956,58 +955,144 @@ def generate_instructions(node: Any, line=None) -> list[Instruction]:
                 [Instruction(Opcode.POP, OperandType.NONE, 0, node[0].line)] * args_count
             ) 
             return res
+    elif type(node) is Function:
+        res = []
+        res.extend(generate_instructions(node.body))  
+        res.extend(
+            [Instruction(Opcode.POP, OperandType.NONE, 0)] * node.var_count
+        ) 
+        if node.name == '_start':  # main program
+            res.append(Instruction(Opcode.HLT, OperandType.NONE, 0))
+        else:
+            res.append(Instruction(Opcode.RET, OperandType.NONE, 0))        
+        return res
     else:
         raise Exception("Incorrect program")
     
+funcs_code = []
 for i in range(len(funcs)):
     # dump_tree(funcs[i].body)
-    code = generate_instructions(funcs[i].body)    
-    if i == 0:
-        code.append(Instruction(Opcode.HLT, OperandType.NONE, 0))
-    else:
-        code.append(Instruction(Opcode.RET, OperandType.NONE, 0))
-    for el in code:
-        print(el)
-    print()
-    print()    
+    code = generate_instructions(funcs[i])    
+    funcs_code.append(code)
+
+def calc_func_adds(funcs, funcs_code):    
+    addr = 0
+    for i in range(len(funcs)):
+        funcs[i].addr = addr
+        addr += len(funcs_code[i])
+    
+calc_func_adds(funcs, funcs_code)        
+
+def is_jump_instruction_opcode(opcode):
+    jumps = {
+        Opcode.JMP, Opcode.JE, Opcode.JG, Opcode.JL, 
+        Opcode.JLE, Opcode.JGE, Opcode.JNE}
+    return opcode in jumps
+
+def fix_jumps(code, func_addr):
+    instr_addr = func_addr
+    for i in range(len(code)):
+        if is_jump_instruction_opcode(code[i].opcode):
+            if code[i].operand == 0:  # tail call jump
+                code[i].operand = func_addr
+            else:
+                code[i].operand += instr_addr + 1 
+        instr_addr += 1
         
-def encode_instructions(ar_of_instr):
-    code = []
-    for instr in ar_of_instr:
-        code.append(instr.operand.to_bytes(4, 'little', signed=True))
-    return code
+# make calls use real global absolute addresses        
+def fix_calls(code, funcs):
+    for i in range(len(code)):
+        if code[i].opcode == Opcode.CALL:
+            func_index = code[i].operand
+            code[i].operand = funcs[func_index].addr
+        
+for i in range(len(funcs_code)):
+    # print('before:')
+    # for j, instr in enumerate(funcs_code[i]):
+    #     print(j, instr)
+    fix_jumps(funcs_code[i], funcs[i].addr)
+    fix_calls(funcs_code[i], funcs)
+    # print('after:')
+    # for j, instr in enumerate(funcs_code[i]):
+    #     print(j, instr)
+    # print()
+    
+def merge_functions(funcs_code): 
+    res = []
+    for code in funcs_code:
+        res.extend(code)
+    return res
+        
+program_code = merge_functions(funcs_code)
+for instr in program_code:
+    print(instr)
+
+def encode_instructions(program_code):
+    binary_code = []
+    for instr in program_code:
+        binary_code.append(instr.opcode.value)
+        binary_code.append(instr.operand_type.value)
+        binary_code.extend(list(
+            instr.operand.to_bytes(4, 'little', signed=True)
+        ))
+    return binary_code
+
+byte_code = encode_instructions(program_code)
+# for instr in byte_code:
+#     print(instr)
+
+def read_source_code(file_name):
+    file = open(file_name, 'r')
+    content = file.read()
+    file.close()
+    return content
+
+def write_code(code, file_name):
+    file = open(file_name, "w")
+    file.write(bytearray(code))
+    file.close()        
+    
+def write_data(mem, file_name):
+    file = open(file_name, "w")
+    file.write(bytearray(mem))
+    file.close()            
+    
+def instruction_to_string(instr):
+    if instr.operand_type == OperandType.IMMEDIATE:
+        return str(instr.opcode) + str(instr.operand)
+    elif instr.operand_type == OperandType.ADDRESS:
+        return str(instr.opcode) + str([instr.operand])
+    elif instr.operand_type == OperandType.STACK_OFFSET:
+        return str(instr.opcode) + str([sp + instr.operand])
+    elif instr.operand_type == OperandType.STACK_POINTER:
+        return str(instr.opcode) + str([[sp + instr.operand]])
+    else:     
+        return str(instr.opcode)
+
+# print(instruction_to_string(
+#     Instruction(Opcode.LD, OperandType.IMMEDIATE, 5)
+# ))        
+
+def get_source_line(program_source, line):
+    ...    
+    
+get_source_line(program_source, 1)    # (if 1 2 3) 
+
+def lines_of_code(program_source):
+    ...
+
+# def make_debug_info    
+### simulator ###
 
 def wraparound(num):
     num_to_bytes = num.to_bytes(4, 'little', signed=True)
     return int.from_bytes(num_to_bytes, 'little', signed=True)
 
-def write_code(code, file_name):
-    file = open(file_name, "w")
-    byte_code = bytearray(code)
-    file.write(byte_code)
-    file.close()
-    
-def read_source_code(file_name):
-    file = open(file_name, 'r')
-    content = file.read()
-    file.close()
-    
-def instruction_to_string(instr):
-    if instr.operand_type == IMMEDIATE:
-        return str(instr.opcode) + str(instr.operand)
-    elif instr.operand_type == ADDRESS:
-        return str(instr.opcode) + str([instr.operand])
-    elif instr.operand_type == STACK_OFFSET:
-        return str(instr.opcode) + str([sp + instr.operand])
-    elif instr.operand_type == STACK_POINTER:
-        return str(instr.opcode) + str([[sp + instr.operand]])
-    else:     
-        return str(instr.opcode)
-        
-### simulator ###
 
 class DataPath:
     acc: int
+    # nf: bool  # negative flag
+    # zf: bool  # zero flag
     da: int  # data address
     mem: list[int]
     sp: int  # stack pointer
@@ -1016,15 +1101,28 @@ class DataPath:
         self.da = 0
         self.mem = mem
         self.sp = len(mem)
-    
+    def latch_acc(self, sel: int):
+        ...
+    def latch_flags(self):
+        ...
+    def latch_da(self, sel: int):
+        ...
+    def write_mem(self):
+        ...
+    def latch_sp(self, sel: int):
+        ...
+        
 class ControlUnit:
     pc: int  # program counter
     mem: list[int]
     def __init__(self, mem: list[int]):
         self.pc = 0
         self.mem = mem
+    def latch_pc(self, sel: int):
+        ...
+    def decode_and_execute_one_instruction(self):
+        ...
 
 ###########################################
 import doctest; doctest.testmod()
 # import os; os.system("mypy --no-error-summary " + __file__)        
-        

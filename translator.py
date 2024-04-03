@@ -13,6 +13,9 @@ program_source = "\n".join(source_lines)
 # print(program_source)
 # print()
 
+INPUT_PORT_ADDR = 0
+OUTPUT_PORT_ADDR = 1 
+
 STDLIB = """
 
 (defun doreadstring (s i) (do
@@ -60,7 +63,7 @@ STDLIB = """
 """
 
 
-program_source += '\n' + STDLIB
+# program_source += '\n' + STDLIB
 
 class Token:
     value: str
@@ -84,7 +87,7 @@ def split_chars(source: str) -> list[Token]:
             line += 1
     return lst
             
-lst = split_chars(program_source)
+# lst = split_chars(program_source)
 
 # combine string literals "..."
 def combine_str_lits(lst: list[Token]) -> list[Token]:
@@ -99,7 +102,7 @@ def combine_str_lits(lst: list[Token]) -> list[Token]:
         i += 1
     return lst
 
-lst = combine_str_lits(lst)
+# lst = combine_str_lits(lst)
 
 # combine digits into numbers and letters into names
 def combine_numbers_and_names(lst: list[Token]) -> list[Token]:
@@ -122,7 +125,7 @@ def combine_numbers_and_names(lst: list[Token]) -> list[Token]:
                     break               
     return lst
 
-lst = combine_numbers_and_names(lst)
+# lst = combine_numbers_and_names(lst)
 
 # combine: '!' with '=', '>' with '=', '<' with '='
 def combine_operators(lst: list) -> list:
@@ -135,7 +138,7 @@ def combine_operators(lst: list) -> list:
                     break
     return lst    
 
-lst = combine_operators(lst)
+# lst = combine_operators(lst)
 
 def not_space(tok: Token) -> bool:
     if tok.value != ' ':
@@ -143,7 +146,7 @@ def not_space(tok: Token) -> bool:
     else:
         return False
 
-lst = list(filter(not_space, lst))
+# lst = list(filter(not_space, lst))
 
 # print(lst)
 
@@ -160,8 +163,8 @@ def make_tree(toks: list[Token]) -> list[Token | list]:
         else:
             lst.append(tok)
     return lst
-    
-tree = make_tree(lst)    
+
+# tree = make_tree(lst)    
 # print("make_tree", tree)
 
 def dump_tree(node, level: int = 0):
@@ -185,7 +188,7 @@ def wrap_program(tree: list[Any]):
         [Token('do', 1)] + tree
     ]
 
-tree = wrap_program(tree)
+# tree = wrap_program(tree)
 
 
 def rewrite_special_chars(node: list[Any]):   
@@ -202,7 +205,7 @@ def rewrite_special_chars(node: list[Any]):
                 new_node.append(el)
     return new_node
 
-tree = rewrite_special_chars(tree)
+# tree = rewrite_special_chars(tree)
 # print(tree)
 
 def collect_string_literals(node: list[Any]):
@@ -217,7 +220,7 @@ def collect_string_literals(node: list[Any]):
                 lits.append(lit)
     return lits
 
-str_lits = collect_string_literals(tree)
+# str_lits = collect_string_literals(tree)
 # print(str_lits)
 
 def make_string_map(lits: list[str]) -> dict[str, int]:
@@ -228,7 +231,7 @@ def make_string_map(lits: list[str]) -> dict[str, int]:
         addr += len(lit) + 1
     return dic
         
-str_map = make_string_map(str_lits)
+# str_map = make_string_map(str_lits)
 # print(str_map)
 
 def generate_static_memory(str_map: dict):
@@ -239,7 +242,7 @@ def generate_static_memory(str_map: dict):
         mem.append(0)
     return mem
 
-mem = generate_static_memory(str_map)
+# mem = generate_static_memory(str_map)
 # print(mem)
 
 def replace_string_literas(node: list[Any], str_map: dict):   
@@ -257,7 +260,7 @@ def replace_string_literas(node: list[Any], str_map: dict):
     return new_node
     
 # print(str_map)
-tree = replace_string_literas(tree, str_map)
+# tree = replace_string_literas(tree, str_map)
 # print(tree)
 
 def is_number(s: str) -> bool:
@@ -271,11 +274,11 @@ def is_number(s: str) -> bool:
                 return False
         return True
 
-def replace_numbers(node: list[Any], str_map: dict):   
+def replace_numbers(node: list[Any]):   
     new_node = []
     for el in node:
         if type(el) is list:
-            new_el = replace_numbers(el, str_map)
+            new_el = replace_numbers(el)
             new_node.append(new_el)
         else:
             if type(el) is Token and is_number(el.value):
@@ -285,7 +288,7 @@ def replace_numbers(node: list[Any], str_map: dict):
                 new_node.append(el)
     return new_node
 
-tree = replace_numbers(tree, str_map)
+# tree = replace_numbers(tree, str_map)
 
 
 def is_token(obj: Any, check_for: str | None=None):
@@ -314,7 +317,7 @@ def process_makestring_forms(node: Any, mem: list[int]):
     return node
 
 # print(tree)
-tree = process_makestring_forms(tree, mem)
+# tree = process_makestring_forms(tree, mem)
 # print(tree)
 # print(mem)
 
@@ -354,8 +357,8 @@ def rewrite_getchar(node: Any):
         return res
     else:
         return node
-
-tree = rewrite_getchar(tree)
+    
+# tree = rewrite_getchar(tree)
 # print(rewrite_getchar(tree))
 
 def rewrite_setchar(node: Any):
@@ -379,7 +382,7 @@ def rewrite_setchar(node: Any):
     else:
         return node
     
-tree = rewrite_setchar(tree)    
+# tree = rewrite_setchar(tree)    
 
 class VarRef:
     name: str
@@ -451,7 +454,7 @@ def extract_variables(node: Any, temp_count: int = 0):
     
 # print(tree)    
 # print()
-tree, _ = extract_variables(tree)
+# tree, _ = extract_variables(tree)
 
 
 def collect_function_names(node: list[Any]):
@@ -469,7 +472,7 @@ def collect_function_names(node: list[Any]):
             tick = 0
     return names
 
-func_names = collect_function_names(tree)
+# func_names = collect_function_names(tree)
 
 class FuncRef:
     name: str
@@ -513,8 +516,7 @@ def rewrite_function_calls(node: list[Any], func_names: list[str]):
             new_node.append(el)        
     return new_node
 
-
-tree = rewrite_function_calls(tree, func_names)
+# tree = rewrite_function_calls(tree, func_names)
 
 def count_own_vars(node: Any): 
     if is_token(node, 'define'): 
@@ -574,7 +576,7 @@ def collect_functions(tree: list) -> list[Function]:
     # get functions only
     return do_collect_functions(tree)[1]
     
-funcs = collect_functions(tree)
+# funcs = collect_functions(tree)
 # for func in collect_functions(tree):
 #     print(func)
 #     print(func.body)
@@ -607,9 +609,9 @@ def rewrite_arguments(node: Any, args: list[str]):
     else:
         return node
     
-for i in range(len(funcs)):
+# for i in range(len(funcs)):
     # print(i, funcs[i].name, funcs[i].args)
-    funcs[i].body = rewrite_arguments(funcs[i].body, funcs[i].args)
+    # funcs[i].body = rewrite_arguments(funcs[i].body, funcs[i].args)
     # print(funcs[i].body)
 
 def rewrite_vars(node: Any, names: list[str]):
@@ -632,11 +634,11 @@ def rewrite_vars(node: Any, names: list[str]):
     else:
         return node
     
-for i in range(len(funcs)):
+# for i in range(len(funcs)):
     # print(i, funcs[i].name, funcs[i].args)
     # print("rewrite_vars")
     # print(funcs[i].body)
-    funcs[i].body = rewrite_vars(funcs[i].body, [])
+    # funcs[i].body = rewrite_vars(funcs[i].body, [])
     # print(funcs[i].body)
 
 class If:
@@ -675,8 +677,8 @@ def rewrite_ifs(node: Any):
     else:
         return node
     
-for i in range(len(funcs)):
-    funcs[i].body = rewrite_ifs(funcs[i].body)
+# for i in range(len(funcs)):
+#     funcs[i].body = rewrite_ifs(funcs[i].body)
     # print(funcs[i].body)
     # print()
     
@@ -721,11 +723,11 @@ def rewrite_var_refs(node: Any, stack: list[str]):
     else:
         return node
 
-for i in range(len(funcs)):
-    stack = funcs[i].args[:]
-    stack.append('RETURN_ADDR')
+# for i in range(len(funcs)):
+#     stack = funcs[i].args[:]
+#     stack.append('RETURN_ADDR')
     # print(funcs[i].body)
-    funcs[i].body = rewrite_var_refs(funcs[i].body, stack)    
+    # funcs[i].body = rewrite_var_refs(funcs[i].body, stack)    
     # print(funcs[i].body)
 
 def is_comparison_op_string(s: str):
@@ -852,10 +854,10 @@ def mark_tail_calls(node, func_name):
     else:
         raise Exception('Incorrect program')
         
-for i in range(len(funcs)):
+        
+# for i in range(len(funcs)):
     # print(funcs[i].name)
-    
-    mark_tail_calls(funcs[i].body, funcs[i].name)    
+    # mark_tail_calls(funcs[i].body, funcs[i].name)    
     # dump_tree(funcs[i].body)
     # for el in code:
     #     print(el)
@@ -881,18 +883,18 @@ def calc_tail_calls_stack_size(node, stack):
     else:
         return node    
     
-for i in range(len(funcs)):
+# for i in range(len(funcs)):
     # print(funcs[i].name)
     # dump_tree(funcs[i].body)
-    calc_tail_calls_stack_size(funcs[i].body, [])    
+    # calc_tail_calls_stack_size(funcs[i].body, [])    
     # dump_tree(funcs[i].body)
     # for el in code:
     #     print(el)
     # print()
     # print()            
-    
-INPUT_PORT_ADDR = 0
-OUTPUT_PORT_ADDR = 1        
+
+# INPUT_PORT_ADDR = 0
+# OUTPUT_PORT_ADDR = 1        
 
 def generate_instructions(node: Any, line=None) -> list[Instruction]:
     # print("node", node)
@@ -1030,19 +1032,18 @@ def generate_instructions(node: Any, line=None) -> list[Instruction]:
     else:
         raise Exception("Incorrect program")
     
-funcs_code = []
-for i in range(len(funcs)):
-    code = generate_instructions(funcs[i])    
-    
-    funcs_code.append(code)
+# funcs_code = []
+# for i in range(len(funcs)):
+#     code = generate_instructions(funcs[i])      
+#     funcs_code.append(code)
 
-def calc_func_adds(funcs, funcs_code):    
+def calc_func_addrs(funcs, funcs_code):    
     addr = 0
     for i in range(len(funcs)):
         funcs[i].addr = addr
         addr += len(funcs_code[i])
-    
-calc_func_adds(funcs, funcs_code)        
+
+# calc_func_adds(funcs, funcs_code)        
 
 def is_jump_instruction_opcode(opcode):
     jumps = {
@@ -1067,12 +1068,13 @@ def fix_calls(code, funcs):
             func_index = code[i].operand
             code[i].operand = funcs[func_index].addr
         
-for i in range(len(funcs_code)):
+         
+# for i in range(len(funcs_code)):
     # print('before:')
     # for j, instr in enumerate(funcs_code[i]):
     #     print(j, instr)
-    fix_jumps(funcs_code[i], funcs[i].addr)
-    fix_calls(funcs_code[i], funcs)
+    # fix_jumps(funcs_code[i], funcs[i].addr)
+    # fix_calls(funcs_code[i], funcs)
     # print('after:')
     # for j, instr in enumerate(funcs_code[i]):
     #     print(j, instr)
@@ -1084,7 +1086,7 @@ def merge_functions(funcs_code):
         res.extend(code)
     return res
         
-program_code = merge_functions(funcs_code)
+# program_code = merge_functions(funcs_code)
 # for instr in program_code:
     # print(instr)
 
@@ -1103,7 +1105,7 @@ def encode_instructions(program_code):
         binary_code.extend(encode_instruction(instr))
     return binary_code
 
-binary_code = encode_instructions(program_code)
+# binary_code = encode_instructions(program_code)
 # for instr in byte_code:
 #     print(instr)
 
@@ -1117,7 +1119,10 @@ def instruction_to_string(instr: Instruction) -> str:
     if instr.operand_type == OperandType.IMMEDIATE:
         return '%s %d' % (instr.opcode.name, instr.operand)
     elif instr.operand_type == OperandType.ADDRESS:
-        return '%s [%d]' % (instr.opcode.name, instr.operand)
+        if is_jump_instruction_opcode(instr.opcode) or instr.opcode == Opcode.CALL:
+            return '%s %d' % (instr.opcode.name, instr.operand)
+        else:
+            return '%s [%d]' % (instr.opcode.name, instr.operand)
     elif instr.operand_type == OperandType.STACK_OFFSET:
         return '%s [SP + %d]' % (instr.opcode.name, instr.operand)
     elif instr.operand_type == OperandType.STACK_POINTER:
@@ -1161,7 +1166,7 @@ def make_debug_info(program_source: str, program_code: list[Instruction]):
             instruction_to_string(instr).ljust(17, ' '), 
             get_source_line(program_source, instr.line)
         ))
-        addr += 6
+        addr += 1
     return '\n'.join(res)
 
 # print(make_debug_info(program_source, program_code))
@@ -1182,32 +1187,173 @@ def write_debug_info(debug_info: str, file_name: str):
     file.close()          
 
 
-# source_name = sys.argv[1]    # cat.lsp
-# binary_name = sys.argv[2]    # cat.bin
-# memory_name = sys.argv[3]    # cat.dat
-# debug_name = sys.argv[4]     # cat.dbg
-
-def translate(source_name, binary_name, memory_name, debug_name):
+def translate(source_name: str, binary_name: str, memory_name: str, debug_name: str):
     program_source = read_source_code(source_name) 
+    loc = lines_of_code(program_source)
     program_source += '\n' + STDLIB
     lst = split_chars(program_source)
     lst = combine_str_lits(lst)
-    ...
-    # print('LoC:', lines_of_code(program_source: str), 'instructions: ', instrs)
-    # write_code(code: list[str], file_name: str):
-    # write_data(mem: list[int], file_name: str):
-    # write_debug_info(debug_info, debug_name)
+    lst = combine_numbers_and_names(lst)
+    lst = combine_operators(lst)
+    lst = list(filter(not_space, lst))
+    tree = make_tree(lst)  
+    tree = wrap_program(tree)
+    tree = rewrite_special_chars(tree)
+    str_lits = collect_string_literals(tree)
+    str_map = make_string_map(str_lits)
+    mem = generate_static_memory(str_map)
+    tree = replace_string_literas(tree, str_map)
+    tree = replace_numbers(tree)
+    tree = process_makestring_forms(tree, mem)
+    tree = rewrite_getchar(tree)
+    tree = rewrite_setchar(tree) 
+    tree, _ = extract_variables(tree)
+    func_names = collect_function_names(tree)
+    tree = rewrite_function_calls(tree, func_names)
+    funcs = collect_functions(tree)
+    for i in range(len(funcs)):
+        body = rewrite_arguments(funcs[i].body, funcs[i].args)
+        body = rewrite_vars(body, [])
+        body = rewrite_ifs(body)
+        stack = funcs[i].args[:]
+        stack.append('RETURN_ADDR')
+        body = rewrite_var_refs(body, stack) 
+        mark_tail_calls(body, funcs[i].name) 
+        calc_tail_calls_stack_size(body, []) 
+        funcs[i].body = body
+    funcs_code = []
+    for i in range(len(funcs)):
+        code = generate_instructions(funcs[i])      
+        funcs_code.append(code)
+    calc_func_addrs(funcs, funcs_code) 
+    for i in range(len(funcs_code)):
+        fix_jumps(funcs_code[i], funcs[i].addr)
+        fix_calls(funcs_code[i], funcs)
+    program_code = merge_functions(funcs_code)
+    binary_code = encode_instructions(program_code)
+    print('LoC:', loc)
+    print('Instructions: ', len(program_code))
+    write_code(binary_code, binary_name)
+    write_data(mem, memory_name)
+    if debug_name is not None:
+        debug_info = make_debug_info(program_source, program_code)
+        write_debug_info(debug_info, debug_name)
+    
+# import argparse
+# arg_parser = argparse.ArgumentParser(
+#     prog='translator',
+#     description='Lisp-like language translator'
+# )
+# arg_parser.add_argument('source_name', help='input file with program source code')
+# arg_parser.add_argument('binary_name', help='output file for binary code')
+# arg_parser.add_argument('memory_name', help='output file for static memory content')
+# arg_parser.add_argument('debug_name', nargs='?', help='output file for debug information')
+# args = arg_parser.parse_args()
+# translate(args.source_name, args.binary_name, args.memory_name, args.debug_name)
+translate('in/cat.lsp', 'in/cat.bin', 'in/cat.dat', 'in/cat.dbg')
+
 
 ### simulator ###
 
 DATA_WORD_SIZE = 4
 CODE_WORD_SIZE = 6
+STACK_SIZE = 256
 
 def wraparound(num):
     num_to_bytes = num.to_bytes(4, 'little', signed=True)
     return int.from_bytes(num_to_bytes, 'little', signed=True)
 
+def mux2(a, b, sel):
+    if sel == 0:
+        return a
+    elif sel == 1:
+        return b
+    else:
+        raise Exception('Simulation error')
+    
+def mux3(a, b, c, sel):
+    if sel == 0:
+        return a
+    elif sel == 1:
+        return b
+    elif sel == 2:
+        return c
+    else:
+        raise Exception('Simulation error')    
+        
+# def mux4(a, b, c, d, sel):
+#     if sel == 0:
+#         return a
+#     elif sel == 1:
+#         return b
+#     elif sel == 2:
+#         return c
+#     elif sel == 3:
+#         return d
+#     else:
+#         raise Exception('Simulation error')
+    
+def opcode_to_alu_op(opcode):
+    if opcode == Opcode.ADD:
+        return 0
+    elif opcode == Opcode.SUB:
+        return 1
+    elif opcode == Opcode.MUL:
+        return 2
+    elif opcode == Opcode.DIV:
+        return 3
+    elif opcode == Opcode.REM:
+        return 4
+    else:
+        raise Exception('Wrong mathematical opcode')    
+    
+class ALUResult:
+    value: int
+    nf: bool
+    zf: bool
+    pf: bool
+    def __init__(self, value, nf, zf, pf):
+        self.value = value
+        self.nf = nf
+        self.zf = zf
+        self.pf = pf
+    
+def alu(a: int, b: int, op: int) -> ALUResult:
+    value: int
+    if op == 0:
+        value = a + b
+    elif op == 1:
+        value = a - b
+    elif op == 2:
+        value = a * b
+    elif op == 3:
+        if b != 0:
+            value = a / b
+        else:
+            raise Exception('Divide by zero')    
+    elif op == 4:
+        if b != 0:
+            value = a % b
+        else:
+            raise Exception('Divide by zero')    
+    else:
+        raise Exception('Wrong ALU operation')
+    nf = False        
+    zf = False        
+    pf = False        
+    if value < 0:
+        nf = True
+    elif value == 0:
+        zf = True
+    else:
+        pf = True
+    value = wraparound(value)
+    return ALUResult(value, nf, zf, pf)
+
 class Signals:
+    operand: int | None
+    sp_sel: int | None
+    latch_sp: bool 
     da_sel: int | None
     latch_da: bool
     alu_sel: int | None
@@ -1215,41 +1361,40 @@ class Signals:
     acc_sel: int | None
     latch_acc: bool
     latch_flags: bool
-    write_mem: bool
+    data_sel: int | None
+    next_pc: int | None
+    # oe: bool
+    wr: bool
     def Signals(
+        operand: int | None = None,
+        sp_sel: int | None = None,
+        latch_sp: bool = False, 
         da_sel: int | None = None,
-        latch_da: bool = false,
+        latch_da: bool = False,
         alu_sel: int | None = None,
         alu_op: int | None = None,
         acc_sel: int | None = None,
-        latch_acc: bool = false,
-        latch_flags: bool = false,
-        write_mem: bool = false
+        latch_acc: bool = False,
+        latch_flags: bool = False, 
+        data_sel: int | None = None,
+        next_pc: int | None = None,
+        # oe: bool = False,
+        wr: bool = False
     ):
-        ...
-
-class DataPath:
-    acc: int
-    # nf: bool  # negative flag
-    # zf: bool  # zero flag
-    da: int  # data address
-    mem: list[int]
-    sp: int  # stack pointer
-    def __init__(self, mem: list[int]):
-        self.acc = 0
-        self.da = 0
-        self.mem = mem
-        self.sp = len(mem)
-    # def latch_acc(self, sel: int):
-    #     ...
-    # def latch_flags(self):
-    #     ...
-    # def latch_da(self, sel: int):
-    #     ...
-    # def write_mem(self):
-    #     ...
-    # def latch_sp(self, sel: int):
-    #     ...
+        self.operand = operand
+        self.sp_sel = sp_sel
+        self.latch_sp = latch_sp
+        self.da_sel = da_sel
+        self.latch_da = latch_da
+        self.alu_sel = alu_sel
+        self.alu_op = alu_op
+        self.acc_sel = acc_sel
+        self.latch_acc = latch_acc
+        self.latch_flags = latch_flags
+        self.data_sel = data_sel
+        self.next_pc = next_pc
+        # self.oe = oe
+        self.wr = wr
         
 def decode_instruction(binary_code: int) -> Instruction:
     temp = binary_code.to_bytes(6, 'little', signed=True)
@@ -1258,7 +1403,72 @@ def decode_instruction(binary_code: int) -> Instruction:
     operand = int.from_bytes(temp[2:], 'little', signed=True)
     instr = Instruction(opcode, operand_type, operand)
     return instr        
-        
+
+def is_math_instruction(instr: Instruction) -> bool:
+    return instr.opcode in {
+        Opcode.ADD, Opcode.SUB, Opcode.MUL, 
+        Opcode.DIV, Opcode.REM
+    }        
+
+class DataPath:
+    acc: int  # accumulator register
+    nf: bool  # negative flag (part of flags register)
+    zf: bool  # zero flag (part of flags register)
+    pf: bool  # positive flag (part of flags register)
+    da: int  # data address register
+    mem: list[int]
+    sp: int  # stack pointer register
+    input_stream: list[str]
+    output_stream: list[str]
+    def __init__(self, mem: list[int], input_stream: list[str]):
+        self.acc = 0
+        self.da = 0
+        self.mem = mem
+        self.sp = len(mem)
+        self.input_stream = input_stream
+        self.output_stream = []
+    def read_data(self):
+        addr = self.da
+        if addr == INPUT_PORT_ADDR:
+            if len(self.input_stream) == 0:
+                raise StopIteration
+            return ord(self.input_stream.pop(0))
+        elif addr == OUTPUT_PORT_ADDR:
+            raise Exception('Can not read from output port')
+        else:
+            return self.mem[addr]
+    def write_data(self, value: int):
+        addr = self.da
+        if addr == INPUT_PORT_ADDR:
+            raise Exception('Can not write to input port')
+        elif addr == OUTPUT_PORT_ADDR:
+            self.output_stream.append(chr(value))
+        else:
+            self.mem[addr] = value
+    def handle_signals(signals: Signals):
+        data_out: int | None = None
+        da_uses_data_out = signals.latch_da and signals.da_sel == 2
+        alu_uses_data_out = (signals.latch_acc or signals.latch_flags) and (signals.alu_sel == 1)
+        if da_uses_data_out or alu_uses_data_out:
+            data_out = self.read_data()
+        if signals.latch_da:
+            self.da = mux3(signals.operand, self.sp + signals.operand, data_out, signals.da_sel)
+        if signals.latch_sp:
+            self.sp = mux2(self.sp + 1, self.sp - 1, signals.sp_sel)            
+        if signals.latch_acc or signals.latch_flags:
+            if signals.acc_sel == 0 or signals.latch_flags:
+                alu_right = mux2(signals.operand, data_out, signals.alu_sel) 
+                alu_res = alu(self.acc, alu_right, signals.alu_op)
+            if signals.latch_acc:
+                self.acc = mux3(signals.operand, alu_res.value, data_out, signals.acc_sel)
+            else:
+                self.nf = alu_res.nf
+                self.zf = alu_res.zf
+                self.pf = alu_res.pf
+        if signals.wr:
+            data_in = mux2(self.acc, signals.next_pc, signals.data_sel) 
+            self.write_data(data_in)
+                
 class ControlUnit:
     dp: DataPath
     pc: int  # program counter
@@ -1267,30 +1477,24 @@ class ControlUnit:
         self.dp = dp
         self.pc = 0
         self.mem = mem
-    def latch_pc(self, sel: int):
-        ...
+    # def latch_pc(self, sel: int):
+    #     ...
     def decode_and_execute_one_instruction(self):
-        ...
-
-        
-        
-def read_debug_info(file_name) -> list[str]:
-    file = open(file_name, 'r')
-    content = file.read()
-    file.close()
-    return content.split('\n')
-
-# just for test
-debug_info = make_debug_info(program_source, program_code).split('\n')
-
-def parse_debug_info(debug_info: list[str]) -> list[str]:
-    res = []
-    for line in debug_info:
-        res.append(line.split(';')[1][1:])
-    return res
-
-source_lines = parse_debug_info(debug_info)
-
+        # fetch
+        binary_code = self.mem[self.pc]
+        instr = decode_instruction(binary_code)
+        match instr.opcode:
+            case Opcode.LD:
+                match instr.operand_type:
+                    case OperandType.IMMEDIATE:
+                        # operand -> ACC
+                        self.dp.handle_signals(Signals(
+                            acc_sel
+                            latch_acc=True
+                        ))
+            case Opcode.ST:
+                ...
+                
 def pack_machine_words(data: list[int], word_size: int) -> list[int]:
     res = []
     temp = []
@@ -1303,19 +1507,68 @@ def pack_machine_words(data: list[int], word_size: int) -> list[int]:
     return res
 
 def read_code(file_name: str) -> list[int]:
-    #todo: open and read file, convert to bytes and then
-    # call pack_machine_words
+    file = open(file_name, 'rb')
+    content = bytearray(file.read())
+    binary_code = []
+    for byte in content:
+        binary_code.append(byte)
+    file.close()      
+    code_mem = pack_machine_words(binary_code, CODE_WORD_SIZE)
+    return code_mem
 
-            
-# print(Opcode(0))    
-# print(binary_code[:30])    
-code_mem = pack_machine_words(binary_code, CODE_WORD_SIZE)
-# print(code_mem)
-# for el in code_mem:
-    # print(decode_instruction(el))
+def read_data(file_name: str) -> list[int]:
+    file = open(file_name, 'rb')
+    content = bytearray(file.read())
+    mem = []
+    for byte in content:
+        mem.append(byte)
+    file.close()      
+    return mem
 
-dp = DataPath(...)
-cu = ControlUnit(code_mem)
+def read_input(file_name: str) -> list[str]:
+    file = open(file_name, 'r')
+    content = file.read()
+    file.close()
+    return list(content) + ['\0']
+
+def read_debug_info(file_name) -> list[str]:
+    file = open(file_name, 'r')
+    content = file.read()
+    file.close()
+    return content.split('\n')
+
+def parse_debug_info(debug_info: list[str]) -> list[str]:
+    res = []
+    for line in debug_info:
+        res.append(line.split(';')[1][1:])
+    return res
+
+def simulate(binary_name: str, memory_name: str, input_name: str, debug_name: str | None):
+    code_mem: list[int] = read_code(binary_name)
+    data_mem: list[int] = read_data(memory_name)
+    input_stream = read_input(input_name)
+    if debug_name is not None:
+        debug_info: list[str] = read_debug_info(debug_name)
+        source_lines = parse_debug_info(debug_info)
+    else:
+        debug_info = None
+        source_lines = None
+    dp = DataPath(data_mem + [0] * STACK_SIZE, input_stream)
+    cu = ControlUnit(dp, code_mem)
+        
+# import argparse
+# arg_parser = argparse.ArgumentParser(
+#     prog='translator',
+#     description='Lisp-like language translator'
+# )
+# arg_parser.add_argument('binary_name', help='output file for binary code')
+# arg_parser.add_argument('memory_name', help='output file for static memory content')
+# arg_parser.add_argument('debug_name', nargs='?', help='output file for debug information')
+# args = arg_parser.parse_args()
+# translate(args.source_name, args.binary_name, args.memory_name, args.debug_name)
+simulate('in/cat.bin', 'in/cat.dat', 'in/cat.txt', 'in/cat.dbg')
+
+        
         
 ###########################################
 import doctest; doctest.testmod()
@@ -1357,3 +1610,5 @@ import doctest; doctest.testmod()
 (printnumber (prob 0 0))
 
 """        
+
+

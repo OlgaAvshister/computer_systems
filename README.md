@@ -80,7 +80,7 @@ program := expression*
 | 0702 | JMP       | ADDRESS       | operand -> PC                         |
 | 0802 | JE        | ADDRESS       | if ZF = 1 then operand -> PC          |
 | 0902 | JG        | ADDRESS       | if PF = 1 then operand -> PC          |
-| 0A02 | JGE        | ADDRESS       | if ZF = 1 or PF = 1 then operand -> PC|
+| 0A02 | JGE       | ADDRESS       | if ZF = 1 or PF = 1 then operand -> PC|
 | 0B02 | JL        | ADDRESS       | if NF = 1 then operand -> PC          |
 | 0C02 | JLE       | ADDRESS       | if ZF = 1 or NF = 1 then operand -> PC|
 | 0D02 | JNE       | ADDRESS       | if ZF = 0 then operand -> PC          |

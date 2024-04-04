@@ -36,8 +36,7 @@ program := expression*
 | 0102 | ST        | ADDRESS       | ACC -> DMEM[operand]                  |
 | 0103 | ST        | STACK_OFFSET  | ACC -> DMEM[SP + operand]             |
 | 0104 | ST        | STACK_POINTER | ACC -> DMEM[DMEM[SP + operand]]       |
-| 0201 | ADD       | IMMEDIATE     | ACC + operand -> ACC 
-                                     ACC < 0, ACC = 0, ACC > 0 -> FLAGS    |
+| 0201 | ADD       | IMMEDIATE     | ACC + operand -> ACC<br>ACC < 0, ACC = 0, ACC > 0 -> FLAGS    |
 | 0202 | ADD       | ADDRESS       | ACC + DMEM[operand] -> ACC 
                                      ACC < 0, ACC = 0, ACC > 0 -> FLAGS    |
 | 0203 | ADD       | STACK_OFFSET  | ACC + DMEM[SP + operand] -> ACC     

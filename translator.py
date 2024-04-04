@@ -1188,56 +1188,59 @@ def write_debug_info(debug_info: str, file_name: str):
 
 
 def translate(source_name: str, binary_name: str, memory_name: str, debug_name: str):
-    program_source = read_source_code(source_name) 
-    loc = lines_of_code(program_source)
-    program_source += '\n' + STDLIB
-    lst = split_chars(program_source)
-    lst = combine_str_lits(lst)
-    lst = combine_numbers_and_names(lst)
-    lst = combine_operators(lst)
-    lst = list(filter(not_space, lst))
-    tree = make_tree(lst)  
-    tree = wrap_program(tree)
-    tree = rewrite_special_chars(tree)
-    str_lits = collect_string_literals(tree)
-    str_map = make_string_map(str_lits)
-    mem = generate_static_memory(str_map)
-    tree = replace_string_literas(tree, str_map)
-    tree = replace_numbers(tree)
-    tree = process_makestring_forms(tree, mem)
-    tree = rewrite_getchar(tree)
-    tree = rewrite_setchar(tree) 
-    tree, _ = extract_variables(tree)
-    func_names = collect_function_names(tree)
-    tree = rewrite_function_calls(tree, func_names)
-    funcs = collect_functions(tree)
-    for i in range(len(funcs)):
-        body = rewrite_arguments(funcs[i].body, funcs[i].args)
-        body = rewrite_vars(body, [])
-        body = rewrite_ifs(body)
-        stack = funcs[i].args[:]
-        stack.append('RETURN_ADDR')
-        body = rewrite_var_refs(body, stack) 
-        mark_tail_calls(body, funcs[i].name) 
-        calc_tail_calls_stack_size(body, []) 
-        funcs[i].body = body
-    funcs_code = []
-    for i in range(len(funcs)):
-        code = generate_instructions(funcs[i])      
-        funcs_code.append(code)
-    calc_func_addrs(funcs, funcs_code) 
-    for i in range(len(funcs_code)):
-        fix_jumps(funcs_code[i], funcs[i].addr)
-        fix_calls(funcs_code[i], funcs)
-    program_code = merge_functions(funcs_code)
-    binary_code = encode_instructions(program_code)
-    print('LoC:', loc)
-    print('Instructions: ', len(program_code))
-    write_code(binary_code, binary_name)
-    write_data(mem, memory_name)
-    if debug_name is not None:
-        debug_info = make_debug_info(program_source, program_code)
-        write_debug_info(debug_info, debug_name)
+    try:
+        program_source = read_source_code(source_name) 
+        loc = lines_of_code(program_source)
+        program_source += '\n' + STDLIB
+        lst = split_chars(program_source)
+        lst = combine_str_lits(lst)
+        lst = combine_numbers_and_names(lst)
+        lst = combine_operators(lst)
+        lst = list(filter(not_space, lst))
+        tree = make_tree(lst)  
+        tree = wrap_program(tree)
+        tree = rewrite_special_chars(tree)
+        str_lits = collect_string_literals(tree)
+        str_map = make_string_map(str_lits)
+        mem = generate_static_memory(str_map)
+        tree = replace_string_literas(tree, str_map)
+        tree = replace_numbers(tree)
+        tree = process_makestring_forms(tree, mem)
+        tree = rewrite_getchar(tree)
+        tree = rewrite_setchar(tree) 
+        tree, _ = extract_variables(tree)
+        func_names = collect_function_names(tree)
+        tree = rewrite_function_calls(tree, func_names)
+        funcs = collect_functions(tree)
+        for i in range(len(funcs)):
+            body = rewrite_arguments(funcs[i].body, funcs[i].args)
+            body = rewrite_vars(body, [])
+            body = rewrite_ifs(body)
+            stack = funcs[i].args[:]
+            stack.append('RETURN_ADDR')
+            body = rewrite_var_refs(body, stack) 
+            mark_tail_calls(body, funcs[i].name) 
+            calc_tail_calls_stack_size(body, []) 
+            funcs[i].body = body
+        funcs_code = []
+        for i in range(len(funcs)):
+            code = generate_instructions(funcs[i])      
+            funcs_code.append(code)
+        calc_func_addrs(funcs, funcs_code) 
+        for i in range(len(funcs_code)):
+            fix_jumps(funcs_code[i], funcs[i].addr)
+            fix_calls(funcs_code[i], funcs)
+        program_code = merge_functions(funcs_code)
+        binary_code = encode_instructions(program_code)
+        print('LoC:', loc)
+        print('Instructions: ', len(program_code))
+        write_code(binary_code, binary_name)
+        write_data(mem, memory_name)
+        if debug_name is not None:
+            debug_info = make_debug_info(program_source, program_code)
+            write_debug_info(debug_info, debug_name)
+    except Exception as e:
+        print(e.message)
     
 # import argparse
 # arg_parser = argparse.ArgumentParser(
@@ -1258,6 +1261,30 @@ translate('in/cat.lsp', 'in/cat.bin', 'in/cat.dat', 'in/cat.dbg')
 DATA_WORD_SIZE = 4
 CODE_WORD_SIZE = 6
 STACK_SIZE = 256
+
+DA_SEL__OPERAND = 0
+DA_SEL__SP = 1
+DA_SEL__SP_OFFSET = 2
+DA_SEL__DATA_OUT = 3
+
+SP_SEL__SP_INC = 0
+SP_SEL__SP_DEC = 1
+
+ALU_SEL__OPERAND = 0
+ALU_SEL__DATA_OUT = 1
+
+ALU_OP__ADD = 0
+ALU_OP__SUB = 1
+ALU_OP__MUL = 2
+ALU_OP__DIV = 3
+ALU_OP__REM = 4
+
+ACC_SEL__OPERAND = 0
+ACC_SEL__ALU_RES = 1
+ACC_SEL__DATA_OUT = 2
+
+DATA_SEL__ACC = 0
+DATA_SEL__NEXT_PC = 1
 
 def wraparound(num):
     num_to_bytes = num.to_bytes(4, 'little', signed=True)
@@ -1295,15 +1322,15 @@ def mux3(a, b, c, sel):
     
 def opcode_to_alu_op(opcode):
     if opcode == Opcode.ADD:
-        return 0
+        return ALU_OP__ADD
     elif opcode == Opcode.SUB:
-        return 1
+        return ALU_OP__SUB
     elif opcode == Opcode.MUL:
-        return 2
+        return ALU_OP__MUL
     elif opcode == Opcode.DIV:
-        return 3
+        return ALU_OP__DIV
     elif opcode == Opcode.REM:
-        return 4
+        return ALU_OP__REM
     else:
         raise Exception('Wrong mathematical opcode')    
     
@@ -1320,18 +1347,18 @@ class ALUResult:
     
 def alu(a: int, b: int, op: int) -> ALUResult:
     value: int
-    if op == 0:
+    if op == ALU_OP__ADD:
         value = a + b
-    elif op == 1:
+    elif op == ALU_OP__SUB:
         value = a - b
-    elif op == 2:
+    elif op == ALU_OP__MUL:
         value = a * b
-    elif op == 3:
+    elif op == ALU_OP__DIV:
         if b != 0:
             value = a / b
         else:
             raise Exception('Divide by zero')    
-    elif op == 4:
+    elif op == ALU_OP__REM:
         if b != 0:
             value = a % b
         else:
@@ -1363,7 +1390,7 @@ class Signals:
     latch_flags: bool
     data_sel: int | None
     next_pc: int | None
-    # oe: bool
+    oe: bool
     wr: bool
     def Signals(
         operand: int | None = None,
@@ -1378,7 +1405,7 @@ class Signals:
         latch_flags: bool = False, 
         data_sel: int | None = None,
         next_pc: int | None = None,
-        # oe: bool = False,
+        oe: bool = False,
         wr: bool = False
     ):
         self.operand = operand
@@ -1393,7 +1420,7 @@ class Signals:
         self.latch_flags = latch_flags
         self.data_sel = data_sel
         self.next_pc = next_pc
-        # self.oe = oe
+        self.oe = oe
         self.wr = wr
         
 def decode_instruction(binary_code: int) -> Instruction:
@@ -1404,11 +1431,11 @@ def decode_instruction(binary_code: int) -> Instruction:
     instr = Instruction(opcode, operand_type, operand)
     return instr        
 
-def is_math_instruction(instr: Instruction) -> bool:
-    return instr.opcode in {
-        Opcode.ADD, Opcode.SUB, Opcode.MUL, 
-        Opcode.DIV, Opcode.REM
-    }        
+# def is_math_instruction(instr: Instruction) -> bool:
+#     return instr.opcode in {
+#         Opcode.ADD, Opcode.SUB, Opcode.MUL, 
+#         Opcode.DIV, Opcode.REM
+#     }
 
 class DataPath:
     acc: int  # accumulator register
@@ -1431,7 +1458,7 @@ class DataPath:
         addr = self.da
         if addr == INPUT_PORT_ADDR:
             if len(self.input_stream) == 0:
-                raise StopIteration
+                raise EOFError
             return ord(self.input_stream.pop(0))
         elif addr == OUTPUT_PORT_ADDR:
             raise Exception('Can not read from output port')
@@ -1447,12 +1474,18 @@ class DataPath:
             self.mem[addr] = value
     def handle_signals(signals: Signals):
         data_out: int | None = None
-        da_uses_data_out = signals.latch_da and signals.da_sel == 2
-        alu_uses_data_out = (signals.latch_acc or signals.latch_flags) and (signals.alu_sel == 1)
-        if da_uses_data_out or alu_uses_data_out:
+        if signals.oe:
             data_out = self.read_data()
+        else:
+            data_out = None
         if signals.latch_da:
-            self.da = mux3(signals.operand, self.sp + signals.operand, data_out, signals.da_sel)
+            self.da = mux4(
+                signals.operand, 
+                self.sp, 
+                self.sp + signals.operand, 
+                data_out, 
+                signals.da_sel
+            )
         if signals.latch_sp:
             self.sp = mux2(self.sp + 1, self.sp - 1, signals.sp_sel)            
         if signals.latch_acc or signals.latch_flags:
@@ -1468,7 +1501,7 @@ class DataPath:
         if signals.wr:
             data_in = mux2(self.acc, signals.next_pc, signals.data_sel) 
             self.write_data(data_in)
-                
+                               
 class ControlUnit:
     dp: DataPath
     pc: int  # program counter
@@ -1479,22 +1512,241 @@ class ControlUnit:
         self.mem = mem
     # def latch_pc(self, sel: int):
     #     ...
-    def decode_and_execute_one_instruction(self):
+    def decode_and_execute_instruction(self):
         # fetch
         binary_code = self.mem[self.pc]
         instr = decode_instruction(binary_code)
+        jumped = False
         match instr.opcode:
             case Opcode.LD:
                 match instr.operand_type:
                     case OperandType.IMMEDIATE:
                         # operand -> ACC
                         self.dp.handle_signals(Signals(
-                            acc_sel
+                            acc_sel=ACC_SEL__OPERAND,
+                            latch_acc=True
+                        ))
+                    case OperandType.ADDRESS:
+                        # DMEM[operand] -> ACC 
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__OPERAND,
+                            latch_da=True 
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            acc_sel=ACC_SEL__DATA_OUT,
+                            latch_acc=True  
+                        ))
+                    case OperandType.STACK_OFFSET:
+                        # DMEM[SP + operand] -> ACC 
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__SP_OFFSET,
+                            latch_da=True  
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            acc_sel=ACC_SEL__DATA_OUT,
+                            latch_acc=True  
+                        ))
+                    case OperandType.STACK_POINTER:
+                        # DMEM[DMEM[SP + operand]] -> ACC
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__SP_OFFSET,
+                            latch_da=True  
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            da_sel=DA_SEL__DATA_OUT,
+                            latch_da=True  
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            acc_sel=ACC_SEL__DATA_OUT,
                             latch_acc=True
                         ))
             case Opcode.ST:
-                ...
-                
+                match instr.operand_type:
+                    case OperandType.ADDRESS:
+                        # ACC -> DMEM[operand]
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__OPERAND,
+                            latch_da=True
+                        ))
+                        self.dp.handle_signals(Signals(
+                            data_sel=DATA_SEL__ACC,
+                            wr=True
+                        ))
+                    case OperandType.STACK_OFFSET:
+                        # ACC -> DMEM[SP + operand]    
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__SP_OFFSET,
+                            latch_da=True  
+                        ))
+                        self.dp.handle_signals(Signals(
+                            data_sel=DATA_SEL__ACC,
+                            wr=True
+                        ))
+                    case OperandType.STACK_POINTER:
+                        # ACC -> DMEM[DMEM[SP + operand]]  
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__SP_OFFSET,
+                            latch_da=True  
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            da_sel=DA_SEL__DATA_OUT,
+                            latch_da=True
+                        )) 
+                        self.dp.handle_signals(Signals(
+                            data_sel=DATA_SEL__ACC,
+                            wr=True
+                        ))
+            case Opcode.ADD, Opcode.SUB, Opcode.MUL, Opcode.DIV, Opcode.REM:
+                alu_op = opcode_to_alu_op(instr.opcode)
+                match instr.operand_type:
+                    case OperandType.IMMEDIATE:
+                        # ACC + operand -> ACC 
+                        # ACC < 0, ACC = 0, ACC > 0 -> FLAGS
+                        self.dp.handle_signals(Signals(
+                            alu_sel=ALU_SEL__OPERAND,
+                            alu_op=alu_op,
+                            latch_acc=True,
+                            latch_flags=True
+                        ))
+                    case OperandType.ADDRESS:
+                        # ACC + DMEM[operand] -> ACC 
+                        # ACC < 0, ACC = 0, ACC > 0 -> FLAGS 
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__OPERAND,
+                            latch_da=True
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            alu_sel=ACC_SEL__ALU_RES,
+                            alu_op=alu_op,
+                            latch_acc=True,
+                            latch_flags=True
+                        ))
+                    case OperandType.STACK_OFFSET:
+                        # ACC + DMEM[SP + operand] -> ACC     
+                        # ACC < 0, ACC = 0, ACC > 0 -> FLAGS 
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__SP_OFFSET,
+                            latch_da=True
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            alu_sel=ALU_SEL__DATA_OUT,
+                            alu_op=alu_op,
+                            latch_acc=True,
+                            latch_flags=True
+                        ))
+                    case OperandType.STACK_POINTER:
+                        # ACC + DMEM[DMEM[SP + operand]] -> ACC
+                        # ACC < 0, ACC = 0, ACC > 0 -> FLAGS
+                        self.dp.handle_signals(Signals(
+                            da_sel=DA_SEL__SP_OFFSET,
+                            latch_da=True
+                        ))
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            da_sel=DA_SEL__DATA_OUT,
+                            latch_da=True
+                        )) 
+                        self.dp.handle_signals(Signals(
+                            oe=True,
+                            alu_sel=ALU_SEL__DATA_OUT,
+                            alu_op=alu_op,
+                            latch_acc=True,
+                            latch_flags=True
+                        )) 
+            case Opcode.JMP:
+                # operand -> PC
+                self.pc = instr.operand
+                jumped = True
+            case Opcode.JE:
+                # if ZF = 1 then operand -> PC
+                if self.dp.zf:
+                    self.pc = instr.operand
+                    jumped = True
+            case Opcode.JG:
+                # if PF = 1 then operand -> PC   
+                if self.dp.pf:
+                    self.pc = instr.operand
+                    jumped = True
+            case Opcode.JGE:
+                # if ZF = 1 or PF = 1 then operand -> PC
+                if self.dp.zf or self.dp.pf:
+                    self.pc = instr.operand
+                    jumped = True
+            case Opcode.JL:
+                # if NF = 1 then operand -> PC   
+                if self.dp.nf:
+                    self.pc = instr.operand
+                    jumped = True
+            case Opcode.JLE:
+                # if ZF = 1 or NF = 1 then operand -> PC
+                if self.dp.zf or self.dp.nf:
+                    self.pc = instr.operand
+                    jumped = True
+            case Opcode.JNE:
+                # if ZF = 0 then operand -> PC
+                if not self.dp.zf:
+                    self.pc = instr.operand
+                    jumped = True
+            case Opcode.PUSH:
+                # SP = SP - 1; ACC -> DMEM[SP]  
+                self.dp.handle_signals(Signals(
+                    sp_sel=SP_SEL__SP_DEC,
+                    latch_sp=True
+                ))
+                self.dp.handle_signals(Signals(
+                    da_sel=DA_SEL__SP,
+                    latch_da=True  
+                ))
+                self.dp.handle_signals(Signals(
+                    data_sel=DATA_SEL__ACC,
+                    wr=True
+                ))
+            case Opcode.POP:
+                #  SP = SP + 1           
+                self.dp.handle_signals(Signals(
+                    sp_sel=SP_SEL__SP_INC,
+                    latch_sp=True
+                ))
+            case Opcode.CALL:
+                # SP = SP - 1;   PC + 1 -> DMEM[SP];  operand -> PC 
+                self.dp.handle_signals(Signals(
+                    sp_sel=SP_SEL__SP_DEC,
+                    latch_sp=True
+                ))
+                self.dp.handle_signals(Signals(
+                    da_sel=DA_SEL__SP,
+                    latch_da=True
+                ))
+                self.dp.handle_signals(Signals(
+                    data_sel=DATA_SEL__NEXT_PC,
+                    wr=True
+                ))
+                self.pc = instr.operand
+                jumped = True
+            case Opcode.RET:
+                # DMEM[SP] -> PC; SP = SP + 1
+                self.dp.handle_signals(Signals(
+                    da_sel=DA_SEL__SP,
+                    latch_da=True
+                ))
+                self.pc = self.dp.read_data()
+                self.dp.handle_signals(Signals(
+                    sp_sel=SP_SEL__SP_INC,
+                    latch_sp=True
+                ))
+            case Opcode.HLT:
+                # (останов машины) 
+                raise StopIteration
+        if not jumped:
+            self.pc = self.pc + 1
+            
 def pack_machine_words(data: list[int], word_size: int) -> list[int]:
     res = []
     temp = []
@@ -1544,17 +1796,26 @@ def parse_debug_info(debug_info: list[str]) -> list[str]:
     return res
 
 def simulate(binary_name: str, memory_name: str, input_name: str, debug_name: str | None):
-    code_mem: list[int] = read_code(binary_name)
-    data_mem: list[int] = read_data(memory_name)
-    input_stream = read_input(input_name)
-    if debug_name is not None:
-        debug_info: list[str] = read_debug_info(debug_name)
-        source_lines = parse_debug_info(debug_info)
-    else:
-        debug_info = None
-        source_lines = None
-    dp = DataPath(data_mem + [0] * STACK_SIZE, input_stream)
-    cu = ControlUnit(dp, code_mem)
+    try:
+        code_mem: list[int] = read_code(binary_name)
+        data_mem: list[int] = read_data(memory_name)
+        input_stream = read_input(input_name)
+        if debug_name is not None:
+            debug_info: list[str] = read_debug_info(debug_name)
+            source_lines = parse_debug_info(debug_info)
+        else:
+            debug_info = None
+            source_lines = None
+        dp = DataPath(data_mem + [0] * STACK_SIZE, input_stream)
+        cu = ControlUnit(dp, code_mem)
+        while True:
+            cu.decode_and_execute_instruction()
+    except StopIteration:
+        pass
+    except EOFError:
+        print('end of input stream reachead')
+    except Exception as e:
+        print(e.message)    
         
 # import argparse
 # arg_parser = argparse.ArgumentParser(

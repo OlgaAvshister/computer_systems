@@ -80,11 +80,11 @@ program := expression*
 ## Модель процессора
 Схема DataPath
 
-![DataPath](https://github.com/OlgaAvshister/computer_systems/blob/main/image1.png)
+![DataPath](DataPath.png)
 
 Схема ControlUnit
 
-![ControlUnit](https://github.com/OlgaAvshister/computer_systems/blob/main/image.png)
+![ControlUnit](ControlUnit.png)
 
 ## Тестирование
 

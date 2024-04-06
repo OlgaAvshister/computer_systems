@@ -2,7 +2,7 @@
 
 lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1
 
-Без усложнения
+Базовый вариант
 
 ## Язык программирования
 
@@ -24,6 +24,9 @@ expression :=
 program := expression*
 
 ## Организация памяти
+
+Есть возможность объявления переменных при помощи операции define.
+Есть возможность объявления функций при помощи операции defun.
 
 ## Система команд
 
@@ -75,6 +78,10 @@ program := expression*
 ## Транслятор
 
 ## Модель процессора
+Схема DataPath
+![DataPath](https://github.com/OlgaAvshister/computer_systems/blob/main/image1.png)
+Схема ControlUnit
+![ControlUnit](https://github.com/OlgaAvshister/computer_systems/blob/main/image.png)
 
 ## Тестирование
 

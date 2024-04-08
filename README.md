@@ -69,7 +69,7 @@ program := expression*
 | 0E00 | PUSH      | NONE          | SP = SP - 1; ACC -> DMEM[SP]          |
 | 0F00 | POP       | NONE          | SP = SP + 1                           |
 | 1002 | CALL      | ADDRESS       | SP = SP - 1;   PC + 1 -> DMEM[SP]; operand -> PC      |
-| 1100 | RET       | NONE          | DMEM[SP]| -> PC; SP = SP + 1          |
+| 1100 | RET       | NONE          | DMEM[SP] -> PC; SP + 1  -> SP         |
 | 1200 | HLT       | NONE          | (останов машины)                      |
 
 В описании инструкций для упрощения опущены манипуляции регистром `DA`.     

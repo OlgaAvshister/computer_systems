@@ -66,9 +66,9 @@ program := expression*
 | 0B02 | JL        | ADDRESS       | if NF = 1 then operand -> PC          |
 | 0C02 | JLE       | ADDRESS       | if ZF = 1 or NF = 1 then operand -> PC|
 | 0D02 | JNE       | ADDRESS       | if ZF = 0 then operand -> PC          |
-| 0E00 | PUSH      | NONE          | SP = SP - 1; ACC -> DMEM[SP]          |
-| 0F00 | POP       | NONE          | SP = SP + 1                           |
-| 1002 | CALL      | ADDRESS       | SP = SP - 1;   PC + 1 -> DMEM[SP]; operand -> PC      |
+| 0E00 | PUSH      | NONE          | SP - 1  -> SP; ACC -> DMEM[SP]        |
+| 0F00 | POP       | NONE          | SP + 1  -> SP                         |
+| 1002 | CALL      | ADDRESS       | SP - 1  -> SP;   PC + 1 -> DMEM[SP]; operand -> PC    |
 | 1100 | RET       | NONE          | DMEM[SP] -> PC; SP + 1  -> SP         |
 | 1200 | HLT       | NONE          | (останов машины)                      |
 

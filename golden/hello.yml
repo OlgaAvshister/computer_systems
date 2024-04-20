@@ -1,0 +1,1186 @@
+in_source: |-
+  (printstring "hello world")
+in_stdin: |
+out_stdout: |
+  LoC: 1
+  Instructions: 218
+  ============================================================
+  304 instructions executed
+  Final output stream: ['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+out_code: |-
+  CODE:
+  0000: 000102000000 LD 2               ; (printstring "hello world")
+  0001: 0e0000000000 PUSH               ; (printstring "hello world")
+  0002: 10024d000000 CALL 77            ; (printstring "hello world")
+  0003: 0f0000000000 POP                ; (printstring "hello world")
+  0004: 120000000000 HLT                ; 
+  0005: 000200000000 LD [0]             ;     (define c (readchar))
+  0006: 0e0000000000 PUSH               ;     (define c (readchar))
+  0007: 000303000000 LD [SP + 3]        ;     (setchar s i c)
+  0008: 020302000000 ADD [SP + 2]       ;     (setchar s i c)
+  0009: 0e0000000000 PUSH               ;     (setchar s i c)
+  0010: 000301000000 LD [SP + 1]        ;     (setchar s i c)
+  0011: 010400000000 ST [[SP + 0]]      ;     (setchar s i c)
+  0012: 000301000000 LD [SP + 1]        ;     (if (= c 0)
+  0013: 030100000000 SUB 0              ;     (if (= c 0)
+  0014: 080211000000 JE 17              ;     (if (= c 0)
+  0015: 000100000000 LD 0               ;     (if (= c 0)
+  0016: 070212000000 JMP 18             ;     (if (= c 0)
+  0017: 000101000000 LD 1               ;     (if (= c 0)
+  0018: 030100000000 SUB 0              ;     (if (= c 0)
+  0019: 080216000000 JE 22              ;     (if (= c 0)
+  0020: 000304000000 LD [SP + 4]        ;         s
+  0021: 070222000000 JMP 34             ;     (if (= c 0)
+  0022: 000303000000 LD [SP + 3]        ;         (doreadstring s (+ i 1)))))
+  0023: 020101000000 ADD 1              ;         (doreadstring s (+ i 1)))))
+  0024: 0e0000000000 PUSH               ;         (doreadstring s (+ i 1)))))
+  0025: 000305000000 LD [SP + 5]        ;         (doreadstring s (+ i 1)))))
+  0026: 010305000000 ST [SP + 5]        ;         (doreadstring s (+ i 1)))))
+  0027: 000300000000 LD [SP + 0]        ;         (doreadstring s (+ i 1)))))
+  0028: 010304000000 ST [SP + 4]        ;         (doreadstring s (+ i 1)))))
+  0029: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+  0030: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+  0031: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+  0032: 070205000000 JMP 5              ;         (doreadstring s (+ i 1)))))
+  0033: 0f0000000000 POP                ;     (if (= c 0)
+  0034: 0f0000000000 POP                ; 
+  0035: 0f0000000000 POP                ; 
+  0036: 110000000000 RET                ; 
+  0037: 000301000000 LD [SP + 1]        ;     (doreadstring s 0))
+  0038: 0e0000000000 PUSH               ;     (doreadstring s 0))
+  0039: 000100000000 LD 0               ;     (doreadstring s 0))
+  0040: 0e0000000000 PUSH               ;     (doreadstring s 0))
+  0041: 100205000000 CALL 5             ;     (doreadstring s 0))
+  0042: 0f0000000000 POP                ;     (doreadstring s 0))
+  0043: 0f0000000000 POP                ;     (doreadstring s 0))
+  0044: 110000000000 RET                ; 
+  0045: 000302000000 LD [SP + 2]        ;     (define c (getchar s i))
+  0046: 020301000000 ADD [SP + 1]       ;     (define c (getchar s i))
+  0047: 0e0000000000 PUSH               ;     (define c (getchar s i))
+  0048: 000400000000 LD [[SP + 0]]      ;     (define c (getchar s i))
+  0049: 0e0000000000 PUSH               ;     (define c (getchar s i))
+  0050: 000300000000 LD [SP + 0]        ;     (if (= c 0)
+  0051: 030100000000 SUB 0              ;     (if (= c 0)
+  0052: 080237000000 JE 55              ;     (if (= c 0)
+  0053: 000100000000 LD 0               ;     (if (= c 0)
+  0054: 070238000000 JMP 56             ;     (if (= c 0)
+  0055: 000101000000 LD 1               ;     (if (= c 0)
+  0056: 030100000000 SUB 0              ;     (if (= c 0)
+  0057: 08023c000000 JE 60              ;     (if (= c 0)
+  0058: 000303000000 LD [SP + 3]        ;         i
+  0059: 07024a000000 JMP 74             ;     (if (= c 0)
+  0060: 000300000000 LD [SP + 0]        ;         (do (printchar c)
+  0061: 010201000000 ST [1]             ;         (do (printchar c)
+  0062: 000303000000 LD [SP + 3]        ;             (doprintstring s (+ i 1))))))
+  0063: 020101000000 ADD 1              ;             (doprintstring s (+ i 1))))))
+  0064: 0e0000000000 PUSH               ;             (doprintstring s (+ i 1))))))
+  0065: 000305000000 LD [SP + 5]        ;             (doprintstring s (+ i 1))))))
+  0066: 010305000000 ST [SP + 5]        ;             (doprintstring s (+ i 1))))))
+  0067: 000300000000 LD [SP + 0]        ;             (doprintstring s (+ i 1))))))
+  0068: 010304000000 ST [SP + 4]        ;             (doprintstring s (+ i 1))))))
+  0069: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+  0070: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+  0071: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+  0072: 07022d000000 JMP 45             ;             (doprintstring s (+ i 1))))))
+  0073: 0f0000000000 POP                ;     (if (= c 0)
+  0074: 0f0000000000 POP                ; 
+  0075: 0f0000000000 POP                ; 
+  0076: 110000000000 RET                ; 
+  0077: 000301000000 LD [SP + 1]        ; (defun printstring (s) (doprintstring s 0))
+  0078: 0e0000000000 PUSH               ; (defun printstring (s) (doprintstring s 0))
+  0079: 000100000000 LD 0               ; (defun printstring (s) (doprintstring s 0))
+  0080: 0e0000000000 PUSH               ; (defun printstring (s) (doprintstring s 0))
+  0081: 10022d000000 CALL 45            ; (defun printstring (s) (doprintstring s 0))
+  0082: 0f0000000000 POP                ; (defun printstring (s) (doprintstring s 0))
+  0083: 0f0000000000 POP                ; (defun printstring (s) (doprintstring s 0))
+  0084: 110000000000 RET                ; 
+  0085: 000303000000 LD [SP + 3]        ;     (if (!= num 0)
+  0086: 030100000000 SUB 0              ;     (if (!= num 0)
+  0087: 0d025a000000 JNE 90             ;     (if (!= num 0)
+  0088: 000100000000 LD 0               ;     (if (!= num 0)
+  0089: 07025b000000 JMP 91             ;     (if (!= num 0)
+  0090: 000101000000 LD 1               ;     (if (!= num 0)
+  0091: 030100000000 SUB 0              ;     (if (!= num 0)
+  0092: 080280000000 JE 128             ;     (if (!= num 0)
+  0093: 000303000000 LD [SP + 3]        ;         (do (define digit (% num 10))
+  0094: 06010a000000 REM 10             ;         (do (define digit (% num 10))
+  0095: 0e0000000000 PUSH               ;         (do (define digit (% num 10))
+  0096: 000303000000 LD [SP + 3]        ;             (setchar buf i (+ digit 48))
+  0097: 020302000000 ADD [SP + 2]       ;             (setchar buf i (+ digit 48))
+  0098: 0e0000000000 PUSH               ;             (setchar buf i (+ digit 48))
+  0099: 000301000000 LD [SP + 1]        ;             (setchar buf i (+ digit 48))
+  0100: 020130000000 ADD 48             ;             (setchar buf i (+ digit 48))
+  0101: 0e0000000000 PUSH               ;             (setchar buf i (+ digit 48))
+  0102: 000300000000 LD [SP + 0]        ;             (setchar buf i (+ digit 48))
+  0103: 010401000000 ST [[SP + 1]]      ;             (setchar buf i (+ digit 48))
+  0104: 000306000000 LD [SP + 6]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0105: 05010a000000 DIV 10             ;             (writedigits (/ num 10) buf (- i 1)))
+  0106: 0e0000000000 PUSH               ;             (writedigits (/ num 10) buf (- i 1)))
+  0107: 000305000000 LD [SP + 5]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0108: 030101000000 SUB 1              ;             (writedigits (/ num 10) buf (- i 1)))
+  0109: 0e0000000000 PUSH               ;             (writedigits (/ num 10) buf (- i 1)))
+  0110: 000301000000 LD [SP + 1]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0111: 010308000000 ST [SP + 8]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0112: 000307000000 LD [SP + 7]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0113: 010307000000 ST [SP + 7]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0114: 000300000000 LD [SP + 0]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0115: 010306000000 ST [SP + 6]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0116: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0117: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0118: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0119: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0120: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0121: 070255000000 JMP 85             ;             (writedigits (/ num 10) buf (- i 1)))
+  0122: 0f0000000000 POP                ;     (if (!= num 0)
+  0123: 0f0000000000 POP                ;     (if (!= num 0)
+  0124: 0f0000000000 POP                ;     (if (!= num 0)
+  0125: 0f0000000000 POP                ;     (if (!= num 0)
+  0126: 0f0000000000 POP                ;     (if (!= num 0)
+  0127: 070282000000 JMP 130            ;     (if (!= num 0)
+  0128: 000301000000 LD [SP + 1]        ;         (+ i 1)))
+  0129: 020101000000 ADD 1              ;         (+ i 1)))
+  0130: 110000000000 RET                ; 
+  0131: 000301000000 LD [SP + 1]        ;     (if (= num 0)
+  0132: 030100000000 SUB 0              ;     (if (= num 0)
+  0133: 080288000000 JE 136             ;     (if (= num 0)
+  0134: 000100000000 LD 0               ;     (if (= num 0)
+  0135: 070289000000 JMP 137            ;     (if (= num 0)
+  0136: 000101000000 LD 1               ;     (if (= num 0)
+  0137: 030100000000 SUB 0              ;     (if (= num 0)
+  0138: 080290000000 JE 144             ;     (if (= num 0)
+  0139: 00010e000000 LD 14              ;         (printstring "0")
+  0140: 0e0000000000 PUSH               ;         (printstring "0")
+  0141: 10024d000000 CALL 77            ;         (printstring "0")
+  0142: 0f0000000000 POP                ;         (printstring "0")
+  0143: 0702d9000000 JMP 217            ;     (if (= num 0)
+  0144: 00011e000000 LD 30              ;            (define buf (makestring 10))
+  0145: 0e0000000000 PUSH               ;            (define buf (makestring 10))
+  0146: 000302000000 LD [SP + 2]        ;            (if (> num 0)
+  0147: 030100000000 SUB 0              ;            (if (> num 0)
+  0148: 090297000000 JG 151             ;            (if (> num 0)
+  0149: 000100000000 LD 0               ;            (if (> num 0)
+  0150: 070298000000 JMP 152            ;            (if (> num 0)
+  0151: 000101000000 LD 1               ;            (if (> num 0)
+  0152: 030100000000 SUB 0              ;            (if (> num 0)
+  0153: 0802af000000 JE 175             ;            (if (> num 0)
+  0154: 000302000000 LD [SP + 2]        ;                    (define i (writedigits num buf 9))
+  0155: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0156: 000301000000 LD [SP + 1]        ;                    (define i (writedigits num buf 9))
+  0157: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0158: 000109000000 LD 9               ;                    (define i (writedigits num buf 9))
+  0159: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0160: 100255000000 CALL 85            ;                    (define i (writedigits num buf 9))
+  0161: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+  0162: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+  0163: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+  0164: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0165: 000301000000 LD [SP + 1]        ;                    (printstring (+ buf i)))
+  0166: 020300000000 ADD [SP + 0]       ;                    (printstring (+ buf i)))
+  0167: 0e0000000000 PUSH               ;                    (printstring (+ buf i)))
+  0168: 000300000000 LD [SP + 0]        ;                    (printstring (+ buf i)))
+  0169: 0e0000000000 PUSH               ;                    (printstring (+ buf i)))
+  0170: 10024d000000 CALL 77            ;                    (printstring (+ buf i)))
+  0171: 0f0000000000 POP                ;                    (printstring (+ buf i)))
+  0172: 0f0000000000 POP                ;            (if (> num 0)
+  0173: 0f0000000000 POP                ;            (if (> num 0)
+  0174: 0702d8000000 JMP 216            ;            (if (> num 0)
+  0175: 000302000000 LD [SP + 2]        ;                (if (= num -2147483648)
+  0176: 030100000080 SUB -2147483648    ;                (if (= num -2147483648)
+  0177: 0802b4000000 JE 180             ;                (if (= num -2147483648)
+  0178: 000100000000 LD 0               ;                (if (= num -2147483648)
+  0179: 0702b5000000 JMP 181            ;                (if (= num -2147483648)
+  0180: 000101000000 LD 1               ;                (if (= num -2147483648)
+  0181: 030100000000 SUB 0              ;                (if (= num -2147483648)
+  0182: 0802bc000000 JE 188             ;                (if (= num -2147483648)
+  0183: 000110000000 LD 16              ;                    (printstring "-2147483648")
+  0184: 0e0000000000 PUSH               ;                    (printstring "-2147483648")
+  0185: 10024d000000 CALL 77            ;                    (printstring "-2147483648")
+  0186: 0f0000000000 POP                ;                    (printstring "-2147483648")
+  0187: 0702d8000000 JMP 216            ;                (if (= num -2147483648)
+  0188: 00011c000000 LD 28              ;                        (printstring "-")
+  0189: 0e0000000000 PUSH               ;                        (printstring "-")
+  0190: 10024d000000 CALL 77            ;                        (printstring "-")
+  0191: 0f0000000000 POP                ;                        (printstring "-")
+  0192: 000302000000 LD [SP + 2]        ;                        (define i (writedigits (* num -1) buf 9))
+  0193: 0401ffffffff MUL -1             ;                        (define i (writedigits (* num -1) buf 9))
+  0194: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0195: 000300000000 LD [SP + 0]        ;                        (define i (writedigits (* num -1) buf 9))
+  0196: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0197: 000302000000 LD [SP + 2]        ;                        (define i (writedigits (* num -1) buf 9))
+  0198: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0199: 000109000000 LD 9               ;                        (define i (writedigits (* num -1) buf 9))
+  0200: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0201: 100255000000 CALL 85            ;                        (define i (writedigits (* num -1) buf 9))
+  0202: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+  0203: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+  0204: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+  0205: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0206: 000302000000 LD [SP + 2]        ;                        (printstring (+ buf i))))))))
+  0207: 020300000000 ADD [SP + 0]       ;                        (printstring (+ buf i))))))))
+  0208: 0e0000000000 PUSH               ;                        (printstring (+ buf i))))))))
+  0209: 000300000000 LD [SP + 0]        ;                        (printstring (+ buf i))))))))
+  0210: 0e0000000000 PUSH               ;                        (printstring (+ buf i))))))))
+  0211: 10024d000000 CALL 77            ;                        (printstring (+ buf i))))))))
+  0212: 0f0000000000 POP                ;                        (printstring (+ buf i))))))))
+  0213: 0f0000000000 POP                ;                (if (= num -2147483648)
+  0214: 0f0000000000 POP                ;                (if (= num -2147483648)
+  0215: 0f0000000000 POP                ;                (if (= num -2147483648)
+  0216: 0f0000000000 POP                ;     (if (= num 0)
+  0217: 110000000000 RET                ; 
+  DATA:
+  0000: 00000000
+  0001: 00000000
+  0002: 00000068
+  0003: 00000065
+  0004: 0000006c
+  0005: 0000006c
+  0006: 0000006f
+  0007: 00000020
+  0008: 00000077
+  0009: 0000006f
+  0010: 00000072
+  0011: 0000006c
+  0012: 00000064
+  0013: 00000000
+  0014: 00000030
+  0015: 00000000
+  0016: 0000002d
+  0017: 00000032
+  0018: 00000031
+  0019: 00000034
+  0020: 00000037
+  0021: 00000034
+  0022: 00000038
+  0023: 00000033
+  0024: 00000036
+  0025: 00000034
+  0026: 00000038
+  0027: 00000000
+  0028: 0000002d
+  0029: 00000000
+  0030: 00000000
+  0031: 00000000
+  0032: 00000000
+  0033: 00000000
+  0034: 00000000
+  0035: 00000000
+  0036: 00000000
+  0037: 00000000
+  0038: 00000000
+  0039: 00000000
+  0040: 00000000
+in_logging_level: debug
+in_debug_level: 2
+out_log: |
+  DEBUG   simulator:log_state     PC=00000000 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=00000129
+  DEBUG   simulator:log_state     stack=[] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0000: 000102000000 LD 2             ; (printstring "hello world")
+  DEBUG   simulator:log_state     PC=00000001 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=00000129
+  DEBUG   simulator:log_state     stack=[] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0001: 0e0000000000 PUSH             ; (printstring "hello world")
+  DEBUG   simulator:log_state     PC=00000002 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=0] DA=00000128 SP=00000128
+  DEBUG   simulator:log_state     stack=[2] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0002: 10024d000000 CALL 77          ; (printstring "hello world")
+  DEBUG   simulator:log_state     PC=00000077 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=0] DA=00000127 SP=00000127
+  DEBUG   simulator:log_state     stack=[2, 3] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0077: 000301000000 LD [SP + 1]      ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000078 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=0] DA=00000128 SP=00000127
+  DEBUG   simulator:log_state     stack=[2, 3] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0078: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000079 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=0] DA=00000126 SP=00000126
+  DEBUG   simulator:log_state     stack=[2, 3, 2] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0079: 000100000000 LD 0             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000080 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000126 SP=00000126
+  DEBUG   simulator:log_state     stack=[2, 3, 2] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0080: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000081 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000125 SP=00000125
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0081: 10022d000000 CALL 45          ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000124 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=0] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000068 FLAGS=[NF=0,ZF=0,PF=1] DA=00000002 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000068 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000068 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000068 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=00000068 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=00000068 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=00000068 FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104, 1] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104, 1] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104, 1] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 0, 82, 2, 104, 1] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 2, 104, 1] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 2, 104] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 2] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=1] DA=00000003 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=00000065 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=00000065 FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000001 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101, 2] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101, 2] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101, 2] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 1, 82, 3, 101, 2] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 3, 101, 2] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 3, 101] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 3] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000004 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=0000006c FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=0000006c FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000002 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108, 3] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108, 3] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108, 3] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 2, 82, 4, 108, 3] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 4, 108, 3] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 4, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 4] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000003 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000005 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=0000006c FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=0000006c FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000003 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108, 4] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108, 4] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108, 4] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 3, 82, 5, 108, 4] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 5, 108, 4] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 5, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000004 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000006 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=0000006f FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=0000006f FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000004 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 4, 82, 6, 111, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 6, 111, 5] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 6, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000005 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000020 FLAGS=[NF=0,ZF=0,PF=1] DA=00000007 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000020 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000020 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000020 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=00000020 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=00000020 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=00000020 FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000005 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 5, 82, 7, 32, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 7, 32, 6] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 7, 32] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000006 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000077 FLAGS=[NF=0,ZF=0,PF=1] DA=00000008 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000077 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000077 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000077 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=00000077 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=00000077 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=00000077 FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000006 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 6, 82, 8, 119, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 8, 119, 7] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 8, 119] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000007 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000009 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=0000006f FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=0000006f FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=0000006f FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000007 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 7, 82, 9, 111, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 9, 111, 8] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 9, 111] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000008 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000072 FLAGS=[NF=0,ZF=0,PF=1] DA=0000000a SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000072 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000072 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000072 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=00000072 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=00000072 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=00000072 FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000008 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 8, 82, 10, 114, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 10, 114, 9] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 10, 114] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=00000009 FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=0000000b SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=0000006c FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=0000006c FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=00000009 FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 9, 82, 11, 108, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 11, 108, 10] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 11, 108] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=0000000a FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=0000000c FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=0000000c FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000064 FLAGS=[NF=0,ZF=0,PF=1] DA=0000000c SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000064 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000064 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000064 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000053 ACC=00000064 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0053: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000054 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0054: 070238000000 JMP 56           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000060 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0060: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000061 ACC=00000064 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l']
+  DEBUG   simulator:log_instruction 0061: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_state     PC=00000062 ACC=00000064 FLAGS=[NF=0,ZF=1,PF=0] DA=00000001 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0062: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000063 ACC=0000000a FLAGS=[NF=0,ZF=1,PF=0] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0063: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000064 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0064: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000065 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0065: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000066 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0066: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000067 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0067: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000068 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000121 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 10, 82, 12, 100, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0068: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000069 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000121
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 12, 100, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0069: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000070 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 12, 100] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0070: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000071 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 12] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0071: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000072 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0072: 07022d000000 JMP 45           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_state     PC=00000045 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0045: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000046 ACC=00000002 FLAGS=[NF=0,ZF=0,PF=1] DA=00000126 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0046: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000047 ACC=0000000d FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0047: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000048 ACC=0000000d FLAGS=[NF=0,ZF=0,PF=1] DA=00000123 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0048: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000049 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=0000000d SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0049: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_state     PC=00000050 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0050: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000051 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0051: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000052 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0052: 080237000000 JE 55            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000055 ACC=00000000 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0055: 000101000000 LD 1             ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000056 ACC=00000001 FLAGS=[NF=0,ZF=1,PF=0] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0056: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000057 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0057: 08023c000000 JE 60            ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000058 ACC=00000001 FLAGS=[NF=0,ZF=0,PF=1] DA=00000122 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0058: 000303000000 LD [SP + 3]      ;         i
+  DEBUG   simulator:log_state     PC=00000059 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0059: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_state     PC=00000074 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000122
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13, 0] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0074: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_state     PC=00000075 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000123
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82, 13] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0075: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_state     PC=00000076 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000125 SP=00000124
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11, 82] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0076: 110000000000 RET              ; 
+  DEBUG   simulator:log_state     PC=00000082 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000124 SP=00000125
+  DEBUG   simulator:log_state     stack=[2, 3, 2, 11] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0082: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000083 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000124 SP=00000126
+  DEBUG   simulator:log_state     stack=[2, 3, 2] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0083: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_state     PC=00000084 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000124 SP=00000127
+  DEBUG   simulator:log_state     stack=[2, 3] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0084: 110000000000 RET              ; 
+  DEBUG   simulator:log_state     PC=00000003 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000127 SP=00000128
+  DEBUG   simulator:log_state     stack=[2] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0003: 0f0000000000 POP              ; (printstring "hello world")
+  DEBUG   simulator:log_state     PC=00000004 ACC=0000000b FLAGS=[NF=0,ZF=0,PF=1] DA=00000127 SP=00000129
+  DEBUG   simulator:log_state     stack=[] input_stream=['\x00'] output_stream=['h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd']
+  DEBUG   simulator:log_instruction 0004: 120000000000 HLT              ; 

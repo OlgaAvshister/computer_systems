@@ -1,0 +1,1586 @@
+in_source: |-
+  (printstring "What is your name?")
+  (define username (readstring (makestring 200)))
+  (printstring "Hello, ")
+  (printstring username)
+  (printstring "!\n")
+in_stdin: |-
+  Alice
+out_stdout: |
+  LoC: 5
+  Instructions: 236
+  ============================================================
+  1070 instructions executed
+  Final output stream: ['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l', 'i', 'c', 'e', '!', '\n']
+out_code: |-
+  CODE:
+  0000: 000102000000 LD 2               ; (printstring "What is your name?")
+  0001: 0e0000000000 PUSH               ; (printstring "What is your name?")
+  0002: 10025f000000 CALL 95            ; (printstring "What is your name?")
+  0003: 0f0000000000 POP                ; (printstring "What is your name?")
+  0004: 000130000000 LD 48              ; (define username (readstring (makestring 200)))
+  0005: 0e0000000000 PUSH               ; (define username (readstring (makestring 200)))
+  0006: 100237000000 CALL 55            ; (define username (readstring (makestring 200)))
+  0007: 0f0000000000 POP                ; (define username (readstring (makestring 200)))
+  0008: 0e0000000000 PUSH               ; (define username (readstring (makestring 200)))
+  0009: 000115000000 LD 21              ; (printstring "Hello, ")
+  0010: 0e0000000000 PUSH               ; (printstring "Hello, ")
+  0011: 10025f000000 CALL 95            ; (printstring "Hello, ")
+  0012: 0f0000000000 POP                ; (printstring "Hello, ")
+  0013: 000300000000 LD [SP + 0]        ; (printstring username)
+  0014: 0e0000000000 PUSH               ; (printstring username)
+  0015: 10025f000000 CALL 95            ; (printstring username)
+  0016: 0f0000000000 POP                ; (printstring username)
+  0017: 00011d000000 LD 29              ; (printstring "!\n")
+  0018: 0e0000000000 PUSH               ; (printstring "!\n")
+  0019: 10025f000000 CALL 95            ; (printstring "!\n")
+  0020: 0f0000000000 POP                ; (printstring "!\n")
+  0021: 0f0000000000 POP                ; 
+  0022: 120000000000 HLT                ; 
+  0023: 000200000000 LD [0]             ;     (define c (readchar))
+  0024: 0e0000000000 PUSH               ;     (define c (readchar))
+  0025: 000303000000 LD [SP + 3]        ;     (setchar s i c)
+  0026: 020302000000 ADD [SP + 2]       ;     (setchar s i c)
+  0027: 0e0000000000 PUSH               ;     (setchar s i c)
+  0028: 000301000000 LD [SP + 1]        ;     (setchar s i c)
+  0029: 010400000000 ST [[SP + 0]]      ;     (setchar s i c)
+  0030: 000301000000 LD [SP + 1]        ;     (if (= c 0)
+  0031: 030100000000 SUB 0              ;     (if (= c 0)
+  0032: 080223000000 JE 35              ;     (if (= c 0)
+  0033: 000100000000 LD 0               ;     (if (= c 0)
+  0034: 070224000000 JMP 36             ;     (if (= c 0)
+  0035: 000101000000 LD 1               ;     (if (= c 0)
+  0036: 030100000000 SUB 0              ;     (if (= c 0)
+  0037: 080228000000 JE 40              ;     (if (= c 0)
+  0038: 000304000000 LD [SP + 4]        ;         s
+  0039: 070234000000 JMP 52             ;     (if (= c 0)
+  0040: 000303000000 LD [SP + 3]        ;         (doreadstring s (+ i 1)))))
+  0041: 020101000000 ADD 1              ;         (doreadstring s (+ i 1)))))
+  0042: 0e0000000000 PUSH               ;         (doreadstring s (+ i 1)))))
+  0043: 000305000000 LD [SP + 5]        ;         (doreadstring s (+ i 1)))))
+  0044: 010305000000 ST [SP + 5]        ;         (doreadstring s (+ i 1)))))
+  0045: 000300000000 LD [SP + 0]        ;         (doreadstring s (+ i 1)))))
+  0046: 010304000000 ST [SP + 4]        ;         (doreadstring s (+ i 1)))))
+  0047: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+  0048: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+  0049: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+  0050: 070217000000 JMP 23             ;         (doreadstring s (+ i 1)))))
+  0051: 0f0000000000 POP                ;     (if (= c 0)
+  0052: 0f0000000000 POP                ; 
+  0053: 0f0000000000 POP                ; 
+  0054: 110000000000 RET                ; 
+  0055: 000301000000 LD [SP + 1]        ;     (doreadstring s 0))
+  0056: 0e0000000000 PUSH               ;     (doreadstring s 0))
+  0057: 000100000000 LD 0               ;     (doreadstring s 0))
+  0058: 0e0000000000 PUSH               ;     (doreadstring s 0))
+  0059: 100217000000 CALL 23            ;     (doreadstring s 0))
+  0060: 0f0000000000 POP                ;     (doreadstring s 0))
+  0061: 0f0000000000 POP                ;     (doreadstring s 0))
+  0062: 110000000000 RET                ; 
+  0063: 000302000000 LD [SP + 2]        ;     (define c (getchar s i))
+  0064: 020301000000 ADD [SP + 1]       ;     (define c (getchar s i))
+  0065: 0e0000000000 PUSH               ;     (define c (getchar s i))
+  0066: 000400000000 LD [[SP + 0]]      ;     (define c (getchar s i))
+  0067: 0e0000000000 PUSH               ;     (define c (getchar s i))
+  0068: 000300000000 LD [SP + 0]        ;     (if (= c 0)
+  0069: 030100000000 SUB 0              ;     (if (= c 0)
+  0070: 080249000000 JE 73              ;     (if (= c 0)
+  0071: 000100000000 LD 0               ;     (if (= c 0)
+  0072: 07024a000000 JMP 74             ;     (if (= c 0)
+  0073: 000101000000 LD 1               ;     (if (= c 0)
+  0074: 030100000000 SUB 0              ;     (if (= c 0)
+  0075: 08024e000000 JE 78              ;     (if (= c 0)
+  0076: 000303000000 LD [SP + 3]        ;         i
+  0077: 07025c000000 JMP 92             ;     (if (= c 0)
+  0078: 000300000000 LD [SP + 0]        ;         (do (printchar c)
+  0079: 010201000000 ST [1]             ;         (do (printchar c)
+  0080: 000303000000 LD [SP + 3]        ;             (doprintstring s (+ i 1))))))
+  0081: 020101000000 ADD 1              ;             (doprintstring s (+ i 1))))))
+  0082: 0e0000000000 PUSH               ;             (doprintstring s (+ i 1))))))
+  0083: 000305000000 LD [SP + 5]        ;             (doprintstring s (+ i 1))))))
+  0084: 010305000000 ST [SP + 5]        ;             (doprintstring s (+ i 1))))))
+  0085: 000300000000 LD [SP + 0]        ;             (doprintstring s (+ i 1))))))
+  0086: 010304000000 ST [SP + 4]        ;             (doprintstring s (+ i 1))))))
+  0087: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+  0088: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+  0089: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+  0090: 07023f000000 JMP 63             ;             (doprintstring s (+ i 1))))))
+  0091: 0f0000000000 POP                ;     (if (= c 0)
+  0092: 0f0000000000 POP                ; 
+  0093: 0f0000000000 POP                ; 
+  0094: 110000000000 RET                ; 
+  0095: 000301000000 LD [SP + 1]        ; (defun printstring (s) (doprintstring s 0))
+  0096: 0e0000000000 PUSH               ; (defun printstring (s) (doprintstring s 0))
+  0097: 000100000000 LD 0               ; (defun printstring (s) (doprintstring s 0))
+  0098: 0e0000000000 PUSH               ; (defun printstring (s) (doprintstring s 0))
+  0099: 10023f000000 CALL 63            ; (defun printstring (s) (doprintstring s 0))
+  0100: 0f0000000000 POP                ; (defun printstring (s) (doprintstring s 0))
+  0101: 0f0000000000 POP                ; (defun printstring (s) (doprintstring s 0))
+  0102: 110000000000 RET                ; 
+  0103: 000303000000 LD [SP + 3]        ;     (if (!= num 0)
+  0104: 030100000000 SUB 0              ;     (if (!= num 0)
+  0105: 0d026c000000 JNE 108            ;     (if (!= num 0)
+  0106: 000100000000 LD 0               ;     (if (!= num 0)
+  0107: 07026d000000 JMP 109            ;     (if (!= num 0)
+  0108: 000101000000 LD 1               ;     (if (!= num 0)
+  0109: 030100000000 SUB 0              ;     (if (!= num 0)
+  0110: 080292000000 JE 146             ;     (if (!= num 0)
+  0111: 000303000000 LD [SP + 3]        ;         (do (define digit (% num 10))
+  0112: 06010a000000 REM 10             ;         (do (define digit (% num 10))
+  0113: 0e0000000000 PUSH               ;         (do (define digit (% num 10))
+  0114: 000303000000 LD [SP + 3]        ;             (setchar buf i (+ digit 48))
+  0115: 020302000000 ADD [SP + 2]       ;             (setchar buf i (+ digit 48))
+  0116: 0e0000000000 PUSH               ;             (setchar buf i (+ digit 48))
+  0117: 000301000000 LD [SP + 1]        ;             (setchar buf i (+ digit 48))
+  0118: 020130000000 ADD 48             ;             (setchar buf i (+ digit 48))
+  0119: 0e0000000000 PUSH               ;             (setchar buf i (+ digit 48))
+  0120: 000300000000 LD [SP + 0]        ;             (setchar buf i (+ digit 48))
+  0121: 010401000000 ST [[SP + 1]]      ;             (setchar buf i (+ digit 48))
+  0122: 000306000000 LD [SP + 6]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0123: 05010a000000 DIV 10             ;             (writedigits (/ num 10) buf (- i 1)))
+  0124: 0e0000000000 PUSH               ;             (writedigits (/ num 10) buf (- i 1)))
+  0125: 000305000000 LD [SP + 5]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0126: 030101000000 SUB 1              ;             (writedigits (/ num 10) buf (- i 1)))
+  0127: 0e0000000000 PUSH               ;             (writedigits (/ num 10) buf (- i 1)))
+  0128: 000301000000 LD [SP + 1]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0129: 010308000000 ST [SP + 8]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0130: 000307000000 LD [SP + 7]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0131: 010307000000 ST [SP + 7]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0132: 000300000000 LD [SP + 0]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0133: 010306000000 ST [SP + 6]        ;             (writedigits (/ num 10) buf (- i 1)))
+  0134: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0135: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0136: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0137: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0138: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+  0139: 070267000000 JMP 103            ;             (writedigits (/ num 10) buf (- i 1)))
+  0140: 0f0000000000 POP                ;     (if (!= num 0)
+  0141: 0f0000000000 POP                ;     (if (!= num 0)
+  0142: 0f0000000000 POP                ;     (if (!= num 0)
+  0143: 0f0000000000 POP                ;     (if (!= num 0)
+  0144: 0f0000000000 POP                ;     (if (!= num 0)
+  0145: 070294000000 JMP 148            ;     (if (!= num 0)
+  0146: 000301000000 LD [SP + 1]        ;         (+ i 1)))
+  0147: 020101000000 ADD 1              ;         (+ i 1)))
+  0148: 110000000000 RET                ; 
+  0149: 000301000000 LD [SP + 1]        ;     (if (= num 0)
+  0150: 030100000000 SUB 0              ;     (if (= num 0)
+  0151: 08029a000000 JE 154             ;     (if (= num 0)
+  0152: 000100000000 LD 0               ;     (if (= num 0)
+  0153: 07029b000000 JMP 155            ;     (if (= num 0)
+  0154: 000101000000 LD 1               ;     (if (= num 0)
+  0155: 030100000000 SUB 0              ;     (if (= num 0)
+  0156: 0802a2000000 JE 162             ;     (if (= num 0)
+  0157: 000120000000 LD 32              ;         (printstring "0")
+  0158: 0e0000000000 PUSH               ;         (printstring "0")
+  0159: 10025f000000 CALL 95            ;         (printstring "0")
+  0160: 0f0000000000 POP                ;         (printstring "0")
+  0161: 0702eb000000 JMP 235            ;     (if (= num 0)
+  0162: 0001f9000000 LD 249             ;            (define buf (makestring 10))
+  0163: 0e0000000000 PUSH               ;            (define buf (makestring 10))
+  0164: 000302000000 LD [SP + 2]        ;            (if (> num 0)
+  0165: 030100000000 SUB 0              ;            (if (> num 0)
+  0166: 0902a9000000 JG 169             ;            (if (> num 0)
+  0167: 000100000000 LD 0               ;            (if (> num 0)
+  0168: 0702aa000000 JMP 170            ;            (if (> num 0)
+  0169: 000101000000 LD 1               ;            (if (> num 0)
+  0170: 030100000000 SUB 0              ;            (if (> num 0)
+  0171: 0802c1000000 JE 193             ;            (if (> num 0)
+  0172: 000302000000 LD [SP + 2]        ;                    (define i (writedigits num buf 9))
+  0173: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0174: 000301000000 LD [SP + 1]        ;                    (define i (writedigits num buf 9))
+  0175: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0176: 000109000000 LD 9               ;                    (define i (writedigits num buf 9))
+  0177: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0178: 100267000000 CALL 103           ;                    (define i (writedigits num buf 9))
+  0179: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+  0180: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+  0181: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+  0182: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+  0183: 000301000000 LD [SP + 1]        ;                    (printstring (+ buf i)))
+  0184: 020300000000 ADD [SP + 0]       ;                    (printstring (+ buf i)))
+  0185: 0e0000000000 PUSH               ;                    (printstring (+ buf i)))
+  0186: 000300000000 LD [SP + 0]        ;                    (printstring (+ buf i)))
+  0187: 0e0000000000 PUSH               ;                    (printstring (+ buf i)))
+  0188: 10025f000000 CALL 95            ;                    (printstring (+ buf i)))
+  0189: 0f0000000000 POP                ;                    (printstring (+ buf i)))
+  0190: 0f0000000000 POP                ;            (if (> num 0)
+  0191: 0f0000000000 POP                ;            (if (> num 0)
+  0192: 0702ea000000 JMP 234            ;            (if (> num 0)
+  0193: 000302000000 LD [SP + 2]        ;                (if (= num -2147483648)
+  0194: 030100000080 SUB -2147483648    ;                (if (= num -2147483648)
+  0195: 0802c6000000 JE 198             ;                (if (= num -2147483648)
+  0196: 000100000000 LD 0               ;                (if (= num -2147483648)
+  0197: 0702c7000000 JMP 199            ;                (if (= num -2147483648)
+  0198: 000101000000 LD 1               ;                (if (= num -2147483648)
+  0199: 030100000000 SUB 0              ;                (if (= num -2147483648)
+  0200: 0802ce000000 JE 206             ;                (if (= num -2147483648)
+  0201: 000122000000 LD 34              ;                    (printstring "-2147483648")
+  0202: 0e0000000000 PUSH               ;                    (printstring "-2147483648")
+  0203: 10025f000000 CALL 95            ;                    (printstring "-2147483648")
+  0204: 0f0000000000 POP                ;                    (printstring "-2147483648")
+  0205: 0702ea000000 JMP 234            ;                (if (= num -2147483648)
+  0206: 00012e000000 LD 46              ;                        (printstring "-")
+  0207: 0e0000000000 PUSH               ;                        (printstring "-")
+  0208: 10025f000000 CALL 95            ;                        (printstring "-")
+  0209: 0f0000000000 POP                ;                        (printstring "-")
+  0210: 000302000000 LD [SP + 2]        ;                        (define i (writedigits (* num -1) buf 9))
+  0211: 0401ffffffff MUL -1             ;                        (define i (writedigits (* num -1) buf 9))
+  0212: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0213: 000300000000 LD [SP + 0]        ;                        (define i (writedigits (* num -1) buf 9))
+  0214: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0215: 000302000000 LD [SP + 2]        ;                        (define i (writedigits (* num -1) buf 9))
+  0216: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0217: 000109000000 LD 9               ;                        (define i (writedigits (* num -1) buf 9))
+  0218: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0219: 100267000000 CALL 103           ;                        (define i (writedigits (* num -1) buf 9))
+  0220: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+  0221: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+  0222: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+  0223: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+  0224: 000302000000 LD [SP + 2]        ;                        (printstring (+ buf i))))))))
+  0225: 020300000000 ADD [SP + 0]       ;                        (printstring (+ buf i))))))))
+  0226: 0e0000000000 PUSH               ;                        (printstring (+ buf i))))))))
+  0227: 000300000000 LD [SP + 0]        ;                        (printstring (+ buf i))))))))
+  0228: 0e0000000000 PUSH               ;                        (printstring (+ buf i))))))))
+  0229: 10025f000000 CALL 95            ;                        (printstring (+ buf i))))))))
+  0230: 0f0000000000 POP                ;                        (printstring (+ buf i))))))))
+  0231: 0f0000000000 POP                ;                (if (= num -2147483648)
+  0232: 0f0000000000 POP                ;                (if (= num -2147483648)
+  0233: 0f0000000000 POP                ;                (if (= num -2147483648)
+  0234: 0f0000000000 POP                ;     (if (= num 0)
+  0235: 110000000000 RET                ; 
+  DATA:
+  0000: 00000000
+  0001: 00000000
+  0002: 00000057
+  0003: 00000068
+  0004: 00000061
+  0005: 00000074
+  0006: 00000020
+  0007: 00000069
+  0008: 00000073
+  0009: 00000020
+  0010: 00000079
+  0011: 0000006f
+  0012: 00000075
+  0013: 00000072
+  0014: 00000020
+  0015: 0000006e
+  0016: 00000061
+  0017: 0000006d
+  0018: 00000065
+  0019: 0000003f
+  0020: 00000000
+  0021: 00000048
+  0022: 00000065
+  0023: 0000006c
+  0024: 0000006c
+  0025: 0000006f
+  0026: 0000002c
+  0027: 00000020
+  0028: 00000000
+  0029: 00000021
+  0030: 0000000a
+  0031: 00000000
+  0032: 00000030
+  0033: 00000000
+  0034: 0000002d
+  0035: 00000032
+  0036: 00000031
+  0037: 00000034
+  0038: 00000037
+  0039: 00000034
+  0040: 00000038
+  0041: 00000033
+  0042: 00000036
+  0043: 00000034
+  0044: 00000038
+  0045: 00000000
+  0046: 0000002d
+  0047: 00000000
+  0048: 00000000
+  0049: 00000000
+  0050: 00000000
+  0051: 00000000
+  0052: 00000000
+  0053: 00000000
+  0054: 00000000
+  0055: 00000000
+  0056: 00000000
+  0057: 00000000
+  0058: 00000000
+  0059: 00000000
+  0060: 00000000
+  0061: 00000000
+  0062: 00000000
+  0063: 00000000
+  0064: 00000000
+  0065: 00000000
+  0066: 00000000
+  0067: 00000000
+  0068: 00000000
+  0069: 00000000
+  0070: 00000000
+  0071: 00000000
+  0072: 00000000
+  0073: 00000000
+  0074: 00000000
+  0075: 00000000
+  0076: 00000000
+  0077: 00000000
+  0078: 00000000
+  0079: 00000000
+  0080: 00000000
+  0081: 00000000
+  0082: 00000000
+  0083: 00000000
+  0084: 00000000
+  0085: 00000000
+  0086: 00000000
+  0087: 00000000
+  0088: 00000000
+  0089: 00000000
+  0090: 00000000
+  0091: 00000000
+  0092: 00000000
+  0093: 00000000
+  0094: 00000000
+  0095: 00000000
+  0096: 00000000
+  0097: 00000000
+  0098: 00000000
+  0099: 00000000
+  0100: 00000000
+  0101: 00000000
+  0102: 00000000
+  0103: 00000000
+  0104: 00000000
+  0105: 00000000
+  0106: 00000000
+  0107: 00000000
+  0108: 00000000
+  0109: 00000000
+  0110: 00000000
+  0111: 00000000
+  0112: 00000000
+  0113: 00000000
+  0114: 00000000
+  0115: 00000000
+  0116: 00000000
+  0117: 00000000
+  0118: 00000000
+  0119: 00000000
+  0120: 00000000
+  0121: 00000000
+  0122: 00000000
+  0123: 00000000
+  0124: 00000000
+  0125: 00000000
+  0126: 00000000
+  0127: 00000000
+  0128: 00000000
+  0129: 00000000
+  0130: 00000000
+  0131: 00000000
+  0132: 00000000
+  0133: 00000000
+  0134: 00000000
+  0135: 00000000
+  0136: 00000000
+  0137: 00000000
+  0138: 00000000
+  0139: 00000000
+  0140: 00000000
+  0141: 00000000
+  0142: 00000000
+  0143: 00000000
+  0144: 00000000
+  0145: 00000000
+  0146: 00000000
+  0147: 00000000
+  0148: 00000000
+  0149: 00000000
+  0150: 00000000
+  0151: 00000000
+  0152: 00000000
+  0153: 00000000
+  0154: 00000000
+  0155: 00000000
+  0156: 00000000
+  0157: 00000000
+  0158: 00000000
+  0159: 00000000
+  0160: 00000000
+  0161: 00000000
+  0162: 00000000
+  0163: 00000000
+  0164: 00000000
+  0165: 00000000
+  0166: 00000000
+  0167: 00000000
+  0168: 00000000
+  0169: 00000000
+  0170: 00000000
+  0171: 00000000
+  0172: 00000000
+  0173: 00000000
+  0174: 00000000
+  0175: 00000000
+  0176: 00000000
+  0177: 00000000
+  0178: 00000000
+  0179: 00000000
+  0180: 00000000
+  0181: 00000000
+  0182: 00000000
+  0183: 00000000
+  0184: 00000000
+  0185: 00000000
+  0186: 00000000
+  0187: 00000000
+  0188: 00000000
+  0189: 00000000
+  0190: 00000000
+  0191: 00000000
+  0192: 00000000
+  0193: 00000000
+  0194: 00000000
+  0195: 00000000
+  0196: 00000000
+  0197: 00000000
+  0198: 00000000
+  0199: 00000000
+  0200: 00000000
+  0201: 00000000
+  0202: 00000000
+  0203: 00000000
+  0204: 00000000
+  0205: 00000000
+  0206: 00000000
+  0207: 00000000
+  0208: 00000000
+  0209: 00000000
+  0210: 00000000
+  0211: 00000000
+  0212: 00000000
+  0213: 00000000
+  0214: 00000000
+  0215: 00000000
+  0216: 00000000
+  0217: 00000000
+  0218: 00000000
+  0219: 00000000
+  0220: 00000000
+  0221: 00000000
+  0222: 00000000
+  0223: 00000000
+  0224: 00000000
+  0225: 00000000
+  0226: 00000000
+  0227: 00000000
+  0228: 00000000
+  0229: 00000000
+  0230: 00000000
+  0231: 00000000
+  0232: 00000000
+  0233: 00000000
+  0234: 00000000
+  0235: 00000000
+  0236: 00000000
+  0237: 00000000
+  0238: 00000000
+  0239: 00000000
+  0240: 00000000
+  0241: 00000000
+  0242: 00000000
+  0243: 00000000
+  0244: 00000000
+  0245: 00000000
+  0246: 00000000
+  0247: 00000000
+  0248: 00000000
+  0249: 00000000
+  0250: 00000000
+  0251: 00000000
+  0252: 00000000
+  0253: 00000000
+  0254: 00000000
+  0255: 00000000
+  0256: 00000000
+  0257: 00000000
+  0258: 00000000
+  0259: 00000000
+in_logging_level: debug
+in_debug_level: 1
+out_log: |
+  DEBUG   simulator:log_instruction 0000: 000102000000 LD 2             ; (printstring "What is your name?")
+  DEBUG   simulator:log_instruction 0001: 0e0000000000 PUSH             ; (printstring "What is your name?")
+  DEBUG   simulator:log_instruction 0002: 10025f000000 CALL 95          ; (printstring "What is your name?")
+  DEBUG   simulator:log_instruction 0095: 000301000000 LD [SP + 1]      ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0096: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0097: 000100000000 LD 0             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0098: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0099: 10023f000000 CALL 63          ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0073: 000101000000 LD 1             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0076: 000303000000 LD [SP + 3]      ;         i
+  DEBUG   simulator:log_instruction 0077: 07025c000000 JMP 92           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0092: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0093: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0094: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0100: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0101: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0102: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0003: 0f0000000000 POP              ; (printstring "What is your name?")
+  DEBUG   simulator:log_instruction 0004: 000130000000 LD 48            ; (define username (readstring (makestring 200)))
+  DEBUG   simulator:log_instruction 0005: 0e0000000000 PUSH             ; (define username (readstring (makestring 200)))
+  DEBUG   simulator:log_instruction 0006: 100237000000 CALL 55          ; (define username (readstring (makestring 200)))
+  DEBUG   simulator:log_instruction 0055: 000301000000 LD [SP + 1]      ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0056: 0e0000000000 PUSH             ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0057: 000100000000 LD 0             ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0058: 0e0000000000 PUSH             ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0059: 100217000000 CALL 23          ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0027: 0e0000000000 PUSH             ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0028: 000301000000 LD [SP + 1]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0029: 010400000000 ST [[SP + 0]]    ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0030: 000301000000 LD [SP + 1]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0031: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0032: 080223000000 JE 35            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0033: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0034: 070224000000 JMP 36           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0036: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0037: 080228000000 JE 40            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0040: 000303000000 LD [SP + 3]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0041: 020101000000 ADD 1            ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0042: 0e0000000000 PUSH             ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0043: 000305000000 LD [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0044: 010305000000 ST [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0045: 000300000000 LD [SP + 0]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0046: 010304000000 ST [SP + 4]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0047: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0048: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0027: 0e0000000000 PUSH             ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0028: 000301000000 LD [SP + 1]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0029: 010400000000 ST [[SP + 0]]    ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0030: 000301000000 LD [SP + 1]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0031: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0032: 080223000000 JE 35            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0033: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0034: 070224000000 JMP 36           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0036: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0037: 080228000000 JE 40            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0040: 000303000000 LD [SP + 3]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0041: 020101000000 ADD 1            ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0042: 0e0000000000 PUSH             ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0043: 000305000000 LD [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0044: 010305000000 ST [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0045: 000300000000 LD [SP + 0]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0046: 010304000000 ST [SP + 4]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0047: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0048: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0027: 0e0000000000 PUSH             ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0028: 000301000000 LD [SP + 1]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0029: 010400000000 ST [[SP + 0]]    ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0030: 000301000000 LD [SP + 1]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0031: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0032: 080223000000 JE 35            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0033: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0034: 070224000000 JMP 36           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0036: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0037: 080228000000 JE 40            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0040: 000303000000 LD [SP + 3]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0041: 020101000000 ADD 1            ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0042: 0e0000000000 PUSH             ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0043: 000305000000 LD [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0044: 010305000000 ST [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0045: 000300000000 LD [SP + 0]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0046: 010304000000 ST [SP + 4]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0047: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0048: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0027: 0e0000000000 PUSH             ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0028: 000301000000 LD [SP + 1]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0029: 010400000000 ST [[SP + 0]]    ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0030: 000301000000 LD [SP + 1]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0031: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0032: 080223000000 JE 35            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0033: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0034: 070224000000 JMP 36           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0036: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0037: 080228000000 JE 40            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0040: 000303000000 LD [SP + 3]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0041: 020101000000 ADD 1            ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0042: 0e0000000000 PUSH             ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0043: 000305000000 LD [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0044: 010305000000 ST [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0045: 000300000000 LD [SP + 0]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0046: 010304000000 ST [SP + 4]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0047: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0048: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0027: 0e0000000000 PUSH             ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0028: 000301000000 LD [SP + 1]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0029: 010400000000 ST [[SP + 0]]    ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0030: 000301000000 LD [SP + 1]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0031: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0032: 080223000000 JE 35            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0033: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0034: 070224000000 JMP 36           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0036: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0037: 080228000000 JE 40            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0040: 000303000000 LD [SP + 3]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0041: 020101000000 ADD 1            ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0042: 0e0000000000 PUSH             ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0043: 000305000000 LD [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0044: 010305000000 ST [SP + 5]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0045: 000300000000 LD [SP + 0]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0046: 010304000000 ST [SP + 4]      ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0047: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0048: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
+  DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
+  DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0027: 0e0000000000 PUSH             ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0028: 000301000000 LD [SP + 1]      ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0029: 010400000000 ST [[SP + 0]]    ;     (setchar s i c)
+  DEBUG   simulator:log_instruction 0030: 000301000000 LD [SP + 1]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0031: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0032: 080223000000 JE 35            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0035: 000101000000 LD 1             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0036: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0037: 080228000000 JE 40            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0038: 000304000000 LD [SP + 4]      ;         s
+  DEBUG   simulator:log_instruction 0039: 070234000000 JMP 52           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0052: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0053: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0054: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0060: 0f0000000000 POP              ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0061: 0f0000000000 POP              ;     (doreadstring s 0))
+  DEBUG   simulator:log_instruction 0062: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0007: 0f0000000000 POP              ; (define username (readstring (makestring 200)))
+  DEBUG   simulator:log_instruction 0008: 0e0000000000 PUSH             ; (define username (readstring (makestring 200)))
+  DEBUG   simulator:log_instruction 0009: 000115000000 LD 21            ; (printstring "Hello, ")
+  DEBUG   simulator:log_instruction 0010: 0e0000000000 PUSH             ; (printstring "Hello, ")
+  DEBUG   simulator:log_instruction 0011: 10025f000000 CALL 95          ; (printstring "Hello, ")
+  DEBUG   simulator:log_instruction 0095: 000301000000 LD [SP + 1]      ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0096: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0097: 000100000000 LD 0             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0098: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0099: 10023f000000 CALL 63          ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0073: 000101000000 LD 1             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0076: 000303000000 LD [SP + 3]      ;         i
+  DEBUG   simulator:log_instruction 0077: 07025c000000 JMP 92           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0092: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0093: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0094: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0100: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0101: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0102: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0012: 0f0000000000 POP              ; (printstring "Hello, ")
+  DEBUG   simulator:log_instruction 0013: 000300000000 LD [SP + 0]      ; (printstring username)
+  DEBUG   simulator:log_instruction 0014: 0e0000000000 PUSH             ; (printstring username)
+  DEBUG   simulator:log_instruction 0015: 10025f000000 CALL 95          ; (printstring username)
+  DEBUG   simulator:log_instruction 0095: 000301000000 LD [SP + 1]      ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0096: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0097: 000100000000 LD 0             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0098: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0099: 10023f000000 CALL 63          ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0073: 000101000000 LD 1             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0076: 000303000000 LD [SP + 3]      ;         i
+  DEBUG   simulator:log_instruction 0077: 07025c000000 JMP 92           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0092: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0093: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0094: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0100: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0101: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0102: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0016: 0f0000000000 POP              ; (printstring username)
+  DEBUG   simulator:log_instruction 0017: 00011d000000 LD 29            ; (printstring "!\n")
+  DEBUG   simulator:log_instruction 0018: 0e0000000000 PUSH             ; (printstring "!\n")
+  DEBUG   simulator:log_instruction 0019: 10025f000000 CALL 95          ; (printstring "!\n")
+  DEBUG   simulator:log_instruction 0095: 000301000000 LD [SP + 1]      ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0096: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0097: 000100000000 LD 0             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0098: 0e0000000000 PUSH             ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0099: 10023f000000 CALL 63          ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0071: 000100000000 LD 0             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0072: 07024a000000 JMP 74           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0083: 000305000000 LD [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0084: 010305000000 ST [SP + 5]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0085: 000300000000 LD [SP + 0]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0086: 010304000000 ST [SP + 4]      ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0087: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0088: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0089: 0f0000000000 POP              ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0090: 07023f000000 JMP 63           ;             (doprintstring s (+ i 1))))))
+  DEBUG   simulator:log_instruction 0063: 000302000000 LD [SP + 2]      ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0064: 020301000000 ADD [SP + 1]     ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0065: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0066: 000400000000 LD [[SP + 0]]    ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0067: 0e0000000000 PUSH             ;     (define c (getchar s i))
+  DEBUG   simulator:log_instruction 0068: 000300000000 LD [SP + 0]      ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0069: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0070: 080249000000 JE 73            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0073: 000101000000 LD 1             ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0074: 030100000000 SUB 0            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0076: 000303000000 LD [SP + 3]      ;         i
+  DEBUG   simulator:log_instruction 0077: 07025c000000 JMP 92           ;     (if (= c 0)
+  DEBUG   simulator:log_instruction 0092: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0093: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0094: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0100: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0101: 0f0000000000 POP              ; (defun printstring (s) (doprintstring s 0))
+  DEBUG   simulator:log_instruction 0102: 110000000000 RET              ; 
+  DEBUG   simulator:log_instruction 0020: 0f0000000000 POP              ; (printstring "!\n")
+  DEBUG   simulator:log_instruction 0021: 0f0000000000 POP              ; 
+  DEBUG   simulator:log_instruction 0022: 120000000000 HLT              ; 

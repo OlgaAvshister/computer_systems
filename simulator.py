@@ -1,7 +1,9 @@
 from __future__ import annotations
+
 import argparse
-from common import *
 import logging
+
+from common import INPUT_PORT_ADDR, OUTPUT_PORT_ADDR, Instruction, Opcode, OperandType, instruction_to_string
 
 DATA_WORD_SIZE = 4
 CODE_WORD_SIZE = 6
@@ -567,6 +569,18 @@ def log_instruction(cu: ControlUnit, source_lines: list[str] | None, debug_level
             logging.debug("%04d: %s %s" % (addr, hex_code, instruction_to_string(instr).ljust(17, " ")))
 
 
+def set_logging_level(logging_level: str):
+    match logging_level:
+        case "debug":
+            logging.getLogger().setLevel(logging.DEBUG)
+        case "info":
+            logging.getLogger().setLevel(logging.INFO)
+        case "warning":
+            logging.getLogger().setLevel(logging.WARNING)
+        case "error":
+            logging.getLogger().setLevel(logging.ERROR)
+
+
 def simulate(
     binary_name: str,
     memory_name: str,
@@ -578,15 +592,7 @@ def simulate(
 ):
     num_of_instrs = 0
     try:
-        match logging_level:
-            case "debug":
-                logging.getLogger().setLevel(logging.DEBUG)
-            case "info":
-                logging.getLogger().setLevel(logging.INFO)
-            case "warning":
-                logging.getLogger().setLevel(logging.WARNING)
-            case "error":
-                logging.getLogger().setLevel(logging.ERROR)
+        set_logging_level(logging_level)
         code_mem: list[int] = read_code(binary_name)
         data_mem: list[int] = read_data(memory_name)
         if input_name is not None:

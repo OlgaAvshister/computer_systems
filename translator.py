@@ -1,6 +1,17 @@
+from __future__ import annotations
+
 import argparse
-from common import *
 from typing import Any
+
+from common import (
+    INPUT_PORT_ADDR,
+    OUTPUT_PORT_ADDR,
+    Instruction,
+    Opcode,
+    OperandType,
+    instruction_to_string,
+    is_jump_instruction_opcode,
+)
 
 
 class Token:

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from enum import Enum
 
+from enum import Enum
 
 INPUT_PORT_ADDR = 0
 OUTPUT_PORT_ADDR = 1

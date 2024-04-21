@@ -7,12 +7,10 @@ import contextlib
 import io
 import logging
 import os
-import tempfile
-
 import pytest
-
-import translator
 import simulator
+import tempfile
+import translator
 
 
 @pytest.mark.golden_test("golden/*.yml")

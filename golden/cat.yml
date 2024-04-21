@@ -265,120 +265,133 @@ out_code: |-
   0027: 00000000
   0028: 00000000
 in_logging_level: debug
-in_debug_level: 2
+in_debug_level: 3
 out_log: |
   DEBUG   simulator:log_state     PC=00000000 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011d
-  DEBUG   simulator:log_state     stack=[] input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=[]
+  DEBUG   simulator:log_state     stack=[]
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=[]
   DEBUG   simulator:log_instruction 0000: 100202000000 CALL 2           ; (f)
   DEBUG   simulator:log_state     PC=00000002 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011c SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=[]
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000003 ACC=00000041 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=[]
+  DEBUG   simulator:log_state     stack=[1]
+  DEBUG   simulator:log_input_output input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=[]
   DEBUG   simulator:log_instruction 0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000004 ACC=00000041 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 65] input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=[]
+  DEBUG   simulator:log_state     stack=[1, 65]
   DEBUG   simulator:log_instruction 0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000005 ACC=00000041 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 65] input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=[]
+  DEBUG   simulator:log_state     stack=[1, 65]
   DEBUG   simulator:log_instruction 0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000006 ACC=00000041 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 65] input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=['A']
+  DEBUG   simulator:log_state     stack=[1, 65]
+  DEBUG   simulator:log_input_output input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=['A']
   DEBUG   simulator:log_instruction 0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000007 ACC=00000041 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=['A']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000002 ACC=00000041 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=['A']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000003 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['i', 'c', 'e', '\x00'] output_stream=['A']
+  DEBUG   simulator:log_state     stack=[1]
+  DEBUG   simulator:log_input_output input_stream=['i', 'c', 'e', '\x00'] output_stream=['A']
   DEBUG   simulator:log_instruction 0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000004 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 108] input_stream=['i', 'c', 'e', '\x00'] output_stream=['A']
+  DEBUG   simulator:log_state     stack=[1, 108]
   DEBUG   simulator:log_instruction 0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000005 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 108] input_stream=['i', 'c', 'e', '\x00'] output_stream=['A']
+  DEBUG   simulator:log_state     stack=[1, 108]
   DEBUG   simulator:log_instruction 0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000006 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 108] input_stream=['i', 'c', 'e', '\x00'] output_stream=['A', 'l']
+  DEBUG   simulator:log_state     stack=[1, 108]
+  DEBUG   simulator:log_input_output input_stream=['i', 'c', 'e', '\x00'] output_stream=['A', 'l']
   DEBUG   simulator:log_instruction 0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000007 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['i', 'c', 'e', '\x00'] output_stream=['A', 'l']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000002 ACC=0000006c FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['i', 'c', 'e', '\x00'] output_stream=['A', 'l']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000003 ACC=00000069 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['c', 'e', '\x00'] output_stream=['A', 'l']
+  DEBUG   simulator:log_state     stack=[1]
+  DEBUG   simulator:log_input_output input_stream=['c', 'e', '\x00'] output_stream=['A', 'l']
   DEBUG   simulator:log_instruction 0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000004 ACC=00000069 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 105] input_stream=['c', 'e', '\x00'] output_stream=['A', 'l']
+  DEBUG   simulator:log_state     stack=[1, 105]
   DEBUG   simulator:log_instruction 0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000005 ACC=00000069 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 105] input_stream=['c', 'e', '\x00'] output_stream=['A', 'l']
+  DEBUG   simulator:log_state     stack=[1, 105]
   DEBUG   simulator:log_instruction 0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000006 ACC=00000069 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 105] input_stream=['c', 'e', '\x00'] output_stream=['A', 'l', 'i']
+  DEBUG   simulator:log_state     stack=[1, 105]
+  DEBUG   simulator:log_input_output input_stream=['c', 'e', '\x00'] output_stream=['A', 'l', 'i']
   DEBUG   simulator:log_instruction 0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000007 ACC=00000069 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['c', 'e', '\x00'] output_stream=['A', 'l', 'i']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000002 ACC=00000069 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['c', 'e', '\x00'] output_stream=['A', 'l', 'i']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000003 ACC=00000063 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['e', '\x00'] output_stream=['A', 'l', 'i']
+  DEBUG   simulator:log_state     stack=[1]
+  DEBUG   simulator:log_input_output input_stream=['e', '\x00'] output_stream=['A', 'l', 'i']
   DEBUG   simulator:log_instruction 0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000004 ACC=00000063 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 99] input_stream=['e', '\x00'] output_stream=['A', 'l', 'i']
+  DEBUG   simulator:log_state     stack=[1, 99]
   DEBUG   simulator:log_instruction 0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000005 ACC=00000063 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 99] input_stream=['e', '\x00'] output_stream=['A', 'l', 'i']
+  DEBUG   simulator:log_state     stack=[1, 99]
   DEBUG   simulator:log_instruction 0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000006 ACC=00000063 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 99] input_stream=['e', '\x00'] output_stream=['A', 'l', 'i', 'c']
+  DEBUG   simulator:log_state     stack=[1, 99]
+  DEBUG   simulator:log_input_output input_stream=['e', '\x00'] output_stream=['A', 'l', 'i', 'c']
   DEBUG   simulator:log_instruction 0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000007 ACC=00000063 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['e', '\x00'] output_stream=['A', 'l', 'i', 'c']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000002 ACC=00000063 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['e', '\x00'] output_stream=['A', 'l', 'i', 'c']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000003 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c']
+  DEBUG   simulator:log_state     stack=[1]
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c']
   DEBUG   simulator:log_instruction 0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000004 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 101] input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c']
+  DEBUG   simulator:log_state     stack=[1, 101]
   DEBUG   simulator:log_instruction 0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000005 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 101] input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c']
+  DEBUG   simulator:log_state     stack=[1, 101]
   DEBUG   simulator:log_instruction 0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000006 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 101] input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c', 'e']
+  DEBUG   simulator:log_state     stack=[1, 101]
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c', 'e']
   DEBUG   simulator:log_instruction 0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000007 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c', 'e']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000002 ACC=00000065 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c', 'e']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000003 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000000 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e']
+  DEBUG   simulator:log_state     stack=[1]
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e']
   DEBUG   simulator:log_instruction 0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000004 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 0] input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e']
+  DEBUG   simulator:log_state     stack=[1, 0]
   DEBUG   simulator:log_instruction 0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000005 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=0000011b SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 0] input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e']
+  DEBUG   simulator:log_state     stack=[1, 0]
   DEBUG   simulator:log_instruction 0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000006 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011b
-  DEBUG   simulator:log_state     stack=[1, 0] input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e', '\x00']
+  DEBUG   simulator:log_state     stack=[1, 0]
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e', '\x00']
   DEBUG   simulator:log_instruction 0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000007 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e', '\x00']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
   DEBUG   simulator:log_state     PC=00000002 ACC=00000000 FLAGS=[NF=0,ZF=0,PF=0] DA=00000001 SP=0000011c
-  DEBUG   simulator:log_state     stack=[1] input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e', '\x00']
+  DEBUG   simulator:log_state     stack=[1]
   DEBUG   simulator:log_instruction 0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
   WARNING simulator:simulate      end of input stream reached

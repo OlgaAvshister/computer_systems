@@ -445,7 +445,6 @@ class ControlUnit:
         self.dp.handle_signals(Signals(sp_sel=SP_SEL__SP_INC, latch_sp=True))
 
     def decode_and_execute_instruction(self):
-        # fetch
         binary_code = self.mem[self.pc]
         instr = decode_instruction(binary_code)
         jumped = False
@@ -535,31 +534,37 @@ def parse_debug_info(debug_info: list[str]) -> list[str]:
 
 
 def log_state(dp: DataPath, cu: ControlUnit, debug_level: int):
-    stack = []
-    for i in range(len(dp.mem) - dp.sp):
-        stack.append(dp.mem[-(i + 1)])
-    if debug_level == 2:
+    if debug_level >= 3:
+        stack = []
+        for i in range(len(dp.mem) - dp.sp):
+            stack.append(dp.mem[-(i + 1)])
         logging.debug(
             "PC=%08d ACC=%08x FLAGS=[NF=%d,ZF=%d,PF=%d] DA=%08x SP=%08x"
             % (cu.pc, dp.acc, dp.nf, dp.zf, dp.pf, dp.da, dp.sp)
         )
-        logging.debug("stack=%s input_stream=%s output_stream=%s" % (stack, dp.input_stream, dp.output_stream))
+        logging.debug("stack=%s" % (stack))
+
+
+def log_input_output(dp: DataPath, debug_level: int):
+    if debug_level >= 1:
+        logging.debug("input_stream=%s output_stream=%s" % (dp.input_stream, dp.output_stream))
 
 
 def log_instruction(cu: ControlUnit, source_lines: list[str] | None, debug_level: int):
-    addr: int = cu.pc
-    binary_code: int = cu.mem[addr]
-    instr: Instruction = decode_instruction(binary_code)
-    instr_bytes = binary_code.to_bytes(CODE_WORD_SIZE, "little", signed=True)
-    hex_code = ""
-    for byte in instr_bytes:
-        hex_code += hex(byte)[2:].rjust(2, "0")
-    if source_lines is not None:
-        logging.debug(
-            "%04d: %s %s; %s" % (addr, hex_code, instruction_to_string(instr).ljust(17, " "), source_lines[addr])
-        )
-    else:
-        logging.debug("%04d: %s %s" % (addr, hex_code, instruction_to_string(instr).ljust(17, " ")))
+    if debug_level >= 2:
+        addr: int = cu.pc
+        binary_code: int = cu.mem[addr]
+        instr: Instruction = decode_instruction(binary_code)
+        instr_bytes = binary_code.to_bytes(CODE_WORD_SIZE, "little", signed=True)
+        hex_code = ""
+        for byte in instr_bytes:
+            hex_code += hex(byte)[2:].rjust(2, "0")
+        if source_lines is not None:
+            logging.debug(
+                "%04d: %s %s; %s" % (addr, hex_code, instruction_to_string(instr).ljust(17, " "), source_lines[addr])
+            )
+        else:
+            logging.debug("%04d: %s %s" % (addr, hex_code, instruction_to_string(instr).ljust(17, " ")))
 
 
 def simulate(
@@ -599,11 +604,18 @@ def simulate(
         dp = DataPath(data_mem + [0] * STACK_SIZE, input_stream)
         cu = ControlUnit(dp, code_mem)
         log_state(dp, cu, debug_level)
+        last_input = dp.input_stream[:]
+        last_output = dp.output_stream[:]
+        log_input_output(dp, debug_level)
         while True:
             log_instruction(cu, source_lines, debug_level)
             cu.decode_and_execute_instruction()
             num_of_instrs += 1
             log_state(dp, cu, debug_level)
+            if dp.input_stream != last_input or dp.output_stream != last_output:
+                log_input_output(dp, debug_level)
+                last_input = dp.input_stream[:]
+                last_output = dp.output_stream[:]
             if limit > 0 and num_of_instrs == limit:
                 logging.warning("instructions limit reached")
                 break
@@ -640,7 +652,7 @@ if __name__ == "__main__":
         type=int,
         default=2,
         nargs="?",
-        help="debug level: 1 - parial infomation, 2 - full information (defualt)",
+        help="debug level: 1 - input/output, 2 - instructinos, 3 - full information (defualt)",
     )
     args = arg_parser.parse_args()
     simulate(args.binary_name, args.memory_name, args.input_name, args.debug_name, args.limit, args.logging_level, args.debug_level)

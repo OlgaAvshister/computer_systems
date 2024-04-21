@@ -205,9 +205,8 @@ def is_token(obj: Any, check_for: str | None = None):
     else:
         return type(obj) is Token and obj.value == check_for
 
-    # (makestring n)
 
-
+# process all `(makestring n)` forms
 def process_makestring_forms(node: Any, mem: list[int]):
     if type(node) is int:
         return node

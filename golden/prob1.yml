@@ -352,6 +352,13 @@ out_code: |-
   0026: 00000000
   0027: 00000000
   0028: 00000000
-in_logging_level: info
-in_debug_level: 2
+in_logging_level: debug
+in_debug_level: 1
 out_log: |
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=[]
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['2']
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['2', '3']
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['2', '3', '3']
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['2', '3', '3', '1']
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['2', '3', '3', '1', '6']
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['2', '3', '3', '1', '6', '8']

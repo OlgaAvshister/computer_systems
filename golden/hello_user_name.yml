@@ -512,8 +512,9 @@ out_code: |-
   0258: 00000000
   0259: 00000000
 in_logging_level: debug
-in_debug_level: 1
+in_debug_level: 2
 out_log: |
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=[]
   DEBUG   simulator:log_instruction 0000: 000102000000 LD 2             ; (printstring "What is your name?")
   DEBUG   simulator:log_instruction 0001: 0e0000000000 PUSH             ; (printstring "What is your name?")
   DEBUG   simulator:log_instruction 0002: 10025f000000 CALL 95          ; (printstring "What is your name?")
@@ -536,6 +537,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -561,6 +563,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -586,6 +589,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -611,6 +615,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -636,6 +641,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -661,6 +667,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -686,6 +693,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -711,6 +719,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -736,6 +745,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -761,6 +771,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -786,6 +797,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -811,6 +823,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -836,6 +849,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -861,6 +875,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -886,6 +901,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -911,6 +927,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -936,6 +953,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -961,6 +979,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1001,6 +1020,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0058: 0e0000000000 PUSH             ;     (doreadstring s 0))
   DEBUG   simulator:log_instruction 0059: 100217000000 CALL 23          ;     (doreadstring s 0))
   DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_input_output input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
   DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
   DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
@@ -1026,6 +1046,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_input_output input_stream=['i', 'c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
   DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
   DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
@@ -1051,6 +1072,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_input_output input_stream=['c', 'e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
   DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
   DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
@@ -1076,6 +1098,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_input_output input_stream=['e', '\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
   DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
   DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
@@ -1101,6 +1124,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_input_output input_stream=['\x00'] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
   DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
   DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
@@ -1126,6 +1150,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0049: 0f0000000000 POP              ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0050: 070217000000 JMP 23           ;         (doreadstring s (+ i 1)))))
   DEBUG   simulator:log_instruction 0023: 000200000000 LD [0]           ;     (define c (readchar))
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?']
   DEBUG   simulator:log_instruction 0024: 0e0000000000 PUSH             ;     (define c (readchar))
   DEBUG   simulator:log_instruction 0025: 000303000000 LD [SP + 3]      ;     (setchar s i c)
   DEBUG   simulator:log_instruction 0026: 020302000000 ADD [SP + 2]     ;     (setchar s i c)
@@ -1170,6 +1195,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1195,6 +1221,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1220,6 +1247,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1245,6 +1273,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1270,6 +1299,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1295,6 +1325,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1320,6 +1351,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1373,6 +1405,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1398,6 +1431,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1423,6 +1457,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l', 'i']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1448,6 +1483,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l', 'i', 'c']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1473,6 +1509,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l', 'i', 'c', 'e']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1526,6 +1563,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l', 'i', 'c', 'e', '!']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))
@@ -1551,6 +1589,7 @@ out_log: |
   DEBUG   simulator:log_instruction 0075: 08024e000000 JE 78            ;     (if (= c 0)
   DEBUG   simulator:log_instruction 0078: 000300000000 LD [SP + 0]      ;         (do (printchar c)
   DEBUG   simulator:log_instruction 0079: 010201000000 ST [1]           ;         (do (printchar c)
+  DEBUG   simulator:log_input_output input_stream=[] output_stream=['W', 'h', 'a', 't', ' ', 'i', 's', ' ', 'y', 'o', 'u', 'r', ' ', 'n', 'a', 'm', 'e', '?', 'H', 'e', 'l', 'l', 'o', ',', ' ', 'A', 'l', 'i', 'c', 'e', '!', '\n']
   DEBUG   simulator:log_instruction 0080: 000303000000 LD [SP + 3]      ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0081: 020101000000 ADD 1            ;             (doprintstring s (+ i 1))))))
   DEBUG   simulator:log_instruction 0082: 0e0000000000 PUSH             ;             (doprintstring s (+ i 1))))))

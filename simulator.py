@@ -574,7 +574,7 @@ def simulate(
     debug_name: str | None,
     limit: int = 0,
     logging_level: str = "info",
-    debug_level: int = 2
+    debug_level: int = 2,
 ):
     num_of_instrs = 0
     try:
@@ -655,4 +655,12 @@ if __name__ == "__main__":
         help="debug level: 1 - input/output, 2 - instructinos, 3 - full information (defualt)",
     )
     args = arg_parser.parse_args()
-    simulate(args.binary_name, args.memory_name, args.input_name, args.debug_name, args.limit, args.logging_level, args.debug_level)
+    simulate(
+        args.binary_name,
+        args.memory_name,
+        args.input_name,
+        args.debug_name,
+        args.limit,
+        args.logging_level,
+        args.debug_level,
+    )

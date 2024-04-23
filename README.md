@@ -283,9 +283,11 @@ todo: input/output ports
 ## Транслятор
 
 ## Модель процессора
-
+DataPath
 ![DataPath](DataPath.png)
-![ControlUnit]ControlUnit.png)
+
+ControlUnit
+![ControlUnit](ControlUnit.png)
 
 ## Тестирование
 

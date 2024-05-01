@@ -390,11 +390,11 @@ options:
   -h, --help   show this help message and exit
 ```
 
-Реализовано в модуле: [translator.py](translator).
+Реализовано в модуле: [translator](translator.py).
 
 Этапы трансляции (функция `translate`):
 
-1. Подключение исходного кода [стандартной библиотеки stdlib.lsp](`stdlib.lsp`)
+1. Подключение исходного кода [stdlib.lsp](стандартной библиотеки `stdlib.lsp`)
 1. Разбиение строки на символы (с запоминанием номеров строк каждого символа)
 1. Объединение символов в строковые литералы
 1. Объединение символов в числовые литералы
@@ -521,17 +521,112 @@ options:
 
 ## Модель процессора
 
+Интерфейс командной строки: 
+
+```
+usage: simulator [-h] binary_name memory_name [input_name] [debug_name]
+                 [--limit [LIMIT]] 
+                 [--logging-level [LOGGING_LEVEL]]
+                 [--debug-level [DEBUG_LEVEL]]
+
+Accumulator architecture CPU simulator
+
+positional arguments:
+  binary_name           input file with binary code
+  memory_name           input file with static memory content
+  input_name            input file for simulated input
+  debug_name            input file with debug information
+
+options:
+  -h, --help            show this help message and exit
+  --limit [LIMIT]       maximum number of insturctions to execute
+  --logging-level [LOGGING_LEVEL]
+                        logging level: error, warning, info (default) or debug
+  --debug-level [DEBUG_LEVEL]
+                        debug level: 1 - input/output, 2 - instructinos, 3 - full information (defualt)
+```
+
+Реализовано в модуле: [simulator](simulator.py).
+
+Data Path и Control Unit реализованы как одноимённые классы. `DataPath` принимает сигналы от `ControlUnit` в виде объекта `Signals`, хранящего описание сигналов.
+
 ### DataPath
 
 ![DataPath](DataPath.png)
+
+Схема `DataPath` принимает следующие сигналы от `ControlUnit`:
+
+* `latch_sp` - записать выбраннное значение в регистр `SP`:
+    * `SP + 1`
+    * `SP - 1`
+* `latch_da` - записать выбраннное значение в регистр `DA`:
+    * операнд инструкции `operand`
+    * выход памяти `data_out`
+    * адрес на стеке со смещением `SP + operand`   
+* `alu_op` - код математической операции для выполнения на АЛУ между аккумулятором и выбранным значением:
+    * операнд инструкции `operand`
+    * выход памяти `data_out`
+* `latch_acc` - записать выбраннное значение в регистр `ACC`:
+    * результат работы АЛУ
+    * выход памяти `data_out`
+* `latch_flags` - сохранить флаги `NF`, `ZF`, `PF`
+* `oe` - прочитать значение из памяти или порта ввода
+* `wr` - записать аккумулятор в порт вывода или записать выбранное значение в память:
+    * значение аккумулятора `ACC`
+    * адрес следующей инструкции `next_pc`, равный `PC + 1`
+
+Флаги:
+
+* `NF` - признак отрицательности результата АЛУ
+* `ZF` - признак того, что результат АЛУ равен нулю
+* `PF` - признак положительности результата АЛУ
+
+`ADDRESS DECODER` - декодер адреса, в зависимости от адреса `DA` активирует соответвующее устройство с помощью входов `cs`:
+    * `INPUT DEVICE` - порт ввода
+    * `OUTPUT DEVICE` - порт вывода
+    * `DATA MEMORY` - однопортовая память данных
+    
+`operand` - это операнд текущей инструкции (числовое значение, адрес, смещение)
+
+Обработка сигналов выполняется в методе `handle_signals`.
+
 
 ### ControlUnit
 
 ![ControlUnit](ControlUnit.png)
 
+Сигналы:
+
+* `latch_pc` - записать выбранное значение в регистр `PC`:
+    * адрес следующей инструкции `next_pc`, равный `PC + 1`
+    * операнд инструкции `operand`
+
+Особенности работы модели:
+
+* Цикл симуляции осуществляется в функции `simulate`.
+* Шаг моделирования соответствует одной инструкции с выводом состояния в журнал.
+* Для журнала состояний процессора используется стандартный модуль `logging`.
+* Количество инструкций для моделирования может быть опционально лимитировано через параметр `limit`.
+* Остановка моделирования осуществляется при:
+    * превышении лимита количества выполняемых инструкций `limit`;
+    * при исчерпании данных в порте ввода (в этом случае порождается исключение `EOFError`)
+    * при выполнении инструкции `HLT` (в этом случае порождается исключение `StopIteration`)
+
+* `CODE MEMORY` - однопортовая память инструкций, всегда находящаяся в режиме чтения
+* `INSTRUCTION DECODER` - декодирует и выполняет одну инструкцию:
+    * декодирует бинарный код инструкции в:
+        * код операции
+        * тип операнда
+        * значение операнда
+    * выполняет инструкцию, посылая сигналы в `DataPath` 
+        * выполнение происходит потактово (на схеме для этого добавлен счётчик `STEP COUNTER`)
+    * реализован на уровне модели Python
+
 ## Тестирование
 
-1. Golden-tests реализованы в: 
+Тестирование выполняется при помощи golden test-ов.
+
+1. Golden test-ы реализованы в: 
     - [golden/cat.yml](golden/cat.yml)
     - [golden/hello.yml](golden/hello.yml)
     - [golden/hello_user_name.yml](golden/hello_user_name.yml)
@@ -541,7 +636,7 @@ options:
 
 Запустить тесты: `poetry run pytest . -v`
 
-Обновить конфигурацию golden tests:  `poetry run pytest . -v --update-goldens`
+Обновить конфигурацию golden tests: `poetry run pytest . -v --update-goldens`
 
 CI при помощи Github Action:
 
@@ -613,3 +708,20 @@ jobs:
 
 Пример проверки исходного кода:
 
+
+## Статистика
+
+```
+|           Full name            |      alg        | loc | bytes | instr | exec_instr | tick | variant                                                                  |
+|   Авшистер Ольга Аркадьевна    |      cat        |  2  |   -   |  223  |     37     | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+|   Авшистер Ольга Аркадьевна    |      hello      |  1  |   -   |  218  |    304     | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+|   Авшистер Ольга Аркадьевна    | hello_user_name |  5  |   -   |  236  |    1070    | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+|   Авшистер Ольга Аркадьевна    |      prob1      |  9  |   -   |  304  |    35153   | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+|   Авшистер Ольга Аркадьевна    |      example    | 45  |   -   |  407  |    15500   | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+```
+
+todo: write about `sub` instead of `cmp`
+todo: write about absence of `and`, `or`, `not`, `xor`
+todo: maybe reorganize steps of translation fragment
+todo: stop by division by zero
+todo: stop by error (out of memory bounds, incorrect instruction?)

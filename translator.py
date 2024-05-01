@@ -277,9 +277,9 @@ def rewrite_setchar(node: Any):
 
 class VarRef:
     name: str
-    line: int
+    line: int | None
 
-    def __init__(self, name: str, line: int):
+    def __init__(self, name: str, line: int | None):
         self.name = name
         self.line = line
 

@@ -298,10 +298,15 @@ program := expression*
 
     `POP` не меняет аккумулятор. Это сделано для удобства программирования, по сути `POP` используется для очистки стека, а не для взятия значений с него.
 
+Другие особенности:
+
+* инструкция `CMP` не реализована, потому что вместо неё можно использовать `SUB`
+* инструкции `AND`, `OR`, `XOR`, и `NOT`не реализованы, потому что их можно заменить математическими манипуляциями
+
 Поток управления:
 
 * инкремент `PC` после каждой инструкции;
-* условный (`Jcc`) и безусловный (`JMP`) переходы.
+* условные (`JL`, `JLE`, `JE`, `JG`, `JGE`, `JNE`)) и безусловный (`JMP`) переходы.
 * вызов и возррат из функции (`CALL`, `RET`)
 
 ### Набор инструкций
@@ -392,15 +397,18 @@ options:
 
 Реализовано в модуле: [translator](translator.py).
 
+Транслятор преобразует текст программы в древовидную структуру. Затем производит последовательные преобразования этой структуры. В итоге генериуется плоский список инструкций, которые затем кодируются в машинный код.
+
 Этапы трансляции (функция `translate`):
 
-1. Подключение исходного кода [stdlib.lsp](стандартной библиотеки `stdlib.lsp`)
-1. Разбиение строки на символы (с запоминанием номеров строк каждого символа)
-1. Объединение символов в строковые литералы
-1. Объединение символов в числовые литералы
-1. Объединение символов в имена (идентификаторы)
-1. Объединение символов для составных операторов (`>=`, `<=`, `!=`)
-1. Удаление пробелов
+1. Предобработка
+    1. Подключение исходного кода [stdlib.lsp](стандартной библиотеки `stdlib.lsp`)
+    1. Разбиение строки на символы (с запоминанием номеров строк каждого символа)
+    1. Объединение символов в строковые литералы
+    1. Объединение символов в числовые литералы
+    1. Объединение символов в имена (идентификаторы)
+    1. Объединение символов для составных операторов (`>=`, `<=`, `!=`)
+    1. Удаление пробелов
 1. Преобразование плоского списка токенов в древовидную структуру в соответствии со скобками в исходном коде программы
 1. Весь исходный код оборачивается в функцию 
 1. `\n` в строковых литералах превращается в символ перевода строки
@@ -608,9 +616,14 @@ Data Path и Control Unit реализованы как одноимённые �
 * Для журнала состояний процессора используется стандартный модуль `logging`.
 * Количество инструкций для моделирования может быть опционально лимитировано через параметр `limit`.
 * Остановка моделирования осуществляется при:
+    * при выполнении инструкции `HLT` (в этом случае порождается исключение `StopIteration`)
     * превышении лимита количества выполняемых инструкций `limit`;
     * при исчерпании данных в порте ввода (в этом случае порождается исключение `EOFError`)
-    * при выполнении инструкции `HLT` (в этом случае порождается исключение `StopIteration`)
+    * ошибка деления на ноль 
+    * некорректный машинный код
+    * выход за пределы памяти
+    * запись в порт ввода
+    * чтение из порта вывода  
 
 * `CODE MEMORY` - однопортовая память инструкций, всегда находящаяся в режиме чтения
 * `INSTRUCTION DECODER` - декодирует и выполняет одну инструкцию:
@@ -626,24 +639,30 @@ Data Path и Control Unit реализованы как одноимённые �
 
 Тестирование выполняется при помощи golden test-ов.
 
-1. Golden test-ы реализованы в: 
-    - [golden/cat.yml](golden/cat.yml)
-    - [golden/hello.yml](golden/hello.yml)
-    - [golden/hello_user_name.yml](golden/hello_user_name.yml)
-    - [golden/prob1.yml](golden/prob1.yml)
-    - [golden/example.yml](golden/example.yml)
-2. Традиционные интеграционные тесты: [integration_test.py](./integration_test.py) (Depricated).
+* Golden test-ы реализованы для следующих программ: 
+    - [golden/hello.yml](golden/hello.yml) - напечатать hello world
+    - [golden/cat.yml](golden/cat.yml) - печатать данные, поданные на вход симулятору через файл ввода (размер ввода потенциально бесконечен)
+    - [golden/hello_user_name.yml](golden/hello_user_name.yml) - запросить у пользователя его имя, считать его, вывести на экран приветствие
+    - [golden/prob1.yml](golden/prob1.yml) - задача №1 из Project Euler
+    - [golden/example.yml](golden/example.yml) - дополнительно разработанная программа для демонстрации возможностей системы
+* Скрипт выполнения интеграционных тестов: [integration_test.py](integration_test.py)
 
 Запустить тесты: `poetry run pytest . -v`
 
 Обновить конфигурацию golden tests: `poetry run pytest . -v --update-goldens`
 
-CI при помощи Github Action:
+CI настроен при помощи Github Actions:
 
-``` yaml
-defaults:
-  run:
-    working-directory: .
+```yaml
+name: Python CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
@@ -694,6 +713,9 @@ jobs:
 
       - name: Run Ruff linters
         run: poetry run ruff check .
+        
+      - name: Run MyPy type checker
+        run: poetry run mypy .
 ```
 
 где:
@@ -702,26 +724,365 @@ jobs:
 - `coverage` -- формирование отчёта об уровне покрытия исходного кода.
 - `pytest` -- утилита для запуска тестов.
 - `ruff` -- утилита для форматирования и проверки стиля кодирования.
+- `mypy` -- утилита для проверки типов в Python-коде
 
 Пример использования и журнал работы процессора на примере `cat`:
 
+```console
+$ cat cat.lsp
+(defun f () (do (printchar (readchar)) (f)))
+(f)
+$ cat cat.txt
+Alice
+$ python translator.py cat.lsp cat.bin cat.dat cat.dbg
+LoC: 2
+Instructions: 223
+$ cat cat.dbg
+CODE:
+0000: 100202000000 CALL 2             ; (f)
+0001: 120000000000 HLT                ;
+0002: 000200000000 LD [0]             ; (defun f () (do (printchar (readchar)) (f)))
+0003: 0e0000000000 PUSH               ; (defun f () (do (printchar (readchar)) (f)))
+0004: 000300000000 LD [SP + 0]        ; (defun f () (do (printchar (readchar)) (f)))
+0005: 010201000000 ST [1]             ; (defun f () (do (printchar (readchar)) (f)))
+0006: 0f0000000000 POP                ; (defun f () (do (printchar (readchar)) (f)))
+0007: 070202000000 JMP 2              ; (defun f () (do (printchar (readchar)) (f)))
+0008: 0f0000000000 POP                ;
+0009: 110000000000 RET                ;
+0010: 000200000000 LD [0]             ;     (define c (readchar))
+0011: 0e0000000000 PUSH               ;     (define c (readchar))
+0012: 000303000000 LD [SP + 3]        ;     (setchar s i c)
+0013: 020302000000 ADD [SP + 2]       ;     (setchar s i c)
+0014: 0e0000000000 PUSH               ;     (setchar s i c)
+0015: 000301000000 LD [SP + 1]        ;     (setchar s i c)
+0016: 010400000000 ST [[SP + 0]]      ;     (setchar s i c)
+0017: 000301000000 LD [SP + 1]        ;     (if (= c 0)
+0018: 030100000000 SUB 0              ;     (if (= c 0)
+0019: 080216000000 JE 22              ;     (if (= c 0)
+0020: 000100000000 LD 0               ;     (if (= c 0)
+0021: 070217000000 JMP 23             ;     (if (= c 0)
+0022: 000101000000 LD 1               ;     (if (= c 0)
+0023: 030100000000 SUB 0              ;     (if (= c 0)
+0024: 08021b000000 JE 27              ;     (if (= c 0)
+0025: 000304000000 LD [SP + 4]        ;         s
+0026: 070227000000 JMP 39             ;     (if (= c 0)
+0027: 000303000000 LD [SP + 3]        ;         (doreadstring s (+ i 1)))))
+0028: 020101000000 ADD 1              ;         (doreadstring s (+ i 1)))))
+0029: 0e0000000000 PUSH               ;         (doreadstring s (+ i 1)))))
+0030: 000305000000 LD [SP + 5]        ;         (doreadstring s (+ i 1)))))
+0031: 010305000000 ST [SP + 5]        ;         (doreadstring s (+ i 1)))))
+0032: 000300000000 LD [SP + 0]        ;         (doreadstring s (+ i 1)))))
+0033: 010304000000 ST [SP + 4]        ;         (doreadstring s (+ i 1)))))
+0034: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+0035: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+0036: 0f0000000000 POP                ;         (doreadstring s (+ i 1)))))
+0037: 07020a000000 JMP 10             ;         (doreadstring s (+ i 1)))))
+0038: 0f0000000000 POP                ;     (if (= c 0)
+0039: 0f0000000000 POP                ;
+0040: 0f0000000000 POP                ;
+0041: 110000000000 RET                ;
+0042: 000301000000 LD [SP + 1]        ;     (doreadstring s 0))
+0043: 0e0000000000 PUSH               ;     (doreadstring s 0))
+0044: 000100000000 LD 0               ;     (doreadstring s 0))
+0045: 0e0000000000 PUSH               ;     (doreadstring s 0))
+0046: 10020a000000 CALL 10            ;     (doreadstring s 0))
+0047: 0f0000000000 POP                ;     (doreadstring s 0))
+0048: 0f0000000000 POP                ;     (doreadstring s 0))
+0049: 110000000000 RET                ;
+0050: 000302000000 LD [SP + 2]        ;     (define c (getchar s i))
+0051: 020301000000 ADD [SP + 1]       ;     (define c (getchar s i))
+0052: 0e0000000000 PUSH               ;     (define c (getchar s i))
+0053: 000400000000 LD [[SP + 0]]      ;     (define c (getchar s i))
+0054: 0e0000000000 PUSH               ;     (define c (getchar s i))
+0055: 000300000000 LD [SP + 0]        ;     (if (= c 0)
+0056: 030100000000 SUB 0              ;     (if (= c 0)
+0057: 08023c000000 JE 60              ;     (if (= c 0)
+0058: 000100000000 LD 0               ;     (if (= c 0)
+0059: 07023d000000 JMP 61             ;     (if (= c 0)
+0060: 000101000000 LD 1               ;     (if (= c 0)
+0061: 030100000000 SUB 0              ;     (if (= c 0)
+0062: 080241000000 JE 65              ;     (if (= c 0)
+0063: 000303000000 LD [SP + 3]        ;         i
+0064: 07024f000000 JMP 79             ;     (if (= c 0)
+0065: 000300000000 LD [SP + 0]        ;         (do (printchar c)
+0066: 010201000000 ST [1]             ;         (do (printchar c)
+0067: 000303000000 LD [SP + 3]        ;             (doprintstring s (+ i 1))))))
+0068: 020101000000 ADD 1              ;             (doprintstring s (+ i 1))))))
+0069: 0e0000000000 PUSH               ;             (doprintstring s (+ i 1))))))
+0070: 000305000000 LD [SP + 5]        ;             (doprintstring s (+ i 1))))))
+0071: 010305000000 ST [SP + 5]        ;             (doprintstring s (+ i 1))))))
+0072: 000300000000 LD [SP + 0]        ;             (doprintstring s (+ i 1))))))
+0073: 010304000000 ST [SP + 4]        ;             (doprintstring s (+ i 1))))))
+0074: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+0075: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+0076: 0f0000000000 POP                ;             (doprintstring s (+ i 1))))))
+0077: 070232000000 JMP 50             ;             (doprintstring s (+ i 1))))))
+0078: 0f0000000000 POP                ;     (if (= c 0)
+0079: 0f0000000000 POP                ;
+0080: 0f0000000000 POP                ;
+0081: 110000000000 RET                ;
+0082: 000301000000 LD [SP + 1]        ; (defun printstring (s) (doprintstring s 0))
+0083: 0e0000000000 PUSH               ; (defun printstring (s) (doprintstring s 0))
+0084: 000100000000 LD 0               ; (defun printstring (s) (doprintstring s 0))
+0085: 0e0000000000 PUSH               ; (defun printstring (s) (doprintstring s 0))
+0086: 100232000000 CALL 50            ; (defun printstring (s) (doprintstring s 0))
+0087: 0f0000000000 POP                ; (defun printstring (s) (doprintstring s 0))
+0088: 0f0000000000 POP                ; (defun printstring (s) (doprintstring s 0))
+0089: 110000000000 RET                ;
+0090: 000303000000 LD [SP + 3]        ;     (if (!= num 0)
+0091: 030100000000 SUB 0              ;     (if (!= num 0)
+0092: 0d025f000000 JNE 95             ;     (if (!= num 0)
+0093: 000100000000 LD 0               ;     (if (!= num 0)
+0094: 070260000000 JMP 96             ;     (if (!= num 0)
+0095: 000101000000 LD 1               ;     (if (!= num 0)
+0096: 030100000000 SUB 0              ;     (if (!= num 0)
+0097: 080285000000 JE 133             ;     (if (!= num 0)
+0098: 000303000000 LD [SP + 3]        ;         (do (define digit (% num 10))
+0099: 06010a000000 REM 10             ;         (do (define digit (% num 10))
+0100: 0e0000000000 PUSH               ;         (do (define digit (% num 10))
+0101: 000303000000 LD [SP + 3]        ;             (setchar buf i (+ digit 48))
+0102: 020302000000 ADD [SP + 2]       ;             (setchar buf i (+ digit 48))
+0103: 0e0000000000 PUSH               ;             (setchar buf i (+ digit 48))
+0104: 000301000000 LD [SP + 1]        ;             (setchar buf i (+ digit 48))
+0105: 020130000000 ADD 48             ;             (setchar buf i (+ digit 48))
+0106: 0e0000000000 PUSH               ;             (setchar buf i (+ digit 48))
+0107: 000300000000 LD [SP + 0]        ;             (setchar buf i (+ digit 48))
+0108: 010401000000 ST [[SP + 1]]      ;             (setchar buf i (+ digit 48))
+0109: 000306000000 LD [SP + 6]        ;             (writedigits (/ num 10) buf (- i 1)))
+0110: 05010a000000 DIV 10             ;             (writedigits (/ num 10) buf (- i 1)))
+0111: 0e0000000000 PUSH               ;             (writedigits (/ num 10) buf (- i 1)))
+0112: 000305000000 LD [SP + 5]        ;             (writedigits (/ num 10) buf (- i 1)))
+0113: 030101000000 SUB 1              ;             (writedigits (/ num 10) buf (- i 1)))
+0114: 0e0000000000 PUSH               ;             (writedigits (/ num 10) buf (- i 1)))
+0115: 000301000000 LD [SP + 1]        ;             (writedigits (/ num 10) buf (- i 1)))
+0116: 010308000000 ST [SP + 8]        ;             (writedigits (/ num 10) buf (- i 1)))
+0117: 000307000000 LD [SP + 7]        ;             (writedigits (/ num 10) buf (- i 1)))
+0118: 010307000000 ST [SP + 7]        ;             (writedigits (/ num 10) buf (- i 1)))
+0119: 000300000000 LD [SP + 0]        ;             (writedigits (/ num 10) buf (- i 1)))
+0120: 010306000000 ST [SP + 6]        ;             (writedigits (/ num 10) buf (- i 1)))
+0121: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+0122: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+0123: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+0124: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+0125: 0f0000000000 POP                ;             (writedigits (/ num 10) buf (- i 1)))
+0126: 07025a000000 JMP 90             ;             (writedigits (/ num 10) buf (- i 1)))
+0127: 0f0000000000 POP                ;     (if (!= num 0)
+0128: 0f0000000000 POP                ;     (if (!= num 0)
+0129: 0f0000000000 POP                ;     (if (!= num 0)
+0130: 0f0000000000 POP                ;     (if (!= num 0)
+0131: 0f0000000000 POP                ;     (if (!= num 0)
+0132: 070287000000 JMP 135            ;     (if (!= num 0)
+0133: 000301000000 LD [SP + 1]        ;         (+ i 1)))
+0134: 020101000000 ADD 1              ;         (+ i 1)))
+0135: 110000000000 RET                ;
+0136: 000301000000 LD [SP + 1]        ;     (if (= num 0)
+0137: 030100000000 SUB 0              ;     (if (= num 0)
+0138: 08028d000000 JE 141             ;     (if (= num 0)
+0139: 000100000000 LD 0               ;     (if (= num 0)
+0140: 07028e000000 JMP 142            ;     (if (= num 0)
+0141: 000101000000 LD 1               ;     (if (= num 0)
+0142: 030100000000 SUB 0              ;     (if (= num 0)
+0143: 080295000000 JE 149             ;     (if (= num 0)
+0144: 000102000000 LD 2               ;         (printstring "0")
+0145: 0e0000000000 PUSH               ;         (printstring "0")
+0146: 100252000000 CALL 82            ;         (printstring "0")
+0147: 0f0000000000 POP                ;         (printstring "0")
+0148: 0702de000000 JMP 222            ;     (if (= num 0)
+0149: 000112000000 LD 18              ;            (define buf (makestring 10))
+0150: 0e0000000000 PUSH               ;            (define buf (makestring 10))
+0151: 000302000000 LD [SP + 2]        ;            (if (> num 0)
+0152: 030100000000 SUB 0              ;            (if (> num 0)
+0153: 09029c000000 JG 156             ;            (if (> num 0)
+0154: 000100000000 LD 0               ;            (if (> num 0)
+0155: 07029d000000 JMP 157            ;            (if (> num 0)
+0156: 000101000000 LD 1               ;            (if (> num 0)
+0157: 030100000000 SUB 0              ;            (if (> num 0)
+0158: 0802b4000000 JE 180             ;            (if (> num 0)
+0159: 000302000000 LD [SP + 2]        ;                    (define i (writedigits num buf 9))
+0160: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+0161: 000301000000 LD [SP + 1]        ;                    (define i (writedigits num buf 9))
+0162: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+0163: 000109000000 LD 9               ;                    (define i (writedigits num buf 9))
+0164: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+0165: 10025a000000 CALL 90            ;                    (define i (writedigits num buf 9))
+0166: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+0167: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+0168: 0f0000000000 POP                ;                    (define i (writedigits num buf 9))
+0169: 0e0000000000 PUSH               ;                    (define i (writedigits num buf 9))
+0170: 000301000000 LD [SP + 1]        ;                    (printstring (+ buf i)))
+0171: 020300000000 ADD [SP + 0]       ;                    (printstring (+ buf i)))
+0172: 0e0000000000 PUSH               ;                    (printstring (+ buf i)))
+0173: 000300000000 LD [SP + 0]        ;                    (printstring (+ buf i)))
+0174: 0e0000000000 PUSH               ;                    (printstring (+ buf i)))
+0175: 100252000000 CALL 82            ;                    (printstring (+ buf i)))
+0176: 0f0000000000 POP                ;                    (printstring (+ buf i)))
+0177: 0f0000000000 POP                ;            (if (> num 0)
+0178: 0f0000000000 POP                ;            (if (> num 0)
+0179: 0702dd000000 JMP 221            ;            (if (> num 0)
+0180: 000302000000 LD [SP + 2]        ;                (if (= num -2147483648)
+0181: 030100000080 SUB -2147483648    ;                (if (= num -2147483648)
+0182: 0802b9000000 JE 185             ;                (if (= num -2147483648)
+0183: 000100000000 LD 0               ;                (if (= num -2147483648)
+0184: 0702ba000000 JMP 186            ;                (if (= num -2147483648)
+0185: 000101000000 LD 1               ;                (if (= num -2147483648)
+0186: 030100000000 SUB 0              ;                (if (= num -2147483648)
+0187: 0802c1000000 JE 193             ;                (if (= num -2147483648)
+0188: 000104000000 LD 4               ;                    (printstring "-2147483648")
+0189: 0e0000000000 PUSH               ;                    (printstring "-2147483648")
+0190: 100252000000 CALL 82            ;                    (printstring "-2147483648")
+0191: 0f0000000000 POP                ;                    (printstring "-2147483648")
+0192: 0702dd000000 JMP 221            ;                (if (= num -2147483648)
+0193: 000110000000 LD 16              ;                        (printstring "-")
+0194: 0e0000000000 PUSH               ;                        (printstring "-")
+0195: 100252000000 CALL 82            ;                        (printstring "-")
+0196: 0f0000000000 POP                ;                        (printstring "-")
+0197: 000302000000 LD [SP + 2]        ;                        (define i (writedigits (* num -1) buf 9))
+0198: 0401ffffffff MUL -1             ;                        (define i (writedigits (* num -1) buf 9))
+0199: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+0200: 000300000000 LD [SP + 0]        ;                        (define i (writedigits (* num -1) buf 9))
+0201: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+0202: 000302000000 LD [SP + 2]        ;                        (define i (writedigits (* num -1) buf 9))
+0203: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+0204: 000109000000 LD 9               ;                        (define i (writedigits (* num -1) buf 9))
+0205: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+0206: 10025a000000 CALL 90            ;                        (define i (writedigits (* num -1) buf 9))
+0207: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+0208: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+0209: 0f0000000000 POP                ;                        (define i (writedigits (* num -1) buf 9))
+0210: 0e0000000000 PUSH               ;                        (define i (writedigits (* num -1) buf 9))
+0211: 000302000000 LD [SP + 2]        ;                        (printstring (+ buf i))))))))
+0212: 020300000000 ADD [SP + 0]       ;                        (printstring (+ buf i))))))))
+0213: 0e0000000000 PUSH               ;                        (printstring (+ buf i))))))))
+0214: 000300000000 LD [SP + 0]        ;                        (printstring (+ buf i))))))))
+0215: 0e0000000000 PUSH               ;                        (printstring (+ buf i))))))))
+0216: 100252000000 CALL 82            ;                        (printstring (+ buf i))))))))
+0217: 0f0000000000 POP                ;                        (printstring (+ buf i))))))))
+0218: 0f0000000000 POP                ;                (if (= num -2147483648)
+0219: 0f0000000000 POP                ;                (if (= num -2147483648)
+0220: 0f0000000000 POP                ;                (if (= num -2147483648)
+0221: 0f0000000000 POP                ;     (if (= num 0)
+0222: 110000000000 RET                ;
+DATA:
+0000: 00000000
+0001: 00000000
+0002: 00000030
+0003: 00000000
+0004: 0000002d
+0005: 00000032
+0006: 00000031
+0007: 00000034
+0008: 00000037
+0009: 00000034
+0010: 00000038
+0011: 00000033
+0012: 00000036
+0013: 00000034
+0014: 00000038
+0015: 00000000
+0016: 0000002d
+0017: 00000000
+0018: 00000000
+0019: 00000000
+0020: 00000000
+0021: 00000000
+0022: 00000000
+0023: 00000000
+0024: 00000000
+0025: 00000000
+0026: 00000000
+0027: 00000000
+0028: 00000000
+$ python simulator.py cat.bin cat.dat cat.txt cat.dbg --logging-level=debug
+DEBUG:root:input_stream=['A', 'l', 'i', 'c', 'e', '\x00'] output_stream=[]
+DEBUG:root:0000: 100202000000 CALL 2           ; (f)
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=[]
+DEBUG:root:0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['l', 'i', 'c', 'e', '\x00'] output_stream=['A']
+DEBUG:root:0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['i', 'c', 'e', '\x00'] output_stream=['A']
+DEBUG:root:0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['i', 'c', 'e', '\x00'] output_stream=['A', 'l']
+DEBUG:root:0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['c', 'e', '\x00'] output_stream=['A', 'l']
+DEBUG:root:0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['c', 'e', '\x00'] output_stream=['A', 'l', 'i']
+DEBUG:root:0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['e', '\x00'] output_stream=['A', 'l', 'i']
+DEBUG:root:0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['e', '\x00'] output_stream=['A', 'l', 'i', 'c']
+DEBUG:root:0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c']
+DEBUG:root:0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=['\x00'] output_stream=['A', 'l', 'i', 'c', 'e']
+DEBUG:root:0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e']
+DEBUG:root:0003: 0e0000000000 PUSH             ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0004: 000300000000 LD [SP + 0]      ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0005: 010201000000 ST [1]           ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:input_stream=[] output_stream=['A', 'l', 'i', 'c', 'e', '\x00']
+DEBUG:root:0006: 0f0000000000 POP              ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0007: 070202000000 JMP 2            ; (defun f () (do (printchar (readchar)) (f)))
+DEBUG:root:0002: 000200000000 LD [0]           ; (defun f () (do (printchar (readchar)) (f)))
+WARNING:root:end of input stream reached
+37 instructions executed
+Final output stream: ['A', 'l', 'i', 'c', 'e', '\x00']
+```
 
 Пример проверки исходного кода:
+
+```console
+$ poetry run pytest . -v
+========================================= test session starts =========================================
+platform linux -- Python 3.11.2, pytest-7.4.4, pluggy-1.4.0 -- /home/olga/.cache/pypoetry/virtualenvs/lisp-9Zo3gskc-py3.11/bin/python
+cachedir: .pytest_cache
+rootdir: /home/olga/project
+configfile: pyproject.toml
+plugins: golden-0.2.2
+collected 5 items
+
+integration_test.py::test_translator_and_machine[golden/hello_user_name.yml] PASSED             [ 20%]
+integration_test.py::test_translator_and_machine[golden/prob1.yml] PASSED                       [ 40%]
+integration_test.py::test_translator_and_machine[golden/hello.yml] PASSED                       [ 60%]
+integration_test.py::test_translator_and_machine[golden/example.yml] PASSED                     [ 80%]
+integration_test.py::test_translator_and_machine[golden/cat.yml] PASSED                         [100%]
+
+========================================== 5 passed in 3.33s ==========================================
+$ poetry run ruff check .
+$ poetry run ruff format .
+4 files left unchanged
+$ poetry run mypy .
+Success: no issues found in 4 source files
+```
 
 
 ## Статистика
 
-```
-|           Full name            |      alg        | loc | bytes | instr | exec_instr | tick | variant                                                                  |
-|   Авшистер Ольга Аркадьевна    |      cat        |  2  |   -   |  223  |     37     | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
-|   Авшистер Ольга Аркадьевна    |      hello      |  1  |   -   |  218  |    304     | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
-|   Авшистер Ольга Аркадьевна    | hello_user_name |  5  |   -   |  236  |    1070    | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
-|   Авшистер Ольга Аркадьевна    |      prob1      |  9  |   -   |  304  |    35153   | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
-|   Авшистер Ольга Аркадьевна    |      example    | 45  |   -   |  407  |    15500   | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+```text
+| Авшистер Ольга Аркадьевна | cat | 2 |   1338   |  223  |  37  | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+| Авшистер Ольга Аркадьевна | hello | 1 |   1308   |  218  |  304  | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+| Авшистер Ольга Аркадьевна | hello_user_name | 5 |   1416   |  236   |   1070    | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+| Авшистер Ольга Аркадьевна | prob1 | 9 |   1824   |  304  |   35153    | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
+| Авшистер Ольга Аркадьевна | example | 45 |   2442   |  407  |   15500    | -  | lisp | acc | harv | hw | instr | binary | stream | mem | cstr | prob1 |
 ```
 
-todo: write about `sub` instead of `cmp`
-todo: write about absence of `and`, `or`, `not`, `xor`
-todo: maybe reorganize steps of translation fragment
-todo: stop by division by zero
-todo: stop by error (out of memory bounds, incorrect instruction?)

@@ -587,9 +587,9 @@ def rewrite_ifs(node: Any):
 
 class StackOffset:
     offset: int
-    line: int
+    line: int | None
 
-    def __init__(self, offset: int, line: int):
+    def __init__(self, offset: int, line: int | None):
         self.offset = offset
         self.line = line
 
